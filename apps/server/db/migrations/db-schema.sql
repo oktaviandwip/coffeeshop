@@ -13,7 +13,7 @@ CREATE TABLE users
 
 CREATE TABLE profile
 (
-  id           uuid NULL DEFAULT uuid_generate_v4() PRIMARY KEY,
+  id           uuid NULL DEFAULT gen_random_uuid() PRIMARY KEY,
   first_name   VARCHAR,
   last_name    VARCHAR,
   display_name VARCHAR,
@@ -27,7 +27,7 @@ CREATE TABLE profile
 
 CREATE TABLE product
 (
-    id          uuid NULL DEFAULT uuid_generate_v4() PRIMARY KEY,
+    id          uuid NULL DEFAULT gen_random_uuid() PRIMARY KEY,
     name        VARCHAR,
     description VARCHAR,
     image_url   VARCHAR,
@@ -41,7 +41,7 @@ CREATE TABLE product
 
 CREATE TABLE size
 (
-    id        uuid NULL DEFAULT uuid_generate_v4() PRIMARY KEY,
+    id        uuid NULL DEFAULT gen_random_uuid() PRIMARY KEY,
     size_name VARCHAR
 );
 
@@ -55,7 +55,7 @@ CREATE TABLE product_size
 
 CREATE TABLE favorite
 (
-    favorite_id         uuid NULL DEFAULT uuid_generate_v4() PRIMARY KEY,
+    favorite_id         uuid NULL DEFAULT gen_random_uuid() PRIMARY KEY,
     product_id uuid REFERENCES product (id),
     user_id    uuid REFERENCES users (id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
