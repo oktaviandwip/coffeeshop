@@ -11,6 +11,7 @@ export default {
       },
       backgroundImage: {
         heroSign: "url('./src/assets/images/robert-bye-95vx5QVl9x4-unsplash-2.png')",
+        heroForgotPassword: "url('./src/assets/images/nani-williams-6PpLqUlCA0s-unsplash 1.png')",
       },
       colors: {
         brown: '#6A4029',
