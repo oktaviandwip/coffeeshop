@@ -7,7 +7,7 @@ type Favorite struct {
 }
 type FavoriteRequest struct {
 	// ID produk yang difavoritkan
-	ProductId string `json:"productId"`
+	ProductId string `json:"product_id"`
 }
 type FavoriteData struct {
 	Id        string `json:"id,omitempty"`

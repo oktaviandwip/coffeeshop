@@ -9,7 +9,7 @@ type Products struct {
 	Name        string  `json:"name,omitempty"`
 	Description string  `json:"description,omitempty"`
 	Price       float32 `json:"price,omitempty"`
-	Currency    string  `json:"currency,omitempty"`
+	IsAvailable bool    `json:"is_available,omitempty"`
 	Category    string  `json:"category,omitempty"`
 	ImageUrl    string  `json:"image_url,omitempty"`
 	CreatedAt   string  `json:"created_at,omitempty"`
@@ -27,7 +27,7 @@ type ProductsRequest struct {
 	Name        string  `json:"name,omitempty"`
 	Description string  `json:"description,omitempty"`
 	Price       float32 `json:"price,omitempty"`
-	Currency    string  `json:"currency,omitempty"`
+	IsAvailable bool    `json:"is_available,omitempty"`
 	Category    string  `json:"category,omitempty"`
 	ImageUrl    string  `json:"image_url,omitempty"`
 }
