@@ -9,6 +9,10 @@ export default {
       colors: {
         primary: '#6A4029',
         secondary: '#FFBA33',
+        third: '#bababa',
+      },
+      backgroundImage: {
+        'bg-cart': "url('/src/assets/bg-cart.png')",
       },
     },
   },
