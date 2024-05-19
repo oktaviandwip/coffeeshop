@@ -11,10 +11,10 @@ export default function ForgotPassword() {
           <section className=" w-1/2 flex flex-col pt-14 overflow-x-hidden">
             <div className="w-full flex flex-col px-12 pb-32">
               <div className="flex flex-row justify-center">
-                <div className="flex flex-row gap-x-2 justify-center items-center ">
-                  <img src={iconCoffee} alt="icon coffee" />
-                  <span className=" font-bold text-[20px] font-[#0B132A]">Coffee Shop</span>
-                </div>
+              <a className="flex flex-row gap-x-2 justify-center items-center " href="/">
+                <img src={iconCoffee} alt="icon coffee" />
+                <span className=" font-bold text-[20px] font-[#0B132A]">Coffee Shop</span>
+              </a>
               </div>
               <div className="flex flex-col mt-16">
                 <div className="flex flex-col gap-y-2">

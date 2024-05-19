@@ -11,10 +11,10 @@ function SignUp() {
           <section className=" w-1/2 flex flex-col overflow-x-hidden">
             <div className="flex flex-col pt-10 ps-10 pe-12">
               <div className="flex flex-row justify-between">
-                <div className="flex flex-row gap-x-2 justify-center items-center ">
-                  <img src={iconCoffee} alt="icon coffee" />
-                  <span className=" font-bold text-[20px] font-[#0B132A]">Coffee Shop</span>
-                </div>
+              <a className="flex flex-row gap-x-2 justify-center items-center " href="/">
+                <img src={iconCoffee} alt="icon coffee" />
+                <span className=" font-bold text-[20px] font-[#0B132A]">Coffee Shop</span>
+              </a>
                 <h1 className=" text-[35px] font-bold text-brown font-[#6A4029]">Sign Up</h1>
               </div>
               <div className="flex flex-col m-20 mb-16 ">
