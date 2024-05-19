@@ -66,7 +66,7 @@ CREATE TABLE cart_order
     order_id    uuid NULL DEFAULT gen_random_uuid() PRIMARY KEY,
     user_id    uuid REFERENCES users (id),
     total_price    INTEGER, -- SubTotal
-     taxes          DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    taxes          DECIMAL(10, 2) NOT NULL DEFAULT 0,
     shipping INTEGER,
     status    VARCHAR,
     delivery_address    VARCHAR, -- Default ngambil alamat dari profile alamat
