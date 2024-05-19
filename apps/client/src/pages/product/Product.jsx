@@ -5,8 +5,8 @@ import Button from '../../components/Button';
 function Product() {
   return (
     <>
-      <section className="flex">
-        <aside className="w-[732px] border border-gray-300 px-5 py-5 flex flex-col items-center gap-y-14">
+      <section className="flex flex-col-reverse md:flex-row items-center md:items-start gap-4 md:gap-0">
+        <aside className="w-4/5 lg:w-[628px] md:border shadow-xl border-gray-300 px-5 py-5 flex flex-col items-center gap-y-14">
           <section className="text-center w-[60%]">
             <h3 className="font-bold text-[25px] text-primary">Promo Today</h3>
             <p>Coupons will be updated every weeks. Check them out! </p>
@@ -29,15 +29,17 @@ function Product() {
             </ol>
           </section>
         </aside>
-        <main className="px-28 border border-gray-300  space-y-14 flex flex-col items-center w-full">
-          <ul className="w-full md:text-2xl text-xl flex justify-between ">
-            <li className="cursor-pointer select-none p-3 border-b-2 border-primary shadow-md ">Favorite & Promo</li>
-            <li className="cursor-pointer p-3 border-b-2 border-primary shadow-md ">Coffee</li>
-            <li className="cursor-pointer p-3 border-b-2 border-primary shadow-md ">Non Coffee</li>
-            <li className="cursor-pointer p-3 border-b-2 border-primary shadow-md ">Foods</li>
-            <li className="cursor-pointer p-3 border-b-2 border-primary shadow-md ">Add-On</li>
+        <main className="px-5 sm:px-14  xl:px-28 border border-gray-300  space-y-14 flex flex-col items-center w-full">
+          <ul className="w-full  text-xl flex justify-between overflow-x-auto ">
+            <li className="cursor-pointer select-none p-3 border-b-2 border-primary shadow-md flex-shrink-0">
+              Favorite & Promo
+            </li>
+            <li className="cursor-pointer p-3 border-b-2 border-primary shadow-md flex-shrink-0">Coffee</li>
+            <li className="cursor-pointer p-3 border-b-2 border-primary shadow-md flex-shrink-0">Non Coffee</li>
+            <li className="cursor-pointer p-3 border-b-2 border-primary shadow-md flex-shrink-0">Foods</li>
+            <li className="cursor-pointer p-3 border-b-2 border-primary shadow-md flex-shrink-0">Add-On</li>
           </ul>
-          <section className="w-full px-4  flex gap-8 sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center">
+          <section className="w-full  flex flex-wrap justify-around sm:grid  sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center">
             <CardProduct title={'Mocca Chino'} price={'23.000'} promo={'20'} />
             <CardProduct title={'Mocca Chino'} price={'23.000'} />
             <CardProduct title={'Mocca Chino'} price={'23.000'} />
