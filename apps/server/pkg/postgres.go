@@ -12,7 +12,7 @@ func Posql() (*sqlx.DB, error) {
 	host := os.Getenv("DB_HOST")
 	user := os.Getenv("DB_USER")
 	password := os.Getenv("DB_PASS")
-	dbname := os.Getenv("DB_NAME")
+	dbname := os.Getenv("DB_NAME_TEST")
 
 	config := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable", host, user, password, dbname)
 

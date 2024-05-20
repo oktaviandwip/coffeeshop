@@ -7,10 +7,9 @@ import (
 
 func New(db *sqlx.DB) *gin.Engine {
 	router := gin.Default()
-	router.Use(gin.Recovery())
-	router.GET("/ping", func(c *gin.Context) {
-		c.String(200, "pong")
-	})
+
+	auth(router, db)
+	users(router, db)
 
 	return router
 
