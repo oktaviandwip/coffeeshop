@@ -45,6 +45,9 @@ export default function Header() {
       <div className="w-1/4 flex justify-end items-center gap-x-8">
         {isAuthUser? 
           <>
+            <div>
+              <img src="" alt="" />
+            </div>
             <div className='hidden relative group cursor-pointer md:flex justify-end'>
                 <img src={imageUser} alt="image user"/>
                 <span className='hidden group-hover:flex hover:flex md:absolute top-[50px] left-0 flex flex-col md:h-fit md:shadow-xl hover:shadow-2xl bg-white py-5 pb-2 mt-0 rounded-[4px] z-30'>
