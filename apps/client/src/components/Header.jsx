@@ -2,8 +2,10 @@ import React from "react";
 import {useEffect} from "react"
 import {useLocation} from "react-router-dom"
 import iconCoffee from "../../src/assets/icons/coffee 1.png"
+import imageUser from "../assets/images/Ellipse 175 (2).png"
 
 export default function Header() {
+  const isAuthUser = true
   const location = useLocation()
 
   function stylingNavbar(){
@@ -41,8 +43,29 @@ export default function Header() {
         </ul>
       </nav>
       <div className="w-1/4 flex justify-end items-center gap-x-8">
-        <a className="font-[500] text-[#0B132A] text-base" href="/login">Login</a>
-        <a className="bg-yellow rounded-[50px] px-10 py-3 text-[#6A4029] font-[500] shadow-2xl" href="/signup">Sign Up</a>
+        {isAuthUser? 
+          <>
+            <div className='hidden relative group cursor-pointer md:flex justify-end'>
+                <img src={imageUser} alt="image user"/>
+                <span className='hidden group-hover:flex hover:flex md:absolute top-[50px] left-0 flex flex-col md:h-fit md:shadow-xl hover:shadow-2xl bg-white py-5 pb-2 mt-0 rounded-[4px] z-30'>
+                    <a className='font-light px-5 py-2 hover:bg-neutral-100' href="/profile">Profile</a>
+                    <a className='text-nowrap font-light px-5 py-2 hover:bg-neutral-100' 
+                        href="" 
+                        onClick={(e) => {
+                                e.preventDefault()
+                                // dispatch(logout())
+                            }
+                        }>Sign out
+                    </a>
+                </span>
+            </div> 
+          </>
+          :
+          <>
+            <a className="font-[500] text-[#0B132A] text-base" href="/login">Login</a>
+            <a className="bg-yellow rounded-[50px] px-10 py-3 text-[#6A4029] font-[500] shadow-2xl" href="/signup">Sign Up</a>
+          </>
+        }
       </div>
     </header>
   )
