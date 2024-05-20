@@ -8,7 +8,7 @@ export default function FooterSign() {
   const years = new Date().getFullYear()
 
   return (
-    <div className="flex flex-row justify-between bg-[#F8F8F8] py-20 px-14">
+    <div className="font-rubik flex flex-row justify-between bg-[#F8F8F8] py-20 px-14">
       <div className="w-[45%] flex flex-col gap-y-5" >
         <div className="flex flex-row gap-x-2 items-center ">
           <img src={iconCoffee} alt="icon coffee" />

@@ -6,8 +6,7 @@ import iconCoffee from "../../src/assets/icons/coffee 1.png"
 export default function Header() {
   const location = useLocation()
 
-  useEffect(()=>{
-    //styling navigasi link
+  function stylingNavbar(){
     const navlink = document.querySelectorAll(".nav-link")
 
     for (let i = 0; i < navlink.length; i++) {
@@ -19,11 +18,16 @@ export default function Header() {
       document.querySelector("#home").classList.add("text-brown", "font-bold")
     }
     //tambahkan pages lainnya
+  }
+
+  useEffect(()=>{
+    //styling navigasi link
+    stylingNavbar()
   }, [])
   
 
   return(
-    <header className="flex flex-row justify-between px-40 py-10">
+    <header className="font-rubik flex flex-row justify-between px-40 py-10">
       <a className="w-1/4 flex flex-row gap-x-2 justify-start items-center" href="/">
         <img src={iconCoffee} alt="icon coffee" />
         <span className=" font-bold text-[20px] font-[#0B132A]">Coffee Shop</span>
@@ -37,8 +41,8 @@ export default function Header() {
         </ul>
       </nav>
       <div className="w-1/4 flex justify-end items-center gap-x-8">
-        <a className="font-[500] text-[#0B132A] text-base" href="">Login</a>
-        <a className="bg-yellow rounded-[50px] px-10 py-3 text-[#6A4029] font-[500] shadow-2xl" href="">Sign Up</a>
+        <a className="font-[500] text-[#0B132A] text-base" href="/login">Login</a>
+        <a className="bg-yellow rounded-[50px] px-10 py-3 text-[#6A4029] font-[500] shadow-2xl" href="/signup">Sign Up</a>
       </div>
     </header>
   )
