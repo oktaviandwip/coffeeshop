@@ -46,7 +46,7 @@ func (h *HandlerUsers) CreateNewUser(ctx *gin.Context) {
 		return
 	}
 
-	result, err := h.CreateUser(&data)
+	result, err := h.CreateUser(ctx.Request.Context(), &data)
 	if err != nil {
 		pkg.NewRes(401, &config.Result{
 			Data: err.Error(),
