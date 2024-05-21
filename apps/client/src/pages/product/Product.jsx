@@ -1,8 +1,32 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Promo from '../../components/Promo';
 import CardProduct from '../../components/CardProduct';
 import Button from '../../components/Button';
+import axios from 'axios';
+import useApi from '../../utils/useApi';
+
 function Product() {
+  const api = useApi();
+  const Navigate = useNavigate();
+  const [product, setProduct] = useState(null);
+
+  const getProduct = async (e) => {
+    await api
+      .get('/product/')
+      .then(({ data }) => {
+        setProduct(data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    getProduct();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  console.log(product);
   return (
     <>
       <section className="flex flex-col-reverse md:flex-row items-center md:items-start gap-4 md:gap-0">
@@ -40,14 +64,10 @@ function Product() {
             <li className="cursor-pointer p-3 border-b-2 border-primary shadow-md flex-shrink-0">Add-On</li>
           </ul>
           <section className="w-full  flex flex-wrap justify-around sm:grid  sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center">
-            <CardProduct title={'Mocca Chino'} price={'23.000'} promo={'20'} />
-            <CardProduct title={'Mocca Chino'} price={'23.000'} />
-            <CardProduct title={'Mocca Chino'} price={'23.000'} />
-            <CardProduct title={'Mocca Chino'} price={'23.000'} />
-            <CardProduct title={'Mocca Chino'} price={'23.000'} />
-            <CardProduct title={'Mocca Chino'} price={'23.000'} />
-            <CardProduct title={'Mocca Chino'} price={'23.000'} />
-            <CardProduct title={'Mocca Chino'} price={'23.000'} />
+            {product &&
+              product.map((p) => {
+                return <CardProduct key={p.id} id={p.id} title={p.name} price={p.price} image={p.image_url} />;
+              })}
           </section>
 
           <p className="w-full ">*the price has been cutted by discount appears</p>
