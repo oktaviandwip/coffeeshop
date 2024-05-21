@@ -3,9 +3,12 @@ import {useEffect} from "react"
 import {useLocation} from "react-router-dom"
 import iconCoffee from "../../src/assets/icons/coffee 1.png"
 import imageUser from "../assets/images/Ellipse 175 (2).png"
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '../../src/store/reducer/user'
 
 export default function Header() {
-  const isAuthUser = true
+  const {isAuthUser, isAuthAdmin} = useSelector((state) => state.users)
+  const dispatch = useDispatch();
   const location = useLocation()
 
   function stylingNavbar(){
@@ -43,7 +46,7 @@ export default function Header() {
         </ul>
       </nav>
       <div className="w-1/4 flex justify-end items-center gap-x-8">
-        {isAuthUser? 
+        {isAuthUser || isAuthAdmin ? 
           <>
             <div>
               <img src="" alt="" />
@@ -56,7 +59,7 @@ export default function Header() {
                         href="" 
                         onClick={(e) => {
                                 e.preventDefault()
-                                // dispatch(logout())
+                                dispatch(logout())
                             }
                         }>Sign out
                     </a>
