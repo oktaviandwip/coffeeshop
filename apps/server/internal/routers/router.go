@@ -11,6 +11,8 @@ func New(db *sqlx.DB) *gin.Engine {
 	router.GET("/ping", func(c *gin.Context) {
 		c.String(200, "pong")
 	})
+	cart(router, db)
+	order(router, db)
 
 	return router
 
