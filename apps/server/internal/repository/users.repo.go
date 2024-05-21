@@ -2,6 +2,7 @@ package repository
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/Roisfaozi/black-coffee-collaborations/config"
 	models "github.com/Roisfaozi/black-coffee-collaborations/internal/models/users"
@@ -38,6 +39,11 @@ func (r *RepoUsers) CreateUser(data *models.User) (*config.Result, error) {
 
 	_, err := r.NamedExec(q, data)
 	if err != nil {
+		fmt.Println(err.Error())
+		if err.Error() == `pq: duplicate key value violates unique constraint "users_email_key"` {
+			fmt.Println(err.Error())
+			return nil, errors.New("Email sudah terdaftar!")
+		}
 		return nil, err
 	}
 
@@ -51,6 +57,7 @@ func (r *RepoUsers) GetAuthData(email string) (*models.User, error) {
 
 	if err := r.Get(&result, r.Rebind(q), email); err != nil {
 		if err.Error() == "sql: no rows in result set" {
+			fmt.Println(err.Error())
 			return nil, errors.New("Email tidak ditemukan!")
 		}
 

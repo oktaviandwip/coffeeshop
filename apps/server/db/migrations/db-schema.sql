@@ -1,14 +1,14 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE users
 (
-  id         uuid NULL DEFAULT uuid_generate_v4() PRIMARY KEY,
-  username   VARCHAR,
-  password   VARCHAR,
-  email      VARCHAR,
-  phone_number VARCHAR,
-  role       VARCHAR,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  user_id uuid DEFAULT gen_random_uuid(),
+  email VARCHAR NOT NULL unique,
+  phone VARCHAR NOT NULL unique,
+  password VARCHAR NOT NULL,
+  role VARCHAR NOT NULL,
+	created_at TIMESTAMP without time zone not null DEFAULT NOW(),
+	updated_at TIMESTAMP without time zone null,
+	CONSTRAINT users_pk PRIMARY KEY (user_id)
 );
 
 CREATE TABLE profile
