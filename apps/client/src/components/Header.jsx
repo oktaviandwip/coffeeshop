@@ -26,6 +26,7 @@ export default function Header() {
   }
 
   useEffect(()=>{
+    console.log(location.pathname)
     //styling navigasi link
     stylingNavbar()
   }, [])
