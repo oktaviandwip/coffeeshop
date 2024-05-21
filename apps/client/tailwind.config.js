@@ -10,6 +10,7 @@ export default {
         primary: '#6A4029',
         secondary: '#FFBA33',
         third: '#bababa',
+        fourth: '#f73a3a',
       },
       backgroundImage: {
         'bg-cart': "url('/src/assets/bg-cart.png')",

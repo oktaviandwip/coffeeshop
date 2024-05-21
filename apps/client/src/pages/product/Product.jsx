@@ -11,10 +11,17 @@ function Product() {
   const api = useApi();
   const Navigate = useNavigate();
   const [product, setProduct] = useState(null);
+  const [page, setPage] = useState(1);
+  const [limit] = useState(10);
+
+  const [category, setCategory] = useState('');
+  const handleClickCategory = (e, category) => {
+    setCategory(category);
+  };
 
   const getProduct = async (e) => {
     await api
-      .get('/product/')
+      .get(`/product/?page=${page}&limit=${limit}&food_type=${category}`)
       .then(({ data }) => {
         setProduct(data.data);
       })
@@ -26,6 +33,10 @@ function Product() {
     getProduct();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    getProduct();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category, page]);
   console.log(product);
   return (
     <>
@@ -55,13 +66,46 @@ function Product() {
         </aside>
         <main className="px-5 sm:px-14  xl:px-28 border border-gray-300  space-y-14 flex flex-col items-center w-full">
           <ul className="w-full  text-xl flex justify-between overflow-x-auto ">
-            <li className="cursor-pointer select-none p-3 border-b-2 border-primary shadow-md flex-shrink-0">
+            <li
+              onClick={(e) => {
+                handleClickCategory(e, '');
+              }}
+              className="cursor-pointer select-none p-3 border-b-2 shadow-md flex-shrink-0"
+            >
+              All
+            </li>
+            <li
+              onClick={(e) => {
+                handleClickCategory(e, 'fav');
+              }}
+              className="cursor-pointer select-none p-3 border-b-2 shadow-md flex-shrink-0"
+            >
               Favorite & Promo
             </li>
-            <li className="cursor-pointer p-3 border-b-2 border-primary shadow-md flex-shrink-0">Coffee</li>
-            <li className="cursor-pointer p-3 border-b-2 border-primary shadow-md flex-shrink-0">Non Coffee</li>
-            <li className="cursor-pointer p-3 border-b-2 border-primary shadow-md flex-shrink-0">Foods</li>
-            <li className="cursor-pointer p-3 border-b-2 border-primary shadow-md flex-shrink-0">Add-On</li>
+            <li
+              onClick={(e) => {
+                handleClickCategory(e, 'Coffe');
+              }}
+              className="cursor-pointer p-3 border-b-2 shadow-md flex-shrink-0"
+            >
+              Coffee
+            </li>
+            <li
+              onClick={(e) => {
+                handleClickCategory(e, 'non');
+              }}
+              className="cursor-pointer p-3 border-b-2 shadow-md flex-shrink-0"
+            >
+              Non Coffee
+            </li>
+            <li
+              onClick={(e) => {
+                handleClickCategory(e, 'food');
+              }}
+              className="cursor-pointer p-3 border-b-2 shadow-md flex-shrink-0"
+            >
+              Foods
+            </li>
           </ul>
           <section className="w-full  flex flex-wrap justify-around sm:grid  sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center">
             {product &&
