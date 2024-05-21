@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import Button from '../../components/Button';
 import InputRadio from '../../components/InputRadio';
 import ProductBanner from '../../assets/product-image.png';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
 function DetailProduct() {
   let [quantity, setQuantity] = useState(1);
@@ -18,10 +20,11 @@ function DetailProduct() {
 
   return (
     <>
-      <p className="container p-2 my-5">
+      <Header/>
+      <p className="container p-2 my-10">
         Favorite & Promo {'>'} <span className="text-primary font-bold">Cold Brew</span>
       </p>
-      <main className="md:flex container">
+      <main className="md:flex container pb-20">
         <section className="md:w-2/5 px-4 flex flex-col items-center">
           <img src={ProductBanner} className="rounded-full shadow-xl w-[200px] h-[200px] lg:w-[310px] lg:h-[310px]" />
 
@@ -130,6 +133,7 @@ function DetailProduct() {
           <Button content={'Checkout'} />
         </section>
       </main>
+      <Footer/>
     </>
   );
 }
