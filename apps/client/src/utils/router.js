@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
+import History from '../components/History';
 import ForgotPassword from '../pages/auth/ForgotPassword';
 import Login from '../pages/auth/Login';
 import SignUp from '../pages/auth/SignUp';
@@ -26,6 +27,10 @@ export default createBrowserRouter([
   {
     path: '/profile',
     element: <Profile />,
+  },
+  {
+    path: '/history',
+    element: <History />,
   },
   {
     path: '/detail-product/:id',
