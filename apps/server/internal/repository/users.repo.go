@@ -44,6 +44,11 @@ func (r *RepoUsers) CreateUser(data *models.User) (*config.Result, error) {
 			fmt.Println(err.Error())
 			return nil, errors.New("Email sudah terdaftar!")
 		}
+
+		if err.Error() == `pq: duplicate key value violates unique constraint "users_phone_key"` {
+			fmt.Println(err.Error())
+			return nil, errors.New("Nomor handphone sudah terdaftar!")
+		}
 		return nil, err
 	}
 
@@ -58,7 +63,7 @@ func (r *RepoUsers) GetAuthData(email string) (*models.User, error) {
 	if err := r.Get(&result, r.Rebind(q), email); err != nil {
 		if err.Error() == "sql: no rows in result set" {
 			fmt.Println(err.Error())
-			return nil, errors.New("Email tidak ditemukan!")
+			return nil, errors.New("Email tidak terdaftar!")
 		}
 
 		return nil, err

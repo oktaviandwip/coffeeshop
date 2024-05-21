@@ -5,7 +5,7 @@ import "time"
 type User struct {
 	User_id     string     `db:"user_id" form:"user_id" json:"user_id" uri:"user_id" valid:"-"`
 	Email       string     `db:"email" form:"email" json:"email" valid:"required, email"`
-	Password    string     `db:"password" form:"password" json:"password" valid:"required, stringlength(6|100)~password minimal 6 karakter"`
+	Password    string     `db:"password" form:"password" json:"password" valid:"required, stringlength(6|100)~Password minimal 6 karakter"`
 	PhoneNumber string     `db:"phone" form:"phone" json:"phone" valid:"required"`
 	Role        string     `db:"role" json:"role,omitempty" valid:"-"`
 	CreatedAt   *time.Time `db:"created_at" json:"created_at" valid:"-"`
