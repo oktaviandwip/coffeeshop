@@ -20,7 +20,7 @@ function DetailProduct() {
 
   return (
     <>
-      <Header/>
+      <Header />
       <p className="container p-2 my-10">
         Favorite & Promo {'>'} <span className="text-primary font-bold">Cold Brew</span>
       </p>
@@ -133,7 +133,7 @@ function DetailProduct() {
           <Button content={'Checkout'} />
         </section>
       </main>
-      <Footer/>
+      <Footer />
     </>
   );
 }

@@ -1,113 +1,126 @@
-import React from "react";
-import {useState, useEffect} from "react"
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import CarouselTestimoni from "../../components/CarouselTestimoni";
-import iconLove from "../../assets/icons/icon-love.png"
-import iconPerson from "../../assets/icons/icon-person.png"
-import iconMap from "../../assets/icons/icon-map.png"
-import imageTeamWork from "../../assets/images/image-teamwork.png"
-import imageHazelnutLate from "../../assets/images/image 22.png"
-import imagePinkyPromise from "../../assets/images/image 27.png"
-import imageChickenWings from "../../assets/images/image 30.png"
-import imageHugeGlobal from "../../assets/images/Huge Global.png"
-import imageNetflix from "../../assets/images/Mask Group (3).png"
-import imageReddit from "../../assets/images/Mask Group (7).png"
-import imageAmazon from "../../assets/images/Mask Group (6).png"
-import imageDiscord from "../../assets/images/discord.png"
-import imageSpotify from "../../assets/images/Mask Group (4).png"
-import imageTestimoni1 from "../../assets/images/Ellipse 175 (1).png"
-import imageTestimoni2 from "../../assets/images/Ellipse 175 (2).png"
-import imageTestimoni3 from "../../assets/images/Ellipse 175.png"
-import iconStar from "../../assets/icons/icon-star.png"
-import useApi from "../../utils/useApi";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import CarouselTestimoni from '../../components/CarouselTestimoni';
+import iconLove from '../../assets/icons/icon-love.png';
+import iconPerson from '../../assets/icons/icon-person.png';
+import iconMap from '../../assets/icons/icon-map.png';
+import imageTeamWork from '../../assets/images/image-teamwork.png';
+import imageHazelnutLate from '../../assets/images/image 22.png';
+import imagePinkyPromise from '../../assets/images/image 27.png';
+import imageChickenWings from '../../assets/images/image 30.png';
+import imageHugeGlobal from '../../assets/images/Huge Global.png';
+import imageNetflix from '../../assets/images/Mask Group (3).png';
+import imageReddit from '../../assets/images/Mask Group (7).png';
+import imageAmazon from '../../assets/images/Mask Group (6).png';
+import imageDiscord from '../../assets/images/discord.png';
+import imageSpotify from '../../assets/images/Mask Group (4).png';
+import imageTestimoni1 from '../../assets/images/Ellipse 175 (1).png';
+import imageTestimoni2 from '../../assets/images/Ellipse 175 (2).png';
+import imageTestimoni3 from '../../assets/images/Ellipse 175.png';
+import iconStar from '../../assets/icons/icon-star.png';
+import useApi from '../../utils/useApi';
 
 export default function Home() {
-  const api = useApi()
-  
-  useEffect(()=>{
+  const api = useApi();
+
+  useEffect(() => {
     api({
       method: 'GET',
-      url: '/products/query?page=1&limit=3'
-  })
+      url: '/products/query?page=1&limit=3',
+    })
       .then((res) => {
-        setMenuFavorites(res.data.data)
+        setMenuFavorites(res.data.data);
       })
       .catch((err) => {
-          console.log(err)
-      })
-  },[])
+        console.log(err);
+      });
+  }, []);
 
   const dataMenu = [
     {
-      product_id: "0e9ed486-dc6d-4765-80ac-a23892068951",
-      name : "Hazelnut Late",
-      price : 25000,
-      image_url : imageHazelnutLate, 
+      product_id: '0e9ed486-dc6d-4765-80ac-a23892068951',
+      name: 'Hazelnut Late',
+      price: 25000,
+      image_url: imageHazelnutLate,
     },
     {
-      product_id: "0e9ed486-dc6d-4765-80ac-a23892068951",
-      name : "Pinky Promise",
-      price : 30000,
-      image_url : imagePinkyPromise,
+      product_id: '0e9ed486-dc6d-4765-80ac-a23892068951',
+      name: 'Pinky Promise',
+      price: 30000,
+      image_url: imagePinkyPromise,
     },
     {
-      product_id: "0e9ed486-dc6d-4765-80ac-a23892068951",
-      name : "Sliced strawberry on Top",
-      price : 40000,
-      image_url : imageChickenWings,
-    }
-  ]
+      product_id: '0e9ed486-dc6d-4765-80ac-a23892068951',
+      name: 'Sliced strawberry on Top',
+      price: 40000,
+      image_url: imageChickenWings,
+    },
+  ];
 
   // data menu favorites
-  const [menuFavorites, setMenuFavorites] = useState(dataMenu)
-  
+  const [menuFavorites, setMenuFavorites] = useState(dataMenu);
+
   const dataTestimoni = [
     {
-      name : "Viezh Robert",
-      address: "Warsaw, Poland",
+      name: 'Viezh Robert',
+      address: 'Warsaw, Poland',
       image: imageTestimoni2,
       rating: 4.5,
-      comment: "“Wow... I am very happy to spend my whole day here. the Wi-fi is good, and the coffee and meals tho. I like it here!! Very recommended!"
+      comment:
+        '“Wow... I am very happy to spend my whole day here. the Wi-fi is good, and the coffee and meals tho. I like it here!! Very recommended!',
     },
     {
-      name : "Yessica Christy",
-      address: "Shanxi, China",
+      name: 'Yessica Christy',
+      address: 'Shanxi, China',
       image: imageTestimoni1,
       rating: 4.5,
-      comment: "“I like it because I like to travel far and still can make my day better just by drinking their Hazelnut Latte"
+      comment:
+        '“I like it because I like to travel far and still can make my day better just by drinking their Hazelnut Latte',
     },
     {
-      name : "Kim Young Jou",
-      address: "Kim Young Jou",
+      name: 'Kim Young Jou',
+      address: 'Kim Young Jou',
       image: imageTestimoni3,
       rating: 4.5,
-      comment: "“This is very unusual for my taste, I haven’t liked coffee before but their coffee is the best! and yup, you have to order the chicken wings, the best in town!"
+      comment:
+        '“This is very unusual for my taste, I haven’t liked coffee before but their coffee is the best! and yup, you have to order the chicken wings, the best in town!',
     },
     {
-      name : "Kim Young Jou",
-      address: "Kim Young Jou",
+      name: 'Kim Young Jou',
+      address: 'Kim Young Jou',
       image: imageTestimoni3,
       rating: 4.5,
-      comment: "“This is very unusual for my taste, I haven’t liked coffee before but their coffee is the best! and yup, you have to order the chicken wings, the best in town!"
+      comment:
+        '“This is very unusual for my taste, I haven’t liked coffee before but their coffee is the best! and yup, you have to order the chicken wings, the best in town!',
     },
     {
-      name : "Kim Young Jou",
-      address: "Kim Young Jou",
+      name: 'Kim Young Jou',
+      address: 'Kim Young Jou',
       image: imageTestimoni3,
       rating: 4.5,
-      comment: "“This is very unusual for my taste, I haven’t liked coffee before but their coffee is the best! and yup, you have to order the chicken wings, the best in town!"
-    }
-  ]
-  return(
+      comment:
+        '“This is very unusual for my taste, I haven’t liked coffee before but their coffee is the best! and yup, you have to order the chicken wings, the best in town!',
+    },
+  ];
+  return (
     <>
-      <Header/>
+      <Header />
       {/* hero/jumbotron */}
       <div className="relative bg-heroHome bg-cover bg-no-repeat flex flex-col px-40 pt-16 pb-52">
         <div className="text-white flex flex-col gap-y-5">
           <h3 className="w-[45%]  text-[50px] font-bold">Start Your Day with Coffee and Good Meals</h3>
-          <p className="w-[44%]  text-[20px] font-bold">We provide high quality beans, good taste, and healthy meals made by love just for you. Start your day with us for a bigger smile!</p>
-          <a className="w-fit p-5 px-10 bg-yellow text-brown text-base font-bold rounded-[10px] hover:bg-orange-400" href="">Get Started</a>
+          <p className="w-[44%]  text-[20px] font-bold">
+            We provide high quality beans, good taste, and healthy meals made by love just for you. Start your day with
+            us for a bigger smile!
+          </p>
+          <a
+            className="w-fit p-5 px-10 bg-yellow text-brown text-base font-bold rounded-[10px] hover:bg-orange-400"
+            href=""
+          >
+            Get Started
+          </a>
         </div>
         {/* overlay */}
         <div className="absolute -bottom-[15%] w-[1140px] flex flex-row bg-white rounded-md h-[200px] shadow-2xl py-10">
@@ -148,12 +161,34 @@ export default function Home() {
           </div>
           <div className="w-[45%] flex flex-col gap-y-4 pt-8">
             <h3 className="text-[#0B132A] font-[500] text-[35px]">We Provide Good Coffee and Healthy Meals</h3>
-            <p className="text-[#4F5665] text-base">You can explore the menu that we provide with fun and have their own taste and make your day better.</p>
+            <p className="text-[#4F5665] text-base">
+              You can explore the menu that we provide with fun and have their own taste and make your day better.
+            </p>
             <ul className="flex flex-col gap-y-4 text-[#4F5665] text-[14px]">
-              <li className="flex flex-row gap-x-4"><span className="flex justify-center items-center w-[24px] h-[24px] text-center text-[12px] text-white bg-[#2FAB73] rounded-full">&#10003;</span>High quality beans</li>
-              <li className="flex flex-row gap-x-4"><span className="flex justify-center items-center w-[24px] h-[24px] text-center text-[12px] text-white bg-[#2FAB73] rounded-full">&#10003;</span>Healthy meals, you can request the ingredients</li>
-              <li className="flex flex-row gap-x-4"><span className="flex justify-center items-center w-[24px] h-[24px] text-center text-[12px] text-white bg-[#2FAB73] rounded-full">&#10003;</span>Chat with our staff to get better experience for ordering</li>
-              <li className="flex flex-row gap-x-4"><span className="flex justify-center items-center w-[24px] h-[24px] text-center text-[12px] text-white bg-[#2FAB73] rounded-full">&#10003;</span>Free member card with a minimum purchase of IDR 200.000.</li>
+              <li className="flex flex-row gap-x-4">
+                <span className="flex justify-center items-center w-[24px] h-[24px] text-center text-[12px] text-white bg-[#2FAB73] rounded-full">
+                  &#10003;
+                </span>
+                High quality beans
+              </li>
+              <li className="flex flex-row gap-x-4">
+                <span className="flex justify-center items-center w-[24px] h-[24px] text-center text-[12px] text-white bg-[#2FAB73] rounded-full">
+                  &#10003;
+                </span>
+                Healthy meals, you can request the ingredients
+              </li>
+              <li className="flex flex-row gap-x-4">
+                <span className="flex justify-center items-center w-[24px] h-[24px] text-center text-[12px] text-white bg-[#2FAB73] rounded-full">
+                  &#10003;
+                </span>
+                Chat with our staff to get better experience for ordering
+              </li>
+              <li className="flex flex-row gap-x-4">
+                <span className="flex justify-center items-center w-[24px] h-[24px] text-center text-[12px] text-white bg-[#2FAB73] rounded-full">
+                  &#10003;
+                </span>
+                Free member card with a minimum purchase of IDR 200.000.
+              </li>
             </ul>
           </div>
         </section>
@@ -162,41 +197,66 @@ export default function Home() {
         <section className="bg-[#fcfcfc] flex flex-col gap-y-40 px-40 py-14">
           <div className="flex flex-col items-center">
             <h3 className="text-[#0B132A] text-[35px] font-[500]">Here is People&apos;s Favorite</h3>
-            <p className="text-[#4F5665] font-normal text-base">Let&apos;s choose and have a bit taste of poeple&apos;s favorite. It might be yours too!</p>
+            <p className="text-[#4F5665] font-normal text-base">
+              Let&apos;s choose and have a bit taste of poeple&apos;s favorite. It might be yours too!
+            </p>
           </div>
           <div className="flex flex-row justify-between mt-14">
-            {
-              menuFavorites && menuFavorites.map((menu) => {
-                return(
-                  <div className="relative w-[330px] h-[567px] flex flex-col items-center border-[#DDDDDD] border-2 bg-white rounded-md p-10 hover:border-brown" key={menu.name}>
+            {menuFavorites &&
+              menuFavorites.map((menu) => {
+                return (
+                  <div
+                    className="relative w-[330px] h-[567px] flex flex-col items-center border-[#DDDDDD] border-2 bg-white rounded-md p-10 hover:border-brown"
+                    key={menu.name}
+                  >
                     <div className="w-[128.98px] shadow-2xl rounded-full overflow-hidden -mt-28">
                       <img className="" src={menu.image_url} alt={`image ${menu.name}`} />
                     </div>
                     <p className="text-[#0B132A] font-[500] text-[18px] mt-4">{menu.name}</p>
                     <ul className="mt-8 flex flex-col gap-y-5">
-                      <li className="flex flex-row gap-x-3 text-[#4F5665] text-[14px]"><span className="text-[#2FAB73]">&#10003;</span>Sliced strawberry on Top</li>
-                      <li className="flex flex-row gap-x-3 text-[#4F5665] text-[14px]"><span className="text-[#2FAB73]">&#10003;</span>Sliced strawberry on Top</li>
-                      <li className="flex flex-row gap-x-3 text-[#4F5665] text-[14px]"><span className="text-[#2FAB73]">&#10003;</span>Sliced strawberry on Top</li>
-                      <li className="flex flex-row gap-x-3 text-[#4F5665] text-[14px]"><span className="text-[#2FAB73]">&#10003;</span>Sliced strawberry on Top</li>
-                      <li className="flex flex-row gap-x-3 text-[#4F5665] text-[14px]"><span className="text-[#2FAB73]">&#10003;</span>Chocolate Biscuits</li>
-                      <li className="flex flex-row gap-x-3 text-[#4F5665] text-[14px]"><span className="text-[#2FAB73]">&#10003;</span>Sliced strawberry on Top</li>
+                      <li className="flex flex-row gap-x-3 text-[#4F5665] text-[14px]">
+                        <span className="text-[#2FAB73]">&#10003;</span>Sliced strawberry on Top
+                      </li>
+                      <li className="flex flex-row gap-x-3 text-[#4F5665] text-[14px]">
+                        <span className="text-[#2FAB73]">&#10003;</span>Sliced strawberry on Top
+                      </li>
+                      <li className="flex flex-row gap-x-3 text-[#4F5665] text-[14px]">
+                        <span className="text-[#2FAB73]">&#10003;</span>Sliced strawberry on Top
+                      </li>
+                      <li className="flex flex-row gap-x-3 text-[#4F5665] text-[14px]">
+                        <span className="text-[#2FAB73]">&#10003;</span>Sliced strawberry on Top
+                      </li>
+                      <li className="flex flex-row gap-x-3 text-[#4F5665] text-[14px]">
+                        <span className="text-[#2FAB73]">&#10003;</span>Chocolate Biscuits
+                      </li>
+                      <li className="flex flex-row gap-x-3 text-[#4F5665] text-[14px]">
+                        <span className="text-[#2FAB73]">&#10003;</span>Sliced strawberry on Top
+                      </li>
                     </ul>
                     <div className="absolute bottom-10 flex flex-col items-center gap-y-3">
                       <span className="text-[#0B132A] text-[25px] font-[500]">IDR {menu.price}</span>
-                      <a className="border border-yellow py-2 px-8 rounded-[50px] text-[#6A4029] text-base font-bold hover:bg-yellow hover:shadow-2xl"  href={`/detail-product/${menu.product_id}`}>Order Now</a>
+                      <a
+                        className="border border-yellow py-2 px-8 rounded-[50px] text-[#6A4029] text-base font-bold hover:bg-yellow hover:shadow-2xl"
+                        href={`/detail-product/${menu.product_id}`}
+                      >
+                        Order Now
+                      </a>
                     </div>
                   </div>
-                )
-              })
-            }
+                );
+              })}
           </div>
         </section>
 
         {/* Map */}
         <section className="flex flex-col justify-center items-center gap-y-32 bg-[#fcfcfc] py-20">
           <div className="flex flex-col justify-center items-center gap-y-5">
-            <h3 className="w-[55%] text-[#0B132A] font-[500] text-[35px] text-center">Visit Our Store in the Spot on the Map Below</h3>
-            <p className="w-3/4 text-center text-[#4F5665] font-normal text-base">See our store in every city on the spot and spen your good day there. See you soon!</p>
+            <h3 className="w-[55%] text-[#0B132A] font-[500] text-[35px] text-center">
+              Visit Our Store in the Spot on the Map Below
+            </h3>
+            <p className="w-3/4 text-center text-[#4F5665] font-normal text-base">
+              See our store in every city on the spot and spen your good day there. See you soon!
+            </p>
           </div>
           <div>
             <img src={imageHugeGlobal} alt="image huge global" />
@@ -228,12 +288,20 @@ export default function Home() {
         {/* Testimoni */}
         <section className="bg-[#fcfcfc] px-40 pb-40">
           <div className="flex flex-col justify-center items-center gap-y-3">
-            <h3 className="w-[40%] text-[#0B132A] font-[500] text-[35px] text-center">Loved by Thousands of Happy Customer</h3>
-            <p className="w-[45%] text-[#4F5665] font-normal text-base text-center mb-10">These are the stories of our customers who have visited us with great pleasure.</p>
+            <h3 className="w-[40%] text-[#0B132A] font-[500] text-[35px] text-center">
+              Loved by Thousands of Happy Customer
+            </h3>
+            <p className="w-[45%] text-[#4F5665] font-normal text-base text-center mb-10">
+              These are the stories of our customers who have visited us with great pleasure.
+            </p>
           </div>
           <CarouselTestimoni>
-            {dataTestimoni && dataTestimoni.map((d, i) =>(
-                <div className="w-[400px] h-[230px] flex flex-col gap-y-5 border-2 bg-white border-[#DDDDDD] rounded-md p-8 overflow-y-hidden" key={i+1}>
+            {dataTestimoni &&
+              dataTestimoni.map((d, i) => (
+                <div
+                  className="w-[400px] h-[230px] flex flex-col gap-y-5 border-2 bg-white border-[#DDDDDD] rounded-md p-8 overflow-y-hidden"
+                  key={i + 1}
+                >
                   <div className="flex flex-row justify-between items-center">
                     <div className="w-[50px] h-[50px] rounded-full">
                       <img src={d.image} alt="image" />
@@ -253,7 +321,7 @@ export default function Home() {
                     <p className="text-[#0B132A] text-base">{d.comment}</p>
                   </div>
                 </div>
-            ))}
+              ))}
           </CarouselTestimoni>
         </section>
 
@@ -263,10 +331,12 @@ export default function Home() {
             <h4 className="w-[75%] text-[#0B132A] text-[35px] font-[500]">Check our promo today!</h4>
             <p className="text-[#4F5665] font-normal text-base">Let&apos;s see the deals and pick yours!</p>
           </div>
-          <a className="text-brown text-center text-base font-bold bg-yellow rounded-md shadow-2xl px-10 py-3" href="">See Promo</a>
+          <a className="text-brown text-center text-base font-bold bg-yellow rounded-md shadow-2xl px-10 py-3" href="">
+            See Promo
+          </a>
         </div>
       </main>
-      <Footer/>
+      <Footer />
     </>
-  )
+  );
 }
