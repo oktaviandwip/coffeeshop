@@ -6,6 +6,13 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        '1133px': '1133px',
+      },
+      fontFamily: {
+        rubik: ['rubik', 'sans-serif'],
+        poppins: ['poppins', 'sans-serif'],
+      },
       container: {
         center: true,
       },

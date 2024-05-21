@@ -1,10 +1,11 @@
+
 import {createBrowserRouter} from "react-router-dom";
 import SignUp from "../pages/auth/SignUp";
 import Login from "../pages/auth/Login";
 import ForgotPassword from "../pages/auth/ForgotPassword";
 import Home from "../pages/home/Home";
 import DetailProduct from "../pages/detailproduct/DetailProduct";
-
+import Profile from '../pages/profile/Profile';
 export default createBrowserRouter([
   {
     path:"/signup",
@@ -22,8 +23,13 @@ export default createBrowserRouter([
     path:"/",
     element: <Home/>,
   },
+   {
+    path: '/profile',
+    element: <Profile />,
+  },
   {
     path:"/detail-product/:id",
     element: <DetailProduct/>,
   },
 ])
+

@@ -2,6 +2,11 @@ package models
 
 import "time"
 
+import (
+	"mime/multipart"
+	"time"
+)
+
 type User struct {
 	User_id     string     `db:"user_id" form:"user_id" json:"user_id" uri:"user_id" valid:"-"`
 	Email       string     `db:"email" form:"email" json:"email" valid:"required, email"`
@@ -74,4 +79,32 @@ type AuthResetpasswordBody struct {
 type AuthResendlinkBody struct {
 	// User's email address
 	Email string `json:"email,omitempty"`
+}
+
+type UserData struct {
+	Id           string `db:"id" form:"id" json:"id"`
+	Username     string `db:"username" form:"username" json:"username"`
+	Password     string `db:"password" form:"password" json:"password"`
+	Phone_number string `db:"phone_number" form:"phone_number" json:"phone_number"`
+	Email        string `db:"email" form:"email" json:"email"`
+	Role         string `db:"role" form:"role" json:"role,omitempty"`
+
+	CreatedAt *time.Time `db:"created_at" json:"created_at"`
+	UpdatedAt *time.Time `db:"updated_at" json:"updated_at"`
+}
+
+type Profile struct {
+	Id            string                `db:"id" form:"id" json:"id"`
+	PhotoUpload   *multipart.FileHeader `form:"photo_profile"`
+	Photo_profile string                `db:"photo_profile" json:"photo_profile"`
+	First_name    string                `db:"first_name" form:"first_name" json:"first_name"`
+	Last_name     string                `db:"last_name" form:"last_name" json:"last_name"`
+	Display_name  string                `db:"display_name" form:"display_name" json:"display_name" `
+	Gender        string                `db:"gender" form:"gender" json:"gender"`
+	Address       string                `db:"address" form:"address" json:"address"`
+	User_id       string                `db:"user_id" form:"user_id" json:"user_id"`
+	Birthday      string                `db:"birthday" form:"birthday" json:"birthday"`
+
+	CreatedAt *time.Time `db:"created_at" json:"created_at"`
+	UpdatedAt *time.Time `db:"updated_at" json:"updated_at"`
 }
