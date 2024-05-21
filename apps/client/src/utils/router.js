@@ -3,6 +3,7 @@ import SignUp from "../pages/auth/SignUp";
 import Login from "../pages/auth/Login";
 import ForgotPassword from "../pages/auth/ForgotPassword";
 import Home from "../pages/home/Home";
+import DetailProduct from "../pages/detailproduct/DetailProduct";
 
 export default createBrowserRouter([
   {
@@ -20,5 +21,9 @@ export default createBrowserRouter([
   {
     path:"/",
     element: <Home/>,
+  },
+  {
+    path:"/detail-product/:id",
+    element: <DetailProduct/>,
   },
 ])

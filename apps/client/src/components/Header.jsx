@@ -32,14 +32,14 @@ export default function Header() {
   
 
   return(
-    <header className="font-rubik flex flex-row justify-between px-40 py-10">
+    <header className="font-rubik flex flex-row justify-between px-40 py-10 border-b-[1px] border-[#9f9f9f56]">
       <a className="w-1/4 flex flex-row gap-x-2 justify-start items-center" href="/">
         <img src={iconCoffee} alt="icon coffee" />
         <span className=" font-bold text-[20px] font-[#0B132A]">Coffee Shop</span>
       </a>
       <nav className="w-1/2 flex">
         <ul className="w-full flex flex-row justify-center items-center gap-x-10">
-          <li><a id="home" className="nav-link text-[#4F5665]" href="">Home</a></li>
+          <li><a id="home" className="nav-link text-[#4F5665]" href="/">Home</a></li>
           <li><a id="product" className="nav-link text-[#4F5665]" href="">Product</a></li>
           <li><a id="your-cart" className="nav-link text-[#4F5665]" href="">Your Cart</a></li>
           <li><a id="history" className="nav-link text-[#4F5665]" href="">History</a></li>

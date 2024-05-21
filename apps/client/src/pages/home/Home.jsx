@@ -1,4 +1,5 @@
 import React from "react";
+import {useState, useEffect} from "react"
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import CarouselTestimoni from "../../components/CarouselTestimoni";
@@ -19,29 +20,48 @@ import imageTestimoni1 from "../../assets/images/Ellipse 175 (1).png"
 import imageTestimoni2 from "../../assets/images/Ellipse 175 (2).png"
 import imageTestimoni3 from "../../assets/images/Ellipse 175.png"
 import iconStar from "../../assets/icons/icon-star.png"
+import useApi from "../../utils/useApi";
 
 export default function Home() {
-  const menuFavorites = [
+  const api = useApi()
+  
+  useEffect(()=>{
+    api({
+      method: 'GET',
+      url: '/products/query?page=1&limit=3'
+  })
+      .then((res) => {
+        setMenuFavorites(res.data.data)
+      })
+      .catch((err) => {
+          console.log(err)
+      })
+  },[])
+
+  const dataMenu = [
     {
+      product_id: "0e9ed486-dc6d-4765-80ac-a23892068951",
       name : "Hazelnut Late",
       price : 25000,
-      image : imageHazelnutLate,
-      listDesk : ["Hazelnut Syrup", "Wanilla Whipped Cream", "Ice / Hot", "Sliced Banana on Top"]  
+      image_url : imageHazelnutLate, 
     },
     {
+      product_id: "0e9ed486-dc6d-4765-80ac-a23892068951",
       name : "Pinky Promise",
       price : 30000,
-      image : imagePinkyPromise,
-      listDesk : ["1 Shot of Coffee", "Vanilla Whipped Cream", "Chocolate Biscuits", "Strawberry Syrup", "Sliced strawberry on Top"]  
+      image_url : imagePinkyPromise,
     },
     {
+      product_id: "0e9ed486-dc6d-4765-80ac-a23892068951",
       name : "Sliced strawberry on Top",
       price : 40000,
-      image : imageChickenWings,
-      listDesk : ["Wings", "Drum Sticks", "Mayonaise and Lemon", "Hot Fried", "Secret Recipe", "Buy 1 Get 1 only for Dine in"]  
+      image_url : imageChickenWings,
     }
   ]
 
+  // data menu favorites
+  const [menuFavorites, setMenuFavorites] = useState(dataMenu)
+  
   const dataTestimoni = [
     {
       name : "Viezh Robert",
@@ -150,18 +170,20 @@ export default function Home() {
                 return(
                   <div className="relative w-[330px] h-[567px] flex flex-col items-center border-[#DDDDDD] border-2 bg-white rounded-md p-10 hover:border-brown" key={menu.name}>
                     <div className="w-[128.98px] shadow-2xl rounded-full overflow-hidden -mt-28">
-                      <img className="" src={menu.image} alt={`image ${menu.name}`} />
+                      <img className="" src={menu.image_url} alt={`image ${menu.name}`} />
                     </div>
                     <p className="text-[#0B132A] font-[500] text-[18px] mt-4">{menu.name}</p>
                     <ul className="mt-8 flex flex-col gap-y-5">
-                      {
-                        menu.listDesk.map((list, i)=> <li key={i + 1} className="flex flex-row gap-x-3 text-[#4F5665] text-[14px]"><span className="text-[#2FAB73]">&#10003;</span>{list}</li>)
-                        
-                      }
+                      <li className="flex flex-row gap-x-3 text-[#4F5665] text-[14px]"><span className="text-[#2FAB73]">&#10003;</span>Sliced strawberry on Top</li>
+                      <li className="flex flex-row gap-x-3 text-[#4F5665] text-[14px]"><span className="text-[#2FAB73]">&#10003;</span>Sliced strawberry on Top</li>
+                      <li className="flex flex-row gap-x-3 text-[#4F5665] text-[14px]"><span className="text-[#2FAB73]">&#10003;</span>Sliced strawberry on Top</li>
+                      <li className="flex flex-row gap-x-3 text-[#4F5665] text-[14px]"><span className="text-[#2FAB73]">&#10003;</span>Sliced strawberry on Top</li>
+                      <li className="flex flex-row gap-x-3 text-[#4F5665] text-[14px]"><span className="text-[#2FAB73]">&#10003;</span>Chocolate Biscuits</li>
+                      <li className="flex flex-row gap-x-3 text-[#4F5665] text-[14px]"><span className="text-[#2FAB73]">&#10003;</span>Sliced strawberry on Top</li>
                     </ul>
                     <div className="absolute bottom-10 flex flex-col items-center gap-y-3">
-                      <span className="text-[#0B132A] text-[25px] font-[500]">IDR 25.000</span>
-                      <a className="border border-yellow py-2 px-8 rounded-[50px] text-[#6A4029] text-base font-bold hover:bg-yellow hover:shadow-2xl"  href="">Order Now</a>
+                      <span className="text-[#0B132A] text-[25px] font-[500]">IDR {menu.price}</span>
+                      <a className="border border-yellow py-2 px-8 rounded-[50px] text-[#6A4029] text-base font-bold hover:bg-yellow hover:shadow-2xl"  href={`/detail-product/${menu.product_id}`}>Order Now</a>
                     </div>
                   </div>
                 )
