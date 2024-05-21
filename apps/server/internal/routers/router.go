@@ -42,6 +42,7 @@ func New(db *sqlx.DB) *gin.Engine {
 	router.Use(cors.New(corsConfig))
 
 	user(router, db)
+	favorite(router, db)
 
 	return router
 
