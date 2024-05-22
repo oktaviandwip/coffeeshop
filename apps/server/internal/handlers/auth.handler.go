@@ -54,5 +54,15 @@ func (h *HandlerAuth) Login(ctx *gin.Context) {
 		return
 	}
 
-	pkg.NewRes(200, &config.Result{Data: tokens}).Send(ctx)
+	type authData struct {
+		Token  string `db:"token" form:"token" json:"token"`
+		UserId string `db:"user_id" form:"user_id" json:"user_id"`
+	}
+
+	dataUser := &authData{
+		Token:  tokens,
+		UserId: users.User_id,
+	}
+
+	pkg.NewRes(200, &config.Result{Data: dataUser}).Send(ctx)
 }

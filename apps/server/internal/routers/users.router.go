@@ -2,6 +2,7 @@ package routers
 
 import (
 	"github.com/Roisfaozi/black-coffee-collaborations/internal/handlers"
+	"github.com/Roisfaozi/black-coffee-collaborations/internal/middleware"
 	"github.com/Roisfaozi/black-coffee-collaborations/internal/repository"
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
@@ -13,8 +14,8 @@ func users(g *gin.Engine, d *sqlx.DB) {
 	repo := repository.NewUser(d)
 	handler := handlers.NewUser(repo)
 
-	// route.GET("/email", handler.GetUserByEmail)
 	route.POST("/create", handler.CreateNewUser)
-	// route.PUT("/:user_id", handler.UpdateUser)
-	// route.DELETE("/:user_id", handler.DeleteUser)
+	route.GET("/profile/:id", middleware.Authjwt("admin", "user"), handler.GetProfile)
+	route.POST("/profile/", middleware.Authjwt("admin", "user"), middleware.UploadFile, handler.PostProfile)
+
 }

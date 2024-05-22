@@ -1,25 +1,24 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
-import CarouselTestimoni from '../../components/CarouselTestimoni';
+import React, { useEffect, useState } from 'react';
 import iconLove from '../../assets/icons/icon-love.png';
-import iconPerson from '../../assets/icons/icon-person.png';
 import iconMap from '../../assets/icons/icon-map.png';
-import imageTeamWork from '../../assets/images/image-teamwork.png';
-import imageHazelnutLate from '../../assets/images/image 22.png';
-import imagePinkyPromise from '../../assets/images/image 27.png';
-import imageChickenWings from '../../assets/images/image 30.png';
-import imageHugeGlobal from '../../assets/images/Huge Global.png';
-import imageNetflix from '../../assets/images/Mask Group (3).png';
-import imageReddit from '../../assets/images/Mask Group (7).png';
-import imageAmazon from '../../assets/images/Mask Group (6).png';
-import imageDiscord from '../../assets/images/discord.png';
-import imageSpotify from '../../assets/images/Mask Group (4).png';
+import iconPerson from '../../assets/icons/icon-person.png';
+import iconStar from '../../assets/icons/icon-star.png';
 import imageTestimoni1 from '../../assets/images/Ellipse 175 (1).png';
 import imageTestimoni2 from '../../assets/images/Ellipse 175 (2).png';
 import imageTestimoni3 from '../../assets/images/Ellipse 175.png';
-import iconStar from '../../assets/icons/icon-star.png';
+import imageHugeGlobal from '../../assets/images/Huge Global.png';
+import imageNetflix from '../../assets/images/Mask Group (3).png';
+import imageSpotify from '../../assets/images/Mask Group (4).png';
+import imageAmazon from '../../assets/images/Mask Group (6).png';
+import imageReddit from '../../assets/images/Mask Group (7).png';
+import imageDiscord from '../../assets/images/discord.png';
+import imageHazelnutLate from '../../assets/images/image 22.png';
+import imagePinkyPromise from '../../assets/images/image 27.png';
+import imageChickenWings from '../../assets/images/image 30.png';
+import imageTeamWork from '../../assets/images/image-teamwork.png';
+import CarouselTestimoni from '../../components/CarouselTestimoni';
+import Footer from '../../components/Footer';
+import Header from '../../components/Header';
 import useApi from '../../utils/useApi';
 
 export default function Home() {
@@ -108,7 +107,7 @@ export default function Home() {
     <>
       <Header />
       {/* hero/jumbotron */}
-      <div className="relative bg-heroHome bg-cover bg-no-repeat flex flex-col px-40 pt-16 pb-52">
+      <div className="relative w-screen bg-heroHome bg-cover bg-no-repeat flex flex-col px-40 pt-16 pb-52">
         <div className="text-white flex flex-col gap-y-5">
           <h3 className="w-[45%]  text-[50px] font-bold">Start Your Day with Coffee and Good Meals</h3>
           <p className="w-[44%]  text-[20px] font-bold">
@@ -123,7 +122,7 @@ export default function Home() {
           </a>
         </div>
         {/* overlay */}
-        <div className="absolute -bottom-[15%] w-[1140px] flex flex-row bg-white rounded-md h-[200px] shadow-2xl py-10">
+        <div className="absolute -bottom-[15%] w-[80%] flex flex-row bg-white rounded-md h-[200px] shadow-2xl py-10">
           <div className="flex gap-x-8 justify-center items-center w-1/3 border-r-4 border-[#EEEFF2]">
             <div className="grid justify-center items-center w-[55px] h-[55px] bg-yellow rounded-full">
               <img className="" src={iconPerson} alt="" />

@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"github.com/Roisfaozi/black-coffee-collaborations/internal/models/cart"
 	"github.com/Roisfaozi/black-coffee-collaborations/internal/repository"
 	"github.com/Roisfaozi/black-coffee-collaborations/pkg"
@@ -23,13 +24,9 @@ func NewCartHandlerImpl(cartRepo repository.CartRepository) *CartHandlerImpl {
 }
 
 func (ch *CartHandlerImpl) CreateCart(c *gin.Context) {
-	var cartReq cart.CartRequest
-	if err := c.ShouldBindJSON(&cartReq); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	result, err := ch.cartRepo.CreateCart(c.Request.Context(), &cartReq)
+	userID := c.MustGet("userId").(string)
+	fmt.Println(userID)
+	result, err := ch.cartRepo.CreateCart(c.Request.Context(), userID)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -54,7 +51,7 @@ func (ch *CartHandlerImpl) CreateCartItem(c *gin.Context) {
 }
 
 func (ch *CartHandlerImpl) GetCartByUserId(c *gin.Context) {
-	userID := c.Param("user_id")
+	userID := c.MustGet("userId").(string)
 
 	result, err := ch.cartRepo.GetCartByUserId(c.Request.Context(), userID)
 	if err != nil {

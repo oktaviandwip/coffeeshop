@@ -3,7 +3,7 @@ CREATE TABLE users
 (  
   user_id uuid DEFAULT gen_random_uuid(),
   email VARCHAR NOT NULL unique,
-  phone VARCHAR NOT NULL unique,
+  phone_number VARCHAR NOT NULL unique,
   password VARCHAR NOT NULL,
   role VARCHAR NOT NULL,
 	created_at TIMESTAMP without time zone not null DEFAULT NOW(),
@@ -21,6 +21,7 @@ CREATE TABLE profile
   gender       VARCHAR,
   address      VARCHAR,
   birthday     DATE,
+  photo_profile TEXT default '',
   created_at TIMESTAMP without time zone not null DEFAULT NOW(),
 	updated_at TIMESTAMP without time zone null,
   CONSTRAINT profile_pk primary key (profile_id),
@@ -28,6 +29,7 @@ CREATE TABLE profile
         REFERENCES users(user_id)
         ON DELETE CASCADE
 );
+
 
 CREATE TABLE product
 (

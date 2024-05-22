@@ -38,7 +38,7 @@ func (r *RepoUsers) CreateUser(ctx context.Context, data *models.User) (*config.
 		}
 	}()
 
-	qUser := `INSERT INTO public.users (email, phone, password,role)
+	qUser := `INSERT INTO public.users (email, phone_number, password,role)
 			VALUES($1, $2, $3, $4) RETURNING user_id`
 
 	var userId string
@@ -52,7 +52,7 @@ func (r *RepoUsers) CreateUser(ctx context.Context, data *models.User) (*config.
 			return nil, errors.New("Email sudah terdaftar!")
 		}
 
-		if err.Error() == `pq: duplicate key value violates unique constraint "users_phone_key"` {
+		if err.Error() == `pq: duplicate key value violates unique constraint "users_phone_number_key"` {
 			fmt.Println(err.Error())
 			_ = tx.Rollback()
 			return nil, errors.New("Nomor handphone sudah terdaftar!")
@@ -87,13 +87,12 @@ func (r *RepoUsers) GetAuthData(email string) (*models.User, error) {
 
 		return nil, err
 	}
-
 	return &result, nil
 }
 
 func (r *RepoUsers) FetchProfile(userId string) (*config.Result, error) {
 	// Get data user
-	userQuery := "SELECT email, phone_number FROM users WHERE id = ?"
+	userQuery := "SELECT email, phone_number FROM users WHERE user_id = ?"
 	userData := models.UserData{}
 
 	if err := r.Get(&userData, r.Rebind(userQuery), userId); err != nil {
@@ -132,7 +131,7 @@ func (r *RepoUsers) UpdateProfile(id string, user *models.UserData, profile *mod
 			email = COALESCE(NULLIF(:email, ''), email),
 			phone_number = COALESCE(NULLIF(:phone_number, ''), phone_number)
 		WHERE
-			id = :user_id
+			user_id = :user_id
 	`
 
 	// Update profile table
