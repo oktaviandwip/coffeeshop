@@ -1,7 +1,8 @@
 import React from 'react';
-import Promo from '../../components/Promo';
-import CardProduct from '../../components/CardProduct';
 import Button from '../../components/Button';
+import CardProduct from '../../components/CardProduct';
+import Promo from '../../components/Promo';
+
 function Product() {
   return (
     <>

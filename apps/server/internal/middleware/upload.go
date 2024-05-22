@@ -4,36 +4,63 @@ import (
 	"net/http"
 
 	"github.com/Roisfaozi/black-coffee-collaborations/pkg"
+
 	"github.com/gin-gonic/gin"
 )
 
 func UploadFile(ctx *gin.Context) {
-	file, err := ctx.FormFile("image_url")
+	profileFile, err := ctx.FormFile("photo_profile")
 	if err != nil {
 		if err.Error() == "http: no such file" {
-			ctx.Set("image", "")
-			ctx.Next()
+			ctx.Set("profileImage", "")
+		} else {
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Error retrieving profile photo"})
 			return
 		}
-
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Missing file"})
-		return
 	}
 
-	// Open the file
-	src, err := file.Open()
+	productFile, err := ctx.FormFile("photo_product")
 	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-	defer src.Close()
-
-	result, err := pkg.CloudInary(src)
-	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Failed to open file"})
-		return
+		if err.Error() == "http: no such file" {
+			ctx.Set("productImage", "")
+		} else {
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Error retrieving product photo"})
+			return
+		}
 	}
 
-	ctx.Set("image", result)
+	var profileImageUrl, productImageUrl string
+	if profileFile != nil {
+		src, err := profileFile.Open()
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Error opening profile photo"})
+			return
+		}
+		defer src.Close()
+
+		profileImageUrl, err = pkg.CloudInary(src)
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Error uploading profile photo"})
+			return
+		}
+	}
+
+	if productFile != nil {
+		src, err := productFile.Open()
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Error opening product photo"})
+			return
+		}
+		defer src.Close()
+
+		productImageUrl, err = pkg.CloudInary(src)
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Error uploading product photo"})
+			return
+		}
+	}
+
+	ctx.Set("profileImage", profileImageUrl)
+	ctx.Set("productImage", productImageUrl)
 	ctx.Next()
 }

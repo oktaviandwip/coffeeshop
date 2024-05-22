@@ -11,6 +11,11 @@ import (
 func New(db *sqlx.DB) *gin.Engine {
 	router := gin.Default()
 
+	router.Use(gin.Recovery())
+	router.GET("/ping", func(c *gin.Context) {
+		c.String(200, "pong")
+	})
+  
 	// Set up CORS options
 	corsConfig := cors.Config{
 		AllowOrigins:     []string{"*"},
@@ -27,6 +32,14 @@ func New(db *sqlx.DB) *gin.Engine {
 	auth(router, db)
 	users(router, db)
 	products(router, db)
+  
+  
+	user(router, db)
+	favorite(router, db)
+  
+	cart(router, db)
+	order(router, db)
+
 
 	return router
 
