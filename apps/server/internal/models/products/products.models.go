@@ -1,10 +1,27 @@
-package models
-
-import "time"
+package products
 
 type Size struct {
 	Id   string `json:"id,omitempty"`
 	Name string `json:"name,omitempty"`
+}
+type ProductSize struct {
+	Id_size    string `json:"size_id,omitempty" db:"size_id,omitempty"`
+	Name_size  string `json:"name,omitempty" db:"name,omitempty"`
+	Price_size int    `json:"price,omitempty" db:"price,omitempty" form:"price,omitempty"`
+}
+type Products struct {
+	Product_id  string        `db:"product_id" form:"product_id" json:"product_id,omitempty" uri:"product_id"`
+	Id          string        `json:"id,omitempty" form:"id,omitempty"`
+	Name        string        `json:"name,omitempty" form:"name,omitempty"`
+	Description string        `json:"description,omitempty" form:"description,omitempty"`
+	Price       float32       `json:"price,omitempty" form:"price,omitempty"`
+	IsAvailable bool          `json:"is_available,omitempty" form:"is_available,omitempty"`
+	Category    string        `json:"category,omitempty" form:"category,omitempty"`
+	ImageUrl    string        `json:"image_url,omitempty" form:"image_url,omitempty" db:"image_url,omitempty"`
+	CreatedAt   string        `json:"created_at,omitempty" db:"created_at,omitempty"`
+	UpdatedAt   string        `json:"updated_at,omitempty" db:"updated_at,omitempty"`
+	Sizes       []Size        `json:"sizes,omitempty" form:"sizes,omitempty"`
+	ProductSize []ProductSize `json:"productsizes,omitempty" form:"productsizes,omitempty"`
 }
 
 type Meta struct {
@@ -12,39 +29,29 @@ type Meta struct {
 	Limit int
 	Name  string
 }
-type Product struct {
-	Product_id  string     `db:"product_id" form:"product_id" json:"product_id,omitempty" uri:"product_id"`
-	Name        string     `db:"name" form:"name" json:"name"`
-	Category    string     `db:"category" form:"category" json:"category"`
-	Price       int        `db:"price" form:"price" json:"price"`
-	Discount    float64    `db:"discount" form:"discount" json:"discount"`
-	Image_url   string     `db:"image_url" json:"image_url,omitempty"`
-	Description *string    `db:"description" form:"description" json:"description"`
-	CreatedAt   *time.Time `db:"created_at" json:"created_at"`
-	UpdatedAt   *time.Time `db:"updated_at" json:"updated_at"`
-}
 
-type Products []Product
+type Productss []Products
 
 type ProductsResponse struct {
-	Status      string    `json:"status,omitempty"`
-	Data        []Product `json:"data,omitempty"`
-	Description string    `json:"description,omitempty"`
+	Status      string     `json:"status,omitempty"`
+	Data        []Products `json:"data,omitempty"`
+	Description string     `json:"description,omitempty"`
 }
 
 type ProductsRequest struct {
-	Name        string  `json:"name,omitempty"`
-	Description string  `json:"description,omitempty"`
-	Price       float32 `json:"price,omitempty"`
-	IsAvailable bool    `json:"is_available,omitempty"`
-	Category    string  `json:"category,omitempty"`
-	ImageUrl    string  `json:"image_url,omitempty"`
+	Name        string   `json:"name,omitempty" form:"name,omitempty" db:"name,omitempty"`
+	Description string   `json:"description,omitempty" form:"description,omitempty" db:"description,omitempty"`
+	Price       float32  `json:"price,omitempty" form:"price,omitempty" db:"price,omitempty"`
+	IsAvailable bool     `json:"is_available" form:"is_available" db:"is_available"`
+	Category    string   `json:"category,omitempty" form:"category,omitempty" db:"category,omitempty"`
+	ImageUrl    string   `json:"image_url,omitempty" form:"image_url,omitempty" db:"image_url,omitempty"`
+	SizeIDs     []string `json:"size_ids,omitempty"`
 }
 
 type ProductResponse struct {
-	Status      string   `json:"status,omitempty"`
-	Data        *Product `json:"data,omitempty"`
-	Description string   `json:"description,omitempty"`
+	Status      string    `json:"status,omitempty"`
+	Data        *Products `json:"data,omitempty"`
+	Description string    `json:"description,omitempty"`
 }
 
 type PostProductResponse struct {

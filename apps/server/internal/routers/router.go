@@ -19,7 +19,7 @@ func New(db *sqlx.DB) *gin.Engine {
 	// Set up CORS options
 	corsConfig := cors.Config{
 		AllowOrigins:     []string{"*"},
-		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "PATCH"},
 		AllowHeaders:     []string{"Authorization", "Content-Type"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
@@ -33,7 +33,7 @@ func New(db *sqlx.DB) *gin.Engine {
 	users(router, db)
 	products(router, db)
 
-	//user(router, db)
+
 	favorite(router, db)
 
 	cart(router, db)

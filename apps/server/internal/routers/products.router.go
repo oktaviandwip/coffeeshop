@@ -9,11 +9,14 @@ import (
 )
 
 func products(g *gin.Engine, d *sqlx.DB) {
-	route := g.Group("/products")
+	route := g.Group("/product")
 
-	repo := repository.NewPruduct(d)
-	handler := handlers.NewPruduct(repo)
+	repo := repository.NewProduct(d)
+	handler := handlers.NewProduct(repo)
 
-	route.GET("/query", handler.GetProductsBy)
-	route.POST("/", middleware.UploadFile, handler.PostProduct)
+	route.GET("/", handler.GetAllProducts)
+	route.GET("/:id", handler.GetDetailProduct) // route.PATCH("/:id", middleware.Authjwt("admin"), middleware.Upload, handler.PatchProduct)
+	route.PATCH("/:id", middleware.UploadFile, handler.PatchProduct)
+	// route.DELETE("/:id", middleware.Authjwt("admin"), handler.DeleteDataProduct)
+	route.DELETE("/:id", handler.DeleteDataProduct)
 }
