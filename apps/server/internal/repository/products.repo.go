@@ -15,7 +15,6 @@ import (
 )
 
 type RepoProductIF interface {
-	CreateProduct(data *products.Products) (*config.Result, error)
 	UpdateProduct(ctx context.Context, productID string, product *products.ProductsRequest, size_id string) (*config.Result, error)
 	DeleteProduct(ctx context.Context, productID string) (*config.Result, error)
 	ReadAllProducts(ctx context.Context, foodType string, page, limit int) (*config.Result, error)
@@ -29,22 +28,16 @@ func NewProduct(db *sqlx.DB) *RepoProduct {
 	return &RepoProduct{db}
 }
 
-func (r *RepoProduct) CreateProduct(data *products.Products) (*config.Result, error) {
-	q := `insert into products (name_product, description, image, category) 
-	VALUES(
-		:name_product,
-		:description,
-		:image, 
-		:category
-	)`
+type RepoProductsIF interface {
+	GetProdBy(params products.Meta) (*config.Result, error)
+	CreateProd(data *products.Products) (*config.Result, error)
+}
+type RepoProducts struct {
+	*sqlx.DB
+}
 
-	_, err := r.NamedExec(q, data)
-	if err != nil {
-		return nil, err
-	}
-
-	return &config.Result{Message: "1 data product created"}, nil
-
+func NewPruduct(db *sqlx.DB) *RepoProducts {
+	return &RepoProducts{db}
 }
 
 func (pr *RepoProduct) ReadAllProducts(ctx context.Context, foodType string, page, limit int) (*config.Result, error) {

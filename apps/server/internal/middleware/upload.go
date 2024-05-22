@@ -1,40 +1,66 @@
 package middleware
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/Roisfaozi/black-coffee-collaborations/pkg"
+
 	"github.com/gin-gonic/gin"
 )
 
-func Upload(ctx *gin.Context) {
-	file, err := ctx.FormFile("image_banner")
+func UploadFile(ctx *gin.Context) {
+	profileFile, err := ctx.FormFile("photo_profile")
 	if err != nil {
 		if err.Error() == "http: no such file" {
-			ctx.Set("image_url", "")
-			ctx.Next()
+			ctx.Set("profileImage", "")
+		} else {
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Error retrieving profile photo"})
 			return
 		}
-		log.Println("upload err:", err)
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Missing file"})
-		return
-	}
-	src, err := file.Open()
-	if err != nil {
-		log.Println("upload src err:", err)
-		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-	defer src.Close()
-
-	cld, err := pkg.CloudInary(src)
-	if err != nil {
-		log.Println("upload result err:", err.Error())
-		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Failed to open file"})
-		return
 	}
 
-	ctx.Set("image_url", cld)
+	productFile, err := ctx.FormFile("image_banner")
+	if err != nil {
+		if err.Error() == "http: no such file" {
+			ctx.Set("productImage", "")
+		} else {
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Error retrieving product photo"})
+			return
+		}
+	}
+
+	var profileImageUrl, productImageUrl string
+	if profileFile != nil {
+		src, err := profileFile.Open()
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Error opening profile photo"})
+			return
+		}
+		defer src.Close()
+
+		profileImageUrl, err = pkg.CloudInary(src)
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Error uploading profile photo"})
+			return
+		}
+	}
+
+	if productFile != nil {
+		src, err := productFile.Open()
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Error opening product photo"})
+			return
+		}
+		defer src.Close()
+
+		productImageUrl, err = pkg.CloudInary(src)
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Error uploading product photo"})
+			return
+		}
+	}
+
+	ctx.Set("profileImage", profileImageUrl)
+	ctx.Set("productImage", productImageUrl)
 	ctx.Next()
 }

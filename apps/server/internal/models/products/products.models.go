@@ -10,6 +10,7 @@ type ProductSize struct {
 	Price_size int    `json:"price,omitempty" db:"price,omitempty" form:"price,omitempty"`
 }
 type Products struct {
+	Product_id  string        `db:"product_id" form:"product_id" json:"product_id,omitempty" uri:"product_id"`
 	Id          string        `json:"id,omitempty" form:"id,omitempty"`
 	Name        string        `json:"name,omitempty" form:"name,omitempty"`
 	Description string        `json:"description,omitempty" form:"description,omitempty"`
@@ -22,6 +23,14 @@ type Products struct {
 	Sizes       []Size        `json:"sizes,omitempty" form:"sizes,omitempty"`
 	ProductSize []ProductSize `json:"productsizes,omitempty" form:"productsizes,omitempty"`
 }
+
+type Meta struct {
+	Page  int
+	Limit int
+	Name  string
+}
+
+type Productss []Products
 
 type ProductsResponse struct {
 	Status      string     `json:"status,omitempty"`

@@ -5,6 +5,8 @@ import Button from '../../components/Button';
 import InputRadio from '../../components/InputRadio';
 import ProductBanner from '../../assets/product-image.png';
 import useApi from '../../utils/useApi';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
 function DetailProduct() {
   const { id } = useParams();
@@ -43,7 +45,7 @@ function DetailProduct() {
       <p className="container p-2 my-5">
         Favorite & Promo {'>'} <span className="text-primary font-bold">{product && product.name}</span>
       </p>
-      <main className="md:flex container">
+      <main className="md:flex container pb-20">
         <section className="md:w-2/5 px-4 flex flex-col items-center">
           <img
             src={product && product.image_url}
@@ -155,6 +157,7 @@ function DetailProduct() {
           <Button content={'Checkout'} />
         </section>
       </main>
+      <Footer />
     </>
   );
 }

@@ -20,25 +20,6 @@ func NewProduct(r repository.RepoProductIF) *HandlerProduct {
 	return &HandlerProduct{r}
 }
 
-func (h *HandlerProduct) PostProduct(ctx *gin.Context) {
-	var product products.Products
-
-	if err := ctx.ShouldBind(&product); err != nil {
-		pkg.NewRes(401, &config.Result{
-			Data: err.Error(),
-		}).Send(ctx)
-		return
-	}
-	product.ImageUrl = ctx.MustGet("image").(string)
-	result, err := h.CreateProduct(&product)
-	if err != nil {
-		ctx.AbortWithError(http.StatusBadRequest, err)
-		return
-	}
-	pkg.NewRes(201, result).Send(ctx)
-
-}
-
 func (ph *HandlerProduct) GetAllProducts(c *gin.Context) {
 	foodType := c.Query("food_type")
 
@@ -118,7 +99,7 @@ func (ph HandlerProduct) PatchProduct(c *gin.Context) {
 		return
 	}
 
-	productReq.ImageUrl = c.MustGet("image_url").(string)
+	productReq.ImageUrl = c.MustGet("productImage").(string)
 
 	result, err := ph.UpdateProduct(c.Request.Context(), productID, &productReq, sizeId)
 	if err != nil {
