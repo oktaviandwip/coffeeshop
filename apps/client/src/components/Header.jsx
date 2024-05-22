@@ -26,6 +26,7 @@ export default function Header() {
   }
 
   useEffect(() => {
+
     //styling navigasi link
     stylingNavbar();
   }, []);
