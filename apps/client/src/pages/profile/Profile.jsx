@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import coffeeBg from '../../assets/coffee-bg-profile.png';
-import photoProfile from '../../assets/photo-profile.png';
-import editProfile from '../../assets/edit-profile.png';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import coffeeBg from '../../assets/coffee-bg-profile.png';
+import editProfile from '../../assets/edit-profile.png';
+import photoProfile from '../../assets/photo-profile.png';
 
 function Profile() {
-  const userId = '6b0cd634-c4bd-4c50-822d-6b818c92794e';
-
   const [data, setData] = useState({});
   const [formattedDate, setFormattedDate] = useState('');
   const [photoInputKey, setPhotoInputKey] = useState(Date.now()); // to reset file input
   const [isLoading, setIsLoading] = useState(false);
+  const { userId, token } = useSelector((state) => state.users);
 
   // Format Date to DD/MM/YY
   const formatDateToDDMMYY = (isoString) => {
@@ -27,13 +27,17 @@ function Profile() {
     const blob = await response.blob();
     return new File([blob], filename, { type: mimeType });
   };
-
+  console.log(userId);
+  console.log(token);
   // Get Data Profile
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get(`/user/profile/${userId}`, {
-          baseURL: 'http://localhost:8081',
+        const response = await axios.get(`/users/profile/${userId}`, {
+          baseURL: 'http://localhost:9090',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
         const data = response.data.data;
 

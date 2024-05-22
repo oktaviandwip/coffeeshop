@@ -6,13 +6,15 @@ const userSlice = createSlice({
     isAuthUser: false,
     isAuthAdmin: false,
     token: '',
+    userId: '',
   },
   reducers: {
     loginUser(state, actions) {
       return {
         ...state,
         isAuthUser: true,
-        token: actions.payload,
+        token: actions.payload.token,
+        userId: actions.payload.user_id,
       };
     },
     loginAdmin(state, actions) {
@@ -28,6 +30,7 @@ const userSlice = createSlice({
         isAuthUser: false,
         isAuthAdmin: false,
         token: '',
+        userId: '',
       };
     },
   },
