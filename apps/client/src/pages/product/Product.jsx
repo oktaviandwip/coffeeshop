@@ -1,9 +1,43 @@
 import React from 'react';
-import Button from '../../components/Button';
-import CardProduct from '../../components/CardProduct';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Promo from '../../components/Promo';
+import CardProduct from '../../components/CardProduct';
+import Button from '../../components/Button';
+import axios from 'axios';
+import useApi from '../../utils/useApi';
 
 function Product() {
+  const api = useApi();
+  const Navigate = useNavigate();
+  const [product, setProduct] = useState(null);
+  const [page, setPage] = useState(1);
+  const [limit] = useState(10);
+
+  const [category, setCategory] = useState('');
+  const handleClickCategory = (e, category) => {
+    setCategory(category);
+  };
+
+  const getProduct = async (e) => {
+    await api
+      .get(`/product/?page=${page}&limit=${limit}&food_type=${category}`)
+      .then(({ data }) => {
+        setProduct(data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    getProduct();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    getProduct();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category, page]);
+  console.log(product);
   return (
     <>
       <section className="flex flex-col-reverse md:flex-row items-center md:items-start gap-4 md:gap-0">
@@ -32,23 +66,52 @@ function Product() {
         </aside>
         <main className="px-5 sm:px-14  xl:px-28 border border-gray-300  space-y-14 flex flex-col items-center w-full">
           <ul className="w-full  text-xl flex justify-between overflow-x-auto ">
-            <li className="cursor-pointer select-none p-3 border-b-2 border-primary shadow-md flex-shrink-0">
+            <li
+              onClick={(e) => {
+                handleClickCategory(e, '');
+              }}
+              className="cursor-pointer select-none p-3 border-b-2 shadow-md flex-shrink-0"
+            >
+              All
+            </li>
+            <li
+              onClick={(e) => {
+                handleClickCategory(e, 'fav');
+              }}
+              className="cursor-pointer select-none p-3 border-b-2 shadow-md flex-shrink-0"
+            >
               Favorite & Promo
             </li>
-            <li className="cursor-pointer p-3 border-b-2 border-primary shadow-md flex-shrink-0">Coffee</li>
-            <li className="cursor-pointer p-3 border-b-2 border-primary shadow-md flex-shrink-0">Non Coffee</li>
-            <li className="cursor-pointer p-3 border-b-2 border-primary shadow-md flex-shrink-0">Foods</li>
-            <li className="cursor-pointer p-3 border-b-2 border-primary shadow-md flex-shrink-0">Add-On</li>
+            <li
+              onClick={(e) => {
+                handleClickCategory(e, 'Coffe');
+              }}
+              className="cursor-pointer p-3 border-b-2 shadow-md flex-shrink-0"
+            >
+              Coffee
+            </li>
+            <li
+              onClick={(e) => {
+                handleClickCategory(e, 'non');
+              }}
+              className="cursor-pointer p-3 border-b-2 shadow-md flex-shrink-0"
+            >
+              Non Coffee
+            </li>
+            <li
+              onClick={(e) => {
+                handleClickCategory(e, 'food');
+              }}
+              className="cursor-pointer p-3 border-b-2 shadow-md flex-shrink-0"
+            >
+              Foods
+            </li>
           </ul>
           <section className="w-full  flex flex-wrap justify-around sm:grid  sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center">
-            <CardProduct title={'Mocca Chino'} price={'23.000'} promo={'20'} />
-            <CardProduct title={'Mocca Chino'} price={'23.000'} />
-            <CardProduct title={'Mocca Chino'} price={'23.000'} />
-            <CardProduct title={'Mocca Chino'} price={'23.000'} />
-            <CardProduct title={'Mocca Chino'} price={'23.000'} />
-            <CardProduct title={'Mocca Chino'} price={'23.000'} />
-            <CardProduct title={'Mocca Chino'} price={'23.000'} />
-            <CardProduct title={'Mocca Chino'} price={'23.000'} />
+            {product &&
+              product.map((p) => {
+                return <CardProduct key={p.id} id={p.id} title={p.name} price={p.price} image={p.image_url} />;
+              })}
           </section>
 
           <p className="w-full ">*the price has been cutted by discount appears</p>

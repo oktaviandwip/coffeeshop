@@ -5,6 +5,7 @@ import (
 	"strconv"
 
 	"github.com/Roisfaozi/black-coffee-collaborations/config"
+	"github.com/Roisfaozi/black-coffee-collaborations/internal/models/products"
 	models "github.com/Roisfaozi/black-coffee-collaborations/internal/models/products"
 	"github.com/Roisfaozi/black-coffee-collaborations/internal/repository"
 	"github.com/Roisfaozi/black-coffee-collaborations/pkg"
@@ -44,14 +45,14 @@ func (h *HandlerProducts) GetProductsBy(ctx *gin.Context) {
 }
 
 func (h *HandlerProducts) PostProduct(ctx *gin.Context) {
-	product := models.Product{}
+	product := products.Products{}
 
 	if err := ctx.ShouldBind(&product); err != nil {
 		ctx.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
 
-	product.Image_url = ctx.MustGet("image").(string)
+	product.ImageUrl = ctx.MustGet("image").(string)
 	result, err := h.CreateProd(&product)
 	if err != nil {
 		ctx.AbortWithError(http.StatusInternalServerError, err)
