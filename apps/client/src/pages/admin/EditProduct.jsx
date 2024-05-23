@@ -53,6 +53,24 @@ function EditProduct() {
       });
   };
 
+  const handleDelete = async () => {
+    const confirmed = window.confirm('Apakah Anda yakin ingin menghapus product ini?');
+
+    if (confirmed) {
+      api
+        .delete(`product/${id}`)
+        .then((res) => {
+          console.log(res);
+          alert(res.data.description);
+
+          Navigate('/');
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
   const [product, setProduct] = useState(null);
 
   const getDetailProduct = async (e) => {
@@ -191,7 +209,11 @@ function EditProduct() {
             </div>
           </div>
           <div className="flex justify-between gap-5">
-            <button type="button" className="bg-red-500 w-full rounded-xl py-5 text-xl font-bold">
+            <button
+              type="button"
+              onClick={() => handleDelete()}
+              className="bg-red-500 w-full rounded-xl py-5 text-xl font-bold"
+            >
               Delete
             </button>
             <button type="button" className="bg-third w-full rounded-xl py-5 text-xl font-bold">
