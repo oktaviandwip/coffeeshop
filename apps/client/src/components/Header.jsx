@@ -1,10 +1,9 @@
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import iconCoffee from '../../src/assets/icons/coffee 1.png';
-import imageUser from '../assets/images/Ellipse 175 (2).png';
-import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../src/store/reducer/user';
+import imageUser from '../assets/images/Ellipse 175 (2).png';
 
 export default function Header() {
   const { isAuthUser, isAuthAdmin } = useSelector((state) => state.users);
@@ -26,7 +25,6 @@ export default function Header() {
   }
 
   useEffect(() => {
-
     //styling navigasi link
     stylingNavbar();
   }, []);
@@ -45,17 +43,17 @@ export default function Header() {
             </a>
           </li>
           <li>
-            <a id="product" className="nav-link text-[#4F5665]" href="">
+            <a id="product" className="nav-link text-[#4F5665]" href="/product">
               Product
             </a>
           </li>
           <li>
-            <a id="your-cart" className="nav-link text-[#4F5665]" href="">
+            <a id="your-cart" className="nav-link text-[#4F5665]" href="/">
               Your Cart
             </a>
           </li>
           <li>
-            <a id="history" className="nav-link text-[#4F5665]" href="">
+            <a id="history" className="nav-link text-[#4F5665]" href="/">
               History
             </a>
           </li>
