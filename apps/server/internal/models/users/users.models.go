@@ -101,7 +101,7 @@ type Profile struct {
 	Gender        string                `db:"gender" form:"gender" json:"gender"`
 	Address       string                `db:"address" form:"address" json:"address"`
 	User_id       string                `db:"user_id" form:"user_id" json:"user_id"`
-	Birthday      string                `db:"birthday" form:"birthday" json:"birthday"`
+	Birthday      *time.Time            `db:"birthday" form:"birthday" json:"birthday"`
 
 	CreatedAt *time.Time `db:"created_at" json:"created_at"`
 	UpdatedAt *time.Time `db:"updated_at" json:"updated_at"`

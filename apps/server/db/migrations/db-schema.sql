@@ -15,11 +15,11 @@ CREATE TABLE profile
 (
   profile_id   uuid DEFAULT gen_random_uuid(),
   user_id      uuid NOT NULL,
-  first_name   VARCHAR,
-  last_name    VARCHAR,
-  display_name VARCHAR,
-  gender       VARCHAR,
-  address      VARCHAR,
+  first_name   VARCHAR default '',
+  last_name    VARCHAR default '',
+  display_name VARCHAR default '',
+  gender       VARCHAR default '',
+  address      VARCHAR default '',
   birthday     DATE,
   photo_profile TEXT default '',
   created_at TIMESTAMP without time zone not null DEFAULT NOW(),
@@ -30,6 +30,7 @@ CREATE TABLE profile
         ON DELETE CASCADE
 );
 
+drop table profile;
 
 CREATE TABLE product
 (
@@ -166,3 +167,5 @@ FROM
 WHERE
   c.user_id = 'aabc969d-7e5e-4ea1-9105-35f4da186e50'
   AND ci.ordered = TRUE;
+
+SELECT photo_profile, address, display_name, first_name, last_name, gender, birthday FROM profile WHERE user_id = '46350b58-54a3-4a67-a366-a5ee0b7c8266';
