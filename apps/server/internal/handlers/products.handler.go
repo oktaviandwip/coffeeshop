@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"github.com/asaskevich/govalidator"
 	"log"
 	"net/http"
 	"strconv"
@@ -18,6 +19,36 @@ type HandlerProduct struct {
 
 func NewProduct(r repository.RepoProductIF) *HandlerProduct {
 	return &HandlerProduct{r}
+}
+
+func (ph HandlerProduct) PostProduct(c *gin.Context) {
+	var productReq products.ProductsRequest
+	if err := c.ShouldBind(&productReq); err != nil {
+		pkg.NewRes(http.StatusBadRequest, &config.Result{
+			Data:    nil,
+			Message: err.Error(),
+		}).Send(c)
+		return
+	}
+
+	_, err := govalidator.ValidateStruct(&productReq)
+	if err != nil {
+		log.Println(err)
+		pkg.NewRes(http.StatusBadRequest, &config.Result{Data: err.Error()}).Send(c)
+		return
+	}
+
+	productReq.ImageUrl = c.MustGet("productImage").(string)
+	productRes, err := ph.CreateProduct(c.Request.Context(), &productReq)
+	if err != nil {
+		log.Println(err)
+		pkg.NewRes(http.StatusInternalServerError, &config.Result{
+			Data:    nil,
+			Message: err.Error(),
+		}).Send(c)
+		return
+	}
+	pkg.NewRes(http.StatusCreated, productRes).Send(c)
 }
 
 func (ph *HandlerProduct) GetAllProducts(c *gin.Context) {

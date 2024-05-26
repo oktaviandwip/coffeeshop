@@ -15,6 +15,7 @@ import (
 )
 
 type RepoProductIF interface {
+	CreateProduct(ctx context.Context, product *products.ProductsRequest) (*config.Result, error)
 	UpdateProduct(ctx context.Context, productID string, product *products.ProductsRequest, size_id string) (*config.Result, error)
 	DeleteProduct(ctx context.Context, productID string) (*config.Result, error)
 	ReadAllProducts(ctx context.Context, foodType string, page, limit int) (*config.Result, error)
@@ -38,6 +39,85 @@ type RepoProducts struct {
 
 func NewPruduct(db *sqlx.DB) *RepoProducts {
 	return &RepoProducts{db}
+}
+
+func (pr *RepoProduct) CreateProduct(ctx context.Context, product *products.ProductsRequest) (*config.Result, error) {
+	tx, err := pr.BeginTxx(ctx, nil)
+	if err != nil {
+		return nil, err
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			_ = tx.Rollback()
+		}
+	}()
+
+	query := `INSERT INTO product (name, is_available, description, image_url, category, delivery_start, delivery_end)
+			  VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`
+	var productID string
+	err = tx.QueryRowContext(ctx, query, product.Name, product.IsAvailable, product.Description, product.ImageUrl, product.Category, product.DeliveryStart, product.DeliveryEnd).Scan(&productID)
+	if err != nil {
+		_ = tx.Rollback()
+		return nil, err
+	}
+	var sizeIDs []string
+	rows, err := tx.QueryContext(ctx, "SELECT id FROM size")
+	if err != nil {
+		_ = tx.Rollback()
+		return nil, err
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var sizeID string
+		if err := rows.Scan(&sizeID); err != nil {
+			_ = tx.Rollback()
+			return nil, err
+		}
+		sizeIDs = append(sizeIDs, sizeID)
+	}
+
+	for _, sizeID := range sizeIDs {
+		_, err = tx.ExecContext(ctx, "INSERT INTO product_size (product_id, size_id, price) VALUES ($1, $2, $3)", productID, sizeID, product.Price)
+		if err != nil {
+			_ = tx.Rollback()
+			return nil, err
+		}
+	}
+
+	//SCan Delivery
+	var deliveryMethod []string
+	rows, err = tx.QueryContext(ctx, "SELECT id FROM delivery_method")
+	if err != nil {
+		_ = tx.Rollback()
+		return nil, err
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var deliveryID string
+		if err := rows.Scan(&deliveryID); err != nil {
+			_ = tx.Rollback()
+			return nil, err
+		}
+		deliveryMethod = append(deliveryMethod, deliveryID)
+	}
+
+	for _, deliveryID := range deliveryMethod {
+		_, err = tx.ExecContext(ctx, "INSERT INTO product_delivery (product_id, method_id) VALUES ($1, $2)", productID, deliveryID)
+		if err != nil {
+			_ = tx.Rollback()
+			return nil, err
+		}
+	}
+
+	err = tx.Commit()
+	if err != nil {
+		return nil, err
+	}
+
+	return &config.Result{
+		Data:    &products.PostProductResponseData{Id: productID},
+		Message: "Product created successfully",
+	}, nil
 }
 
 func (pr *RepoProduct) ReadAllProducts(ctx context.Context, foodType string, page, limit int) (*config.Result, error) {
@@ -261,13 +341,18 @@ func (pr *RepoProduct) DeleteProduct(ctx context.Context, productID string) (*co
 		}
 	}()
 
-	_, err = tx.ExecContext(ctx, "DELETE FROM product WHERE id=$1", productID)
+	_, err = tx.ExecContext(ctx, "DELETE FROM product_size WHERE product_id= $1", productID)
+	if err != nil {
+		_ = tx.Rollback()
+		return nil, err
+	}
+	_, err = tx.ExecContext(ctx, "DELETE FROM product_delivery WHERE product_id= $1", productID)
 	if err != nil {
 		_ = tx.Rollback()
 		return nil, err
 	}
 
-	_, err = tx.ExecContext(ctx, "DELETE FROM product_size WHERE product_id=$1", productID)
+	_, err = tx.ExecContext(ctx, "DELETE FROM product WHERE id= $1", productID)
 	if err != nil {
 		_ = tx.Rollback()
 		return nil, err
