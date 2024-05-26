@@ -4,7 +4,7 @@ const userSlice = createSlice({
   name: 'users',
   initialState: {
     isAuthUser: false,
-    isAuthAdmin: false,
+    isAuthAdmin: true,
     token: '',
     userId: '',
   },

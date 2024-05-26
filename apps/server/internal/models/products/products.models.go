@@ -45,7 +45,7 @@ type ProductsRequest struct {
 	IsAvailable bool     `json:"is_available" form:"is_available" db:"is_available"`
 	Category    string   `json:"category,omitempty" form:"category,omitempty" db:"category,omitempty"`
 	ImageUrl    string   `json:"image_url,omitempty" form:"image_url,omitempty" db:"image_url,omitempty"`
-	SizeIDs     []string `json:"size_ids,omitempty"`
+	SizeIDs     []string `json:"size_ids,omitempty" form:"size_ids,omitempty"`
 }
 
 type ProductResponse struct {

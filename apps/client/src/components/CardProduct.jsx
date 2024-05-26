@@ -1,11 +1,17 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 export default function CardProduct({ id, title, image, price, promo }) {
   let navigate = useNavigate();
+  // gatau kenapa isAuthAdmin nya ga ke deteksi
+  const { isAuth } = useSelector((s) => s.users);
+  console.log(isAuth);
+  const t = true;
   return (
     <div
-      onClick={() => navigate(`/detail-product/${id}`)}
+      onClick={() => navigate(`${isAuth ? '/edit-product' : '/detail-product'}/${id}`)}
       className="relative w-[156px] h-[253px] text-center shadow-xl rounded-xl p-3 flex flex-col items-center justify-between"
     >
       <div className="">
