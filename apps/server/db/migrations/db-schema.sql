@@ -90,10 +90,14 @@ CREATE TABLE cart_item
 );
 
 
+delete from cart where user_id = 'fed68249-420a-4e4c-b3cc-87ec1738ee5f';
+
+
 CREATE TABLE cart_order
 (
   order_id          uuid           NULL     DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id           uuid REFERENCES users (user_id),
+  delivery_method_id uuid REFERENCES delivery_method (id),
   payment_method_id uuid REFERENCES payment_method (id),
   total_price       INTEGER, -- SubTotal
   taxes             DECIMAL(10, 2) NOT NULL DEFAULT 0,
@@ -104,7 +108,7 @@ CREATE TABLE cart_order
   created_at        TIMESTAMP               DEFAULT CURRENT_TIMESTAMP,
   updated_at        TIMESTAMP               DEFAULT CURRENT_TIMESTAMP
 );
-
+DROP TABLE cart_order;
 -- SubTotal
 CREATE TABLE cart_order_items
 (
