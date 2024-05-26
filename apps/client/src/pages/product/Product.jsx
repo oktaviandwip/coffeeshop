@@ -1,10 +1,10 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import Promo from '../../components/Promo';
-import CardProduct from '../../components/CardProduct';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
-import axios from 'axios';
+import CardProduct from '../../components/CardProduct';
+import Footer from '../../components/Footer';
+import Header from '../../components/Header';
+import Promo from '../../components/Promo';
 import useApi from '../../utils/useApi';
 
 function Product() {
@@ -40,6 +40,7 @@ function Product() {
   console.log(product);
   return (
     <>
+      <Header />
       <section className="flex flex-col-reverse md:flex-row items-center md:items-start gap-4 md:gap-0">
         <aside className="w-4/5 lg:w-[628px] md:border shadow-xl border-gray-300 px-5 py-5 flex flex-col items-center gap-y-14">
           <section className="text-center w-[60%]">
@@ -117,6 +118,7 @@ function Product() {
           <p className="w-full ">*the price has been cutted by discount appears</p>
         </main>
       </section>
+      <Footer />
     </>
   );
 }
