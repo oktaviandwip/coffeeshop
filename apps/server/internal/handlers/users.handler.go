@@ -59,6 +59,7 @@ func (h *HandlerUsers) CreateNewUser(ctx *gin.Context) {
 
 // Get Profile
 func (h *HandlerUsers) GetProfile(ctx *gin.Context) {
+
 	id := ctx.Param("id")
 
 	result, err := h.FetchProfile(id)
@@ -75,7 +76,7 @@ func (h *HandlerUsers) GetProfile(ctx *gin.Context) {
 // Update Profile
 func (h *HandlerUsers) PostProfile(ctx *gin.Context) {
 	var err error
-	id := ctx.Param("id")
+	id := ctx.MustGet("userId").(string)
 
 	profile := models.Profile{}
 	user := models.UserData{

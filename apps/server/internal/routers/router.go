@@ -33,7 +33,7 @@ func New(db *sqlx.DB) *gin.Engine {
 	users(router, db)
 	products(router, db)
 
-	user(router, db)
+
 	favorite(router, db)
 
 	cart(router, db)
