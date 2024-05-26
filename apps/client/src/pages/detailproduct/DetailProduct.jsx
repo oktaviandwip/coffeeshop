@@ -22,6 +22,8 @@ function DetailProduct() {
   const minusQuantity = () => {
     setQuantity((quantity -= 1));
   };
+  // state ini digunakan untuk menyimpan price sesuai size ketika radio button size diklik
+  const [priceSize, setPriceSize] = useState();
 
   const [product, setProduct] = useState(null);
 
@@ -82,10 +84,7 @@ function DetailProduct() {
         </section>
         <section className="text-lg space-y-8 px-4 md:w-3/5">
           <h1 className="text-5xl text-primary font-bold mt-4 lg:mt-8">{product && product.name}</h1>
-          <p className="text-3xl font-bold text-black">IDR{product && product.price}</p>
-          {/* <p className="text-4xl font-bold text-black">{`IDR ${
-              product[0] ? parseInt(product[0].price) * quantity * 1000 : ""
-            }`}</p> */}
+          <p className="text-3xl font-bold text-black">IDR {priceSize ? priceSize : product && product.price}</p>
           <p>{product && product.description}</p>
           <p>
             Delivery only on <span className="text-primary font-bold">Monday to friday</span> at{' '}
@@ -117,14 +116,22 @@ function DetailProduct() {
               </div>
             </div>
 
-            <div className="">
+            <ul className="">
               {product &&
                 product.productsizes.map((ps) => {
                   return (
-                    <InputRadio key={ps.size_id} name="size" value={ps.size_id} content={ps.name} color="secondary" />
+                    <li
+                      key={ps.size_id}
+                      onClick={() => {
+                        setPriceSize(ps.price);
+                      }}
+                      className="inline"
+                    >
+                      <InputRadio name="size" value={ps.size_id} content={ps.name} color="secondary" />
+                    </li>
                   );
                 })}
-            </div>
+            </ul>
           </div>
           <div className="md:hidden xl:w-4/5 lg:w-[90%] p-6 bg-white rounded-3xl mt-20 shadow-2xl border-2 font-poppins">
             <h3 className="font-bold text-2xl mb-4">Delivery and Time</h3>

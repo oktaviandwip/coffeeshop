@@ -45,6 +45,7 @@ type ProductsRequest struct {
 	ImageUrl       string   `json:"image_url,omitempty" form:"image_url,omitempty" db:"image_url,omitempty"`
 	SizeIDs        []string `json:"size_ids,omitempty"`
 	DeliveryMethod []string `json:"delivery_method,omitempty"`
+
 }
 
 type PostProductResponseData struct {

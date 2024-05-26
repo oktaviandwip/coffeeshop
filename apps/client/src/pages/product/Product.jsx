@@ -6,6 +6,7 @@ import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import Promo from '../../components/Promo';
 import useApi from '../../utils/useApi';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Product() {
   const api = useApi();
@@ -13,7 +14,6 @@ function Product() {
   const [product, setProduct] = useState(null);
   const [page, setPage] = useState(1);
   const [limit] = useState(10);
-
   const [category, setCategory] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
   const handleClickCategory = (e, category) => {

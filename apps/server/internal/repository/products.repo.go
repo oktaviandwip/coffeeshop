@@ -304,13 +304,21 @@ func (pr *RepoProduct) UpdateProduct(ctx context.Context, productID string, prod
 		_ = tx.Rollback()
 		return nil, err
 	}
+	fmt.Println(product.SizeIDs)
+	if len(product.SizeIDs) > 0 {
+		fmt.Println("yo")
 
-	if product.Price != 0 && size_id != "" {
-
-		_, err = tx.ExecContext(ctx, `UPDATE product_size SET price = $1 WHERE product_id = $2 and size_id = $3`, product.Price, productID, size_id)
+		_, err = tx.ExecContext(ctx, "DELETE FROM product_size WHERE product_id=$1", productID)
 		if err != nil {
 			_ = tx.Rollback()
 			return nil, err
+		}
+		for _, sizeID := range product.SizeIDs {
+			_, err = tx.ExecContext(ctx, "INSERT INTO product_size (product_id, size_id, price) VALUES ($1, $2, $3)", productID, sizeID, product.Price)
+			if err != nil {
+				_ = tx.Rollback()
+				return nil, err
+			}
 		}
 	}
 
