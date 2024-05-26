@@ -2,8 +2,7 @@ CREATE TABLE cart_order
 (
   order_id           uuid NULL     DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id            uuid REFERENCES users (user_id),
-  delivery_method_id uuid REFERENCES delivery_method (method_id),
-  payment_method_id  uuid REFERENCES payment_method (method_id),
+  payment_method_id  uuid REFERENCES payment_method (id),
   total_price        INTEGER, -- SubTotal
   taxes              DECIMAL(10, 2) NOT NULL DEFAULT 0,
   shipping           INTEGER,
