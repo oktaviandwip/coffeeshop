@@ -3,6 +3,7 @@ package handlers
 import (
 	"github.com/Roisfaozi/black-coffee-collaborations/internal/models/orders"
 	"github.com/Roisfaozi/black-coffee-collaborations/internal/repository"
+	"github.com/Roisfaozi/black-coffee-collaborations/pkg"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -33,8 +34,7 @@ func (oh *OrderHandlerImpl) CreateOrder(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-
-	c.JSON(http.StatusCreated, result)
+	pkg.NewRes(http.StatusCreated, result).Send(c)
 }
 
 func (oh *OrderHandlerImpl) GetOrderById(c *gin.Context) {
