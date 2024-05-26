@@ -1,12 +1,11 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import Button from '../../components/Button';
-import InputRadio from '../../components/InputRadio';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import TrashIcon from '../../assets/trash-icon.png';
-import useApi from '../../utils/useApi';
-import Header from '../../components/Header';
+import Button from '../../components/Button';
 import Footer from '../../components/Footer';
+import Header from '../../components/Header';
+import InputRadio from '../../components/InputRadio';
+import useApi from '../../utils/useApi';
 
 function EditProduct() {
   const { id } = useParams();
@@ -34,7 +33,6 @@ function EditProduct() {
   function hiddenFormEdit() {
     setEditProduct(false);
   }
-  console.log(editProduct);
   const [userDataImage, setUserDataImage] = useState(null);
   const [data, setData] = useState();
 
@@ -55,8 +53,6 @@ function EditProduct() {
     console.log(userDataImage);
 
     for (const key in data) {
-      console.log(key);
-      console.log(data);
       formData.append(`${key}`, data[key]);
     }
     console.log(formData);
@@ -67,7 +63,6 @@ function EditProduct() {
       data: formData,
     })
       .then((res) => {
-        console.log(res);
         alert(res.data.description);
         Navigate('/');
       })
@@ -83,7 +78,6 @@ function EditProduct() {
       api
         .delete(`product/${id}`)
         .then((res) => {
-          console.log(res);
           alert(res.data.description);
 
           Navigate('/');
@@ -110,9 +104,10 @@ function EditProduct() {
     getDetailProduct();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(product);
   return (
     <>
+      <Header />
+
       {editProduct ? (
         <>
           <p className="container p-2 my-5">
@@ -348,7 +343,7 @@ function EditProduct() {
 
                 <ul className="">
                   {product &&
-                    product.productsizes.map((ps) => {
+                    product.product_sizes.map((ps) => {
                       return (
                         <li
                           key={ps.size_id}

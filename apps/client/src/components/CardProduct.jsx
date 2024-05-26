@@ -1,18 +1,14 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function CardProduct({ id, title, image, price, promo }) {
   let navigate = useNavigate();
 
-  // gatau kenapa isAuthAdmin nya ga ke deteksi
-  const { isAuth } = useSelector((s) => s.users);
-  console.log(isAuth);
-  const t = true;
+  const { isAuthAdmin } = useSelector((s) => s.users);
   return (
-    <div
-      onClick={() => navigate(`${isAuth ? '/edit-product' : '/detail-product'}/${id}`)}
+    <Link
+      to={isAuthAdmin ? `/product/${id}/edit` : `/product/${id}`}
       className="relative w-[156px] h-[253px] text-center shadow-xl rounded-xl p-3 flex flex-col items-center justify-between"
     >
       <div className="drop-shadow-none">
@@ -26,6 +22,6 @@ export default function CardProduct({ id, title, image, price, promo }) {
       </div>
       <h3 className="font-black text-[22px] leading-6 ">{title}</h3>
       <p className="text-[#6A4029] text-lg font-bold">IDR {price}</p>
-    </div>
+    </Link>
   );
 }

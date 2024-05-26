@@ -8,7 +8,7 @@ import Login from '../pages/auth/Login';
 import SignUp from '../pages/auth/SignUp';
 import Home from '../pages/home/Home';
 import Profile from '../pages/profile/Profile';
-import PrivateRoute from './privateRoute.js';
+import PrivateRoute, { PrivateRouteAdmin } from './privateRoute.js';
 
 export default createBrowserRouter([
   {
@@ -37,14 +37,10 @@ export default createBrowserRouter([
   },
   {
     path: '/product',
-    element: (
-      <PrivateRoute>
-        <Product />
-      </PrivateRoute>
-    ),
+    element: <Product />,
   },
   {
-    path: '/detail-product/:id',
+    path: '/product/:id',
     element: (
       <PrivateRoute>
         <DetailProduct />
@@ -52,11 +48,11 @@ export default createBrowserRouter([
     ),
   },
   {
-    path: '/edit-product/:id',
+    path: '/product/:id/edit',
     element: (
-      <PrivateRoute>
+      <PrivateRouteAdmin>
         <EditProduct />
-      </PrivateRoute>
+      </PrivateRouteAdmin>
     ),
   },
 ]);

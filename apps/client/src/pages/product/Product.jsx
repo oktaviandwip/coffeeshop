@@ -6,7 +6,6 @@ import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import Promo from '../../components/Promo';
 import useApi from '../../utils/useApi';
-import { useDispatch, useSelector } from 'react-redux';
 
 function Product() {
   const api = useApi();
@@ -40,14 +39,13 @@ function Product() {
     getProduct();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, page]);
-  console.log(product);
   return (
     <>
       <Header />
       <section className="flex flex-col-reverse md:flex-row items-center md:items-start gap-4 md:gap-0">
         <Sidebar />
         <main className="px-5 sm:px-14  xl:px-28 border border-gray-300  space-y-14 flex flex-col items-center w-full">
-          <ul className="w-full  text-xl flex justify-between overflow-x-auto ">
+          <ul className="w-full text-xl flex justify-between overflow-x-auto ">
             <li
               onClick={(e) => {
                 handleClickCategory(e, '');

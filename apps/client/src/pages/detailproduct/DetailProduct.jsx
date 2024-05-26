@@ -1,12 +1,10 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Button from '../../components/Button';
-import InputRadio from '../../components/InputRadio';
-import ProductBanner from '../../assets/product-image.png';
-import useApi from '../../utils/useApi';
-import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import Header from '../../components/Header';
+import InputRadio from '../../components/InputRadio';
+import useApi from '../../utils/useApi';
 
 function DetailProduct() {
   const { id } = useParams();
@@ -41,9 +39,10 @@ function DetailProduct() {
     getDetailProduct();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(product);
   return (
     <>
+      <Header />
+
       <p className="container p-2 my-5">
         Favorite & Promo {'>'} <span className="text-primary font-bold">{product && product.name}</span>
       </p>
@@ -118,7 +117,7 @@ function DetailProduct() {
 
             <ul className="">
               {product &&
-                product.productsizes.map((ps) => {
+                product.product_sizes.map((ps) => {
                   return (
                     <li
                       key={ps.size_id}

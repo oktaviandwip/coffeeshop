@@ -9,14 +9,12 @@ import photoProfile from '../../assets/photo-profile.png';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import { logout } from '../../store/reducer/user';
-
 function Profile() {
-  const { isAuthUser } = useSelector((state) => state.users);
   const [data, setData] = useState({});
   const [formattedDate, setFormattedDate] = useState('');
   const [photoInputKey, setPhotoInputKey] = useState(Date.now()); // to reset file input
   const [isLoading, setIsLoading] = useState(false);
-  const { userId, token } = useSelector((state) => state.users);
+  const { userId, token, isAuthUser } = useSelector((state) => state.users);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

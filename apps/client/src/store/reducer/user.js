@@ -4,7 +4,7 @@ const userSlice = createSlice({
   name: 'users',
   initialState: {
     isAuthUser: false,
-    isAuthAdmin: true,
+    isAuthAdmin: false,
     token: '',
     userId: '',
   },
@@ -21,7 +21,8 @@ const userSlice = createSlice({
       return {
         ...state,
         isAuthAdmin: true,
-        token: actions.payload,
+        token: actions.payload.token,
+        userId: actions.payload.user_id,
       };
     },
     logout(state, actions) {
