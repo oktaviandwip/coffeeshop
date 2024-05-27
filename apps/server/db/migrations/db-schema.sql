@@ -192,3 +192,14 @@ WHERE c.user_id = 'aabc969d-7e5e-4ea1-9105-35f4da186e50'
 SELECT photo_profile, address, display_name, first_name, last_name, gender, birthday
 FROM profile
 WHERE user_id = '46350b58-54a3-4a67-a366-a5ee0b7c8266';
+
+select * from cart_order where order_id = 'f7afda74-6bc1-49ed-8f33-84d9b585a8f3';
+
+select total_price, created_at from cart_order where user_id = 'fed68249-420a-4e4c-b3cc-87ec1738ee5f';
+
+SELECT
+  SUM(total_price) AS total_price_sum
+FROM
+  cart_order
+WHERE
+  created_at >= NOW() - INTERVAL '1 WEEK';
