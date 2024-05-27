@@ -20,8 +20,8 @@ func (h *HandlerAttributeProd) GetDeliveryProduct(ctx *gin.Context) {
 
 	result, err := h.FetchDeliveryProduct(productID)
 	if err != nil {
-		pkg.NewRes(401, &config.Result{
-			Data: err.Error(),
+		pkg.NewRes(404, &config.Result{
+			Message: "delivery not found",
 		}).Send(ctx)
 		return
 	}
