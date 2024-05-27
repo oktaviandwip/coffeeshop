@@ -2,7 +2,7 @@ package products
 
 type Size struct {
 	Id   string `json:"id,omitempty"`
-	Name string `json:"name,omitempty"`
+	Name string `json:"size_name,omitempty" db:"size_name,omitempty"`
 }
 type ProductSize struct {
 	Id_size    string `json:"size_id,omitempty" db:"size_id,omitempty"`
@@ -45,7 +45,6 @@ type ProductsRequest struct {
 	ImageUrl       string   `json:"image_url,omitempty" form:"image_url,omitempty" db:"image_url,omitempty"`
 	SizeIDs        []string `json:"size_ids,omitempty"`
 	DeliveryMethod []string `json:"delivery_method,omitempty"`
-
 }
 
 type PostProductResponseData struct {
@@ -61,3 +60,6 @@ type ProductDelivery struct {
 	ProductId string `json:"product_id,omitempty" form:"product_id,omitempty"  db:"product_id,omitempty"`
 	MethodId  string `json:"method_id,omitempty" form:"method_id,omitempty"  db:"method_id,omitempty"`
 }
+
+type Sizes []Size
+type Deliveries []DeliveryMethod
