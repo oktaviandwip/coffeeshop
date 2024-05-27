@@ -4,6 +4,6 @@ CREATE TABLE size
   size_name VARCHAR
 );
 INSERT INTO size (size_name)
-VALUES ('Small'),
-       ('Medium'),
-       ('Large');
+VALUES ('R'),
+       ('L'),
+       ('XL');

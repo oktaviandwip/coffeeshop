@@ -12,7 +12,7 @@ import (
 )
 
 type CartRepository interface {
-	CreateCart(ctx context.Context, cart *cart.CartRequest) (*config.Result, error)
+	CreateCart(ctx context.Context, userId string) (*config.Result, error)
 	GetCartByUserId(ctx context.Context, userId string) (*config.Result, error)
 	CreateCartItem(ctx context.Context, cartId string, item *cart.CartItemRequest) (*config.Result, error)
 }
@@ -25,7 +25,7 @@ func NewCartRepo(db *sqlx.DB) *CartRepo {
 	return &CartRepo{db: db}
 }
 
-func (c *CartRepo) CreateCart(ctx context.Context, cartReq *cart.CartRequest) (*config.Result, error) {
+func (c *CartRepo) CreateCart(ctx context.Context, userId string) (*config.Result, error) {
 	// Check if cart already exists for the user
 	var cartId string
 	checkQuery := `
@@ -33,7 +33,7 @@ func (c *CartRepo) CreateCart(ctx context.Context, cartReq *cart.CartRequest) (*
     FROM cart 
     WHERE user_id = $1`
 
-	err := c.db.QueryRowxContext(ctx, checkQuery, cartReq.UserID).Scan(&cartId)
+	err := c.db.QueryRowxContext(ctx, checkQuery, userId).Scan(userId)
 	if err != nil && err != sql.ErrNoRows {
 		return nil, err
 	}
@@ -48,7 +48,7 @@ func (c *CartRepo) CreateCart(ctx context.Context, cartReq *cart.CartRequest) (*
     RETURNING id, user_id, created_at, updated_at`
 
 	var cart cart.Cart
-	err = c.db.QueryRowxContext(ctx, query, cartReq.UserID).Scan(&cart.ID, &cart.UserID, &cart.CreatedAt, &cart.UpdatedAt)
+	err = c.db.QueryRowxContext(ctx, query, userId).Scan(&cart.ID, &cart.UserID, &cart.CreatedAt, &cart.UpdatedAt)
 	if err != nil {
 		return nil, err
 	}

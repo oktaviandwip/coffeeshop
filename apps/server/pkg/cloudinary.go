@@ -2,6 +2,7 @@ package pkg
 
 import (
 	"context"
+	"fmt"
 	"os"
 
 	"github.com/cloudinary/cloudinary-go/v2"
@@ -19,6 +20,7 @@ func CloudInary(file interface{}) (string, error) {
 	if err != nil {
 		return "", err
 	}
-
+	fmt.Println(result.URL)
+	fmt.Println("url")
 	return result.URL, nil
 }

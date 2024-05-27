@@ -33,3 +33,27 @@
 .inputNumber {
   -moz-appearance: textfield;
 }
+
+.size-r:checked ~ .r {
+  @apply bg-primary text-secondary;
+}
+
+.size-l:checked ~ .l {
+  @apply bg-primary text-secondary;
+}
+
+.size-xl:checked ~ .xl {
+  @apply bg-primary text-secondary;
+}
+
+.d-dine-in:checked ~ .dine-in {
+  @apply bg-primary text-secondary;
+}
+
+.d-take-away:checked ~ .take-away {
+  @apply bg-primary text-secondary;
+}
+
+.d-home-delivery:checked ~ .home-delivery {
+  @apply bg-primary text-secondary;
+}

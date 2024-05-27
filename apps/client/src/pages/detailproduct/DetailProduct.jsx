@@ -1,13 +1,16 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Button from '../../components/Button';
-import InputRadio from '../../components/InputRadio';
-import ProductBanner from '../../assets/product-image.png';
-import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import Header from '../../components/Header';
+import InputRadio from '../../components/InputRadio';
+import useApi from '../../utils/useApi';
 
 function DetailProduct() {
+  const { id } = useParams();
   let [quantity, setQuantity] = useState(1);
+  const api = useApi();
+
   const handleQuantity = (event) => {
     setQuantity(event.target.value);
   };
@@ -17,16 +20,38 @@ function DetailProduct() {
   const minusQuantity = () => {
     setQuantity((quantity -= 1));
   };
+  // state ini digunakan untuk menyimpan price sesuai size ketika radio button size diklik
+  const [priceSize, setPriceSize] = useState();
 
+  const [product, setProduct] = useState(null);
+
+  const getDetailProduct = async (e) => {
+    await api
+      .get(`/product/${id}`)
+      .then(({ data }) => {
+        setProduct(data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    getDetailProduct();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <>
       <Header />
-      <p className="container p-2 my-10">
-        Favorite & Promo {'>'} <span className="text-primary font-bold">Cold Brew</span>
+
+      <p className="container p-2 my-5">
+        Favorite & Promo {'>'} <span className="text-primary font-bold">{product && product.name}</span>
       </p>
       <main className="md:flex container pb-20">
         <section className="md:w-2/5 px-4 flex flex-col items-center">
-          <img src={ProductBanner} className="rounded-full shadow-xl w-[200px] h-[200px] lg:w-[310px] lg:h-[310px]" />
+          <img
+            src={product && product.image_url}
+            className="rounded-full shadow-xl w-[200px] h-[200px] lg:w-[310px] lg:h-[310px]"
+          />
 
           <div className="hidden md:block xl:w-4/5 lg:w-[90%] p-6 bg-white rounded-3xl mt-20 shadow-2xl border-2 font-poppins">
             <h3 className="font-bold text-2xl mb-4">Delivery and Time</h3>
@@ -57,15 +82,9 @@ function DetailProduct() {
           </div>
         </section>
         <section className="text-lg space-y-8 px-4 md:w-3/5">
-          <h1 className="text-5xl text-primary font-bold mt-4 lg:mt-8">Coffe Latte</h1>
-          <p className="text-3xl font-bold text-black">{`IDR 20.200`}</p>
-          {/* <p className="text-4xl font-bold text-black">{`IDR ${
-              product[0] ? parseInt(product[0].price) * quantity * 1000 : ""
-            }`}</p> */}
-          <p>
-            Cold brewing is a method of brewing that combines ground coffee and cool water and uses time instead of heat
-            to extract the flavor. It is brewed in small batches and steeped for as long as 48 hours.
-          </p>
+          <h1 className="text-5xl text-primary font-bold mt-4 lg:mt-8">{product && product.name}</h1>
+          <p className="text-3xl font-bold text-black">IDR {priceSize ? priceSize : product && product.price}</p>
+          <p>{product && product.description}</p>
           <p>
             Delivery only on <span className="text-primary font-bold">Monday to friday</span> at{' '}
             <span className="text-primary font-bold">1 - 7 pm</span>
@@ -96,18 +115,29 @@ function DetailProduct() {
               </div>
             </div>
 
-            <div className="">
-              <InputRadio name="size" value="regular" content="R" color="secondary" />
-              <InputRadio name="size" value="large" content="L" color="secondary" />
-              <InputRadio name="size" value="xtra-large" content="XL" color="secondary" />
-            </div>
+            <ul className="">
+              {product &&
+                product.product_sizes.map((ps) => {
+                  return (
+                    <li
+                      key={ps.size_id}
+                      onClick={() => {
+                        setPriceSize(ps.price);
+                      }}
+                      className="inline"
+                    >
+                      <InputRadio name="size" value={ps.size_id} content={ps.name} color="secondary" />
+                    </li>
+                  );
+                })}
+            </ul>
           </div>
           <div className="md:hidden xl:w-4/5 lg:w-[90%] p-6 bg-white rounded-3xl mt-20 shadow-2xl border-2 font-poppins">
             <h3 className="font-bold text-2xl mb-4">Delivery and Time</h3>
             <div className="flex gap-3 flex-wrap">
               <InputRadio name="delivery" value="dive in" content="dive-in" />
-              <InputRadio name="delivery" value="yo" content="dive-in" />
-              <InputRadio name="delivery" value="ye" content="dive-in" />
+              <InputRadio name="delivery" value="door delivery" content="door delivery" />
+              <InputRadio name="delivery" value="pickup" content="pickup" />
             </div>
             <div className="flex mt-4 space-x-12">
               <p className="text-base self-center">Now</p>

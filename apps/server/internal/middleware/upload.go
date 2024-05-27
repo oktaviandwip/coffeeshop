@@ -19,7 +19,7 @@ func UploadFile(ctx *gin.Context) {
 		}
 	}
 
-	productFile, err := ctx.FormFile("photo_product")
+	productFile, err := ctx.FormFile("image_banner")
 	if err != nil {
 		if err.Error() == "http: no such file" {
 			ctx.Set("productImage", "")

@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import iconCoffee from '../../assets/icons/coffee 1.png';
 import iconGoogle from '../../assets/icons/google-logo-png-suite-everything-you-need-know-about-google-newest-0 2.png';
 import FooterSign from '../../components/FooterSign';
 import useApi from '../../utils/useApi';
-import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
   const api = useApi();
@@ -129,7 +128,7 @@ function SignUp() {
                 <input
                   className="text-[20px] border border-[#4F5665] rounded-[20px] py-5 px-5 focus:outline-none focus:border-brown focus:ring-brown focus:ring-1 placeholder:text-[#9F9F9F] placeholder:text-[20px] placeholder:font-normal"
                   type="tel"
-                  name="phone"
+                  name="phone_number"
                   id="phone"
                   placeholder="Enter your phone number"
                   required

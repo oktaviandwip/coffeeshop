@@ -1,11 +1,18 @@
 import { createBrowserRouter } from 'react-router-dom';
+
 import History from '../components/History';
+
+import EditProduct from '../pages/admin/EditProduct.jsx';
+import DetailProduct from '../pages/detailproduct/DetailProduct.jsx';
+import Product from '../pages/product/Product.jsx';
+
+
 import ForgotPassword from '../pages/auth/ForgotPassword';
 import Login from '../pages/auth/Login';
 import SignUp from '../pages/auth/SignUp';
-import DetailProduct from '../pages/detailproduct/DetailProduct';
 import Home from '../pages/home/Home';
 import Profile from '../pages/profile/Profile';
+import PrivateRoute, { PrivateRouteAdmin } from './privateRoute.js';
 
 export default createBrowserRouter([
   {
@@ -26,14 +33,34 @@ export default createBrowserRouter([
   },
   {
     path: '/profile',
-    element: <Profile />,
+    element: (
+      <PrivateRoute>
+        <Profile />
+      </PrivateRoute>
+    ),
   },
   {
+    path: '/product',
+    element: <Product />,
+  },
+  {
+    path: '/product/:id',
+    element: (
+      <PrivateRoute>
+        <DetailProduct />
+      </PrivateRoute>
+    ),
+  },
     path: '/history',
     element: <History />,
   },
   {
-    path: '/detail-product/:id',
-    element: <DetailProduct />,
+    path: '/product/:id/edit',
+    element: (
+      <PrivateRouteAdmin>
+        <EditProduct />
+      </PrivateRouteAdmin>
+    ),
+
   },
 ]);

@@ -1,13 +1,12 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import { jwtDecode } from 'jwt-decode';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import useApi from '../../utils/useApi';
-import { loginUser, loginAdmin } from '../../store/reducer/user';
 import iconCoffee from '../../assets/icons/coffee 1.png';
 import iconGoogle from '../../assets/icons/google-logo-png-suite-everything-you-need-know-about-google-newest-0 2.png';
 import FooterSign from '../../components/FooterSign';
-
+import { loginAdmin, loginUser } from '../../store/reducer/user';
+import useApi from '../../utils/useApi';
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -46,8 +45,9 @@ export default function Login() {
       .then(({ data }) => {
         setMessage('Login Berhasil');
         alertElm.classList.add('opacity-100');
+        const { token, role } = jwtDecode(data.data.token);
         setTimeout(() => {
-          if (data.role == 'admin') {
+          if (role == 'admin') {
             dispatch(loginAdmin(data.data));
           } else {
             dispatch(loginUser(data.data));
