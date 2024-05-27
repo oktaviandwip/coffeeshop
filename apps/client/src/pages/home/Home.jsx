@@ -19,23 +19,8 @@ import imageTeamWork from '../../assets/images/image-teamwork.png';
 import CarouselTestimoni from '../../components/CarouselTestimoni';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
-import useApi from '../../utils/useApi';
 
 export default function Home() {
-  const api = useApi();
-
-  useEffect(() => {
-    api({
-      method: 'GET',
-      url: '/products/query?page=1&limit=3',
-    })
-      .then((res) => {
-        setMenuFavorites(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   const dataMenu = [
     {
@@ -107,60 +92,60 @@ export default function Home() {
     <>
       <Header />
       {/* hero/jumbotron */}
-      <div className="relative w-screen bg-heroHome bg-cover bg-no-repeat flex flex-col px-40 pt-16 pb-52">
+      <div className="w-screen bg-heroHome bg-cover bg-no-repeat flex flex-col px-6 md:px-40 pt-16 pb-16 md:pb-52">
         <div className="text-white flex flex-col gap-y-5">
-          <h3 className="w-[45%]  text-[50px] font-bold">Start Your Day with Coffee and Good Meals</h3>
-          <p className="w-[44%]  text-[20px] font-bold">
+          <h3 className="w-full md:w-[45%] leading-snug text-3xl md:text-[50px] font-bold">Start Your Day with Coffee and Good Meals</h3>
+          <p className="w-full md:w-[44%]  md:text-[20px] font-semibold md:font-bold">
             We provide high quality beans, good taste, and healthy meals made by love just for you. Start your day with
             us for a bigger smile!
           </p>
           <a
-            className="w-fit p-5 px-10 bg-yellow text-brown text-base font-bold rounded-[10px] hover:bg-orange-400"
-            href=""
+            className="w-fit p-3 md:p-5 px-7 md:px-10 bg-yellow text-brown text-sm md:text-base font-bold rounded-md md:rounded-[10px] hover:bg-orange-400"
+            href="/product"
           >
             Get Started
           </a>
         </div>
-        {/* overlay */}
-        <div className="absolute -bottom-[15%] w-[80%] flex flex-row bg-white rounded-md h-[200px] shadow-2xl py-10">
-          <div className="flex gap-x-8 justify-center items-center w-1/3 border-r-4 border-[#EEEFF2]">
-            <div className="grid justify-center items-center w-[55px] h-[55px] bg-yellow rounded-full">
-              <img className="" src={iconPerson} alt="" />
-            </div>
-            <div className="flex flex-col w-fit">
-              <span className="text-[#0B132A] font-bold text-[25px]">90+</span>
-              <p className="text-[#4F5665] text-[20px]">Staff</p>
-            </div>
+      </div>
+      {/* overlay */}
+      <div className="w-full md:w-[80%] md:mx-auto flex flex-col gap-y-7 md:gap-y-0 md:flex-row bg-white rounded-md md:h-[200px] md:shadow-2xl px-6 md:px-0 py-10 md:-mt-[7%]">
+        <div className="flex gap-x-8 md:justify-center ps-[30%] md:ps-0 items-center md:w-1/3 rounded-md md:rounded-none shadow-md md:shadow-none p-10 md:border-r-4 border-[#EEEFF2]">
+          <div className="grid justify-center items-center w-[55px] h-[55px] bg-yellow rounded-full">
+            <img className="" src={iconPerson} alt="" />
           </div>
-          <div className="flex gap-x-8 justify-center items-center w-1/3">
-            <div className="grid justify-center items-center w-[55px] h-[55px] bg-yellow rounded-full">
-              <img className="" src={iconMap} alt="" />
-            </div>
-            <div className="flex flex-col w-fit">
-              <span className="text-[#0B132A] font-bold text-[25px]">30+</span>
-              <p className="text-[#4F5665] text-[20px]">Stores</p>
-            </div>
+          <div className="flex flex-col w-fit">
+            <span className="text-[#0B132A] font-bold text-[25px]">90+</span>
+            <p className="text-[#4F5665] text-[20px]">Staff</p>
           </div>
-          <div className="flex gap-x-8 justify-center items-center w-1/3 border-l-4 border-[#EEEFF2]">
-            <div className="grid justify-center items-center w-[55px] h-[55px] bg-yellow rounded-full">
-              <img className="" src={iconLove} alt="" />
-            </div>
-            <div className="flex flex-col w-fit">
-              <span className="text-[#0B132A] font-bold text-[25px]">800+</span>
-              <p className="text-[#4F5665] text-[20px]">Customers</p>
-            </div>
+        </div>
+        <div className="flex gap-x-8 md:justify-center ps-[30%] md:ps-0 items-center md:w-1/3 rounded-md md:rounded-none shadow-md md:shadow-none p-10">
+          <div className="grid justify-center items-center w-[55px] h-[55px] bg-yellow rounded-full">
+            <img className="" src={iconMap} alt="" />
+          </div>
+          <div className="flex flex-col w-fit">
+            <span className="text-[#0B132A] font-bold text-[25px]">30+</span>
+            <p className="text-[#4F5665] text-[20px]">Stores</p>
+          </div>
+        </div>
+        <div className="flex gap-x-8 md:justify-center ps-[30%] md:ps-0 items-center md:w-1/3 rounded-md md:rounded-none shadow-md md:shadow-none p-10 md:border-l-4 border-[#EEEFF2]">
+          <div className="grid justify-center items-center w-[55px] h-[55px] bg-yellow rounded-full">
+            <img className="" src={iconLove} alt="" />
+          </div>
+          <div className="flex flex-col w-fit">
+            <span className="text-[#0B132A] font-bold text-[25px]">800+</span>
+            <p className="text-[#4F5665] text-[20px]">Customers</p>
           </div>
         </div>
       </div>
-      <main className="relative font-rubik z-0">
+      <main className="relative font-rubik bg-[#fcfcfc] md:bg-transparent z-0">
         {/* We Provide Good Coffee and Healthy Meals */}
-        <section className="flex flex-row justify-between px-40 pt-56 pb-16">
-          <div className="w-[45%]">
+        <section className="flex flex-col flex-col-reverse gap-y-5 md:flex-row md:justify-between px-6 md:px-40 pt-5 md:pt-24 pb-5 md:pb-16">
+          <div className="w-full md:w-[45%]">
             <img src={imageTeamWork} alt="image" />
           </div>
-          <div className="w-[45%] flex flex-col gap-y-4 pt-8">
-            <h3 className="text-[#0B132A] font-[500] text-[35px]">We Provide Good Coffee and Healthy Meals</h3>
-            <p className="text-[#4F5665] text-base">
+          <div className="w-full md:w-[45%] flex flex-col gap-y-4 pt-8">
+            <h3 className="text-[#0B132A] font-[500] md:leading-normal text-2xl md:text-[35px]">We Provide Good Coffee and Healthy Meals</h3>
+            <p className="text-[#4F5665] md:leading-loose text-base">
               You can explore the menu that we provide with fun and have their own taste and make your day better.
             </p>
             <ul className="flex flex-col gap-y-4 text-[#4F5665] text-[14px]">
@@ -193,25 +178,25 @@ export default function Home() {
         </section>
 
         {/* Menu Favorites */}
-        <section className="bg-[#fcfcfc] flex flex-col gap-y-40 px-40 py-14">
-          <div className="flex flex-col items-center">
-            <h3 className="text-[#0B132A] text-[35px] font-[500]">Here is People&apos;s Favorite</h3>
+        <section className="bg-[#fcfcfc] flex flex-col md:gap-y-40 gap-y-20 md:px-40 px-6 py-7 md:py-14 overflow-x-hidden">
+          <div className="flex flex-col gap-y-3 md:items-center">
+            <h3 className="text-[#0B132A] md:text-[35px] text-2xl font-[500]">Here is People&apos;s Favorite</h3>
             <p className="text-[#4F5665] font-normal text-base">
               Let&apos;s choose and have a bit taste of poeple&apos;s favorite. It might be yours too!
             </p>
           </div>
-          <div className="flex flex-row justify-between mt-14">
+          <div className="flex md:flex-row flex-col gap-y-14 md:justify-between md:mt-14 mt-0">
             {menuFavorites &&
               menuFavorites.map((menu) => {
                 return (
                   <div
-                    className="relative w-[330px] h-[567px] flex flex-col items-center border-[#DDDDDD] border-2 bg-white rounded-md p-10 hover:border-brown"
+                    className="md:relative md:w-[330px] h-fit md:h-[567px] flex flex-col gap-y-3 items-center border-[#DDDDDD] border-2 bg-white rounded-md p-10 hover:border-brown"
                     key={menu.name}
                   >
-                    <div className="w-[128.98px] shadow-2xl rounded-full overflow-hidden -mt-28">
+                    <div className="w-[128.98px] shadow-2xl rounded-full overflow-hidden md:-mt-28 self-center">
                       <img className="" src={menu.image_url} alt={`image ${menu.name}`} />
                     </div>
-                    <p className="text-[#0B132A] font-[500] text-[18px] mt-4">{menu.name}</p>
+                    <p className="text-[#0B132A] font-[500] text-[18px] mt-4 self-center">{menu.name}</p>
                     <ul className="mt-8 flex flex-col gap-y-5">
                       <li className="flex flex-row gap-x-3 text-[#4F5665] text-[14px]">
                         <span className="text-[#2FAB73]">&#10003;</span>Sliced strawberry on Top
@@ -232,10 +217,10 @@ export default function Home() {
                         <span className="text-[#2FAB73]">&#10003;</span>Sliced strawberry on Top
                       </li>
                     </ul>
-                    <div className="absolute bottom-10 flex flex-col items-center gap-y-3">
-                      <span className="text-[#0B132A] text-[25px] font-[500]">IDR {menu.price}</span>
+                    <div className="md:absolute bottom-10 flex flex-col items-center gap-y-3 mt-5">
+                      <span className="text-[#0B132A] md:text-[25px] font-[500]">IDR {menu.price}</span>
                       <a
-                        className="border border-yellow py-2 px-8 rounded-[50px] text-[#6A4029] text-base font-bold hover:bg-yellow hover:shadow-2xl"
+                        className="border border-yellow py-2 px-8 rounded-[50px] text-[#6A4029] text-base md:font-bold hover:bg-yellow hover:shadow-2xl"
                         href={`/product/${menu.product_id}`}
                       >
                         Order Now
@@ -248,12 +233,12 @@ export default function Home() {
         </section>
 
         {/* Map */}
-        <section className="flex flex-col justify-center items-center gap-y-32 bg-[#fcfcfc] py-20">
-          <div className="flex flex-col justify-center items-center gap-y-5">
-            <h3 className="w-[55%] text-[#0B132A] font-[500] text-[35px] text-center">
+        <section className="flex flex-col md:justify-center items-center md:gap-y-32 gap-y-12 bg-[#fcfcfc] py-20 px-6 md:px-auto">
+          <div className="flex flex-col md:justify-center md:items-center gap-y-5">
+            <h3 className="md:w-[55%] text-[#0B132A] font-[500] md:text-[35px] text-2xl text-center">
               Visit Our Store in the Spot on the Map Below
             </h3>
-            <p className="w-3/4 text-center text-[#4F5665] font-normal text-base">
+            <p className="md:w-3/4 text-center text-[#4F5665] font-normal text-base">
               See our store in every city on the spot and spen your good day there. See you soon!
             </p>
           </div>
@@ -263,34 +248,34 @@ export default function Home() {
         </section>
 
         {/* Partner */}
-        <section className="flex flex-col justify-center items-center px-40 bg-[#fcfcfc]">
-          <p className="text-[35px] font-[500]">Our Partner</p>
-          <div className="flex flex-row justify-between items-center w-full">
-            <div className="h-fit grid justify-center items-center">
-              <img src={imageNetflix} alt="image netflix" />
+        <section className="flex flex-col justify-center items-center md:px-40 px-6 bg-[#fcfcfc]">
+          <p className="md:text-[35px] text-2xl font-[500]">Our Partner</p>
+          <div className="flex md:flex-row justify-between items-center w-full overflow-x-scroll md:overflow-x-hidden">
+            <div className="h-fit w-20 md:w-auto grid justify-center items-center">
+              <img className="w-full" src={imageNetflix} alt="image netflix" />
             </div>
-            <div className="h-fit grid justify-between items-center">
-              <img src={imageReddit} alt="image reddit" />
+            <div className="h-fit w-20 md:w-auto grid justify-between items-center">
+              <img className="w-full" src={imageReddit} alt="image reddit" />
             </div>
-            <div className="h-fit grid justify-between items-center">
-              <img src={imageAmazon} alt="image amazon" />
+            <div className="h-fit w-20 md:w-auto grid justify-between items-center">
+              <img className="w-full" src={imageAmazon} alt="image amazon" />
             </div>
-            <div className="h-fit grid justify-between items-center">
-              <img src={imageDiscord} alt="image discord" />
+            <div className="h-fit w-20 md:w-auto grid justify-between items-center">
+              <img className="w-full" src={imageDiscord} alt="image discord" />
             </div>
-            <div className="h-fit grid justify-between items-center">
-              <img src={imageSpotify} alt="image spotify" />
+            <div className="h-fit w-20 md:w-auto grid justify-between items-center">
+              <img className="w-full" src={imageSpotify} alt="image spotify" />
             </div>
           </div>
         </section>
 
         {/* Testimoni */}
-        <section className="bg-[#fcfcfc] px-40 pb-40">
+        <section className="bg-[#fcfcfc] md:px-40 px-6 md:pb-40 py-10">
           <div className="flex flex-col justify-center items-center gap-y-3">
-            <h3 className="w-[40%] text-[#0B132A] font-[500] text-[35px] text-center">
+            <h3 className="md:w-[40%] text-[#0B132A] font-[500] md:text-[35px] text-2xl text-center">
               Loved by Thousands of Happy Customer
             </h3>
-            <p className="w-[45%] text-[#4F5665] font-normal text-base text-center mb-10">
+            <p className="md:w-[45%] text-[#4F5665] font-normal text-base text-center mb-10">
               These are the stories of our customers who have visited us with great pleasure.
             </p>
           </div>
@@ -298,15 +283,15 @@ export default function Home() {
             {dataTestimoni &&
               dataTestimoni.map((d, i) => (
                 <div
-                  className="w-[400px] h-[230px] flex flex-col gap-y-5 border-2 bg-white border-[#DDDDDD] rounded-md p-8 overflow-y-hidden"
+                  className="md:w-[400px] w-[285px] md:h-[230px] flex flex-col gap-y-5 border-2 bg-white border-[#DDDDDD] rounded-md p-8 overflow-y-hidden"
                   key={i + 1}
                 >
-                  <div className="flex flex-row justify-between items-center">
-                    <div className="w-[50px] h-[50px] rounded-full">
+                  <div className="flex md:flex-row flex-col gap-y-2 md:justify-between md:items-center">
+                    <div className="md:w-[50px] md:h-[50px] rounded-full">
                       <img src={d.image} alt="image" />
                     </div>
                     <div className="w-[60%]">
-                      <p className="text-[#0B132A] text-[18px] font-[500]">{d.name}</p>
+                      <p className="text-[#0B132A] md:text-[18px] text-base font-[500]">{d.name}</p>
                       <span className="text-[#4F5665] text-[14px]">{d.address}</span>
                     </div>
                     <div className="flex flex-row gap-x-2">
@@ -325,12 +310,12 @@ export default function Home() {
         </section>
 
         {/* overflow check promo */}
-        <div className="absolute -bottom-28 left-40 w-[79%] flex flex-row justify-between items-center rounded-md shadow-2xl bg-white p-12 z-40">
-          <div className="flex flex-col">
-            <h4 className="w-[75%] text-[#0B132A] text-[35px] font-[500]">Check our promo today!</h4>
-            <p className="text-[#4F5665] font-normal text-base">Let&apos;s see the deals and pick yours!</p>
+        <div className="md:absolute -bottom-28 left-40 md:w-[79%] w-[90%] mx-auto flex md:flex-row flex-col gap-y-5 justify-between items-center rounded-md shadow-2xl bg-white p-12 z-40">
+          <div className="flex flex-col gap-y-2">
+            <h4 className="md:w-[75%] leading-normal text-[#0B132A] md:text-[35px] text-center md:text-left text-2xl font-[500]">Check our promo today!</h4>
+            <p className="text-[#4F5665] font-normal text-center md:text-left text-base">Let&apos;s see the deals and pick yours!</p>
           </div>
-          <a className="text-brown text-center text-base font-bold bg-yellow rounded-md shadow-2xl px-10 py-3" href="">
+          <a className="text-brown text-center md:text-base text-sm font-bold bg-yellow rounded-md shadow-2xl px-10 py-3" href="">
             See Promo
           </a>
         </div>

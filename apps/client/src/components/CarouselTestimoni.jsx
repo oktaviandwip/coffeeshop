@@ -14,23 +14,23 @@ const CarouselTestimoni = ({ children: slides, autoSlide = false, autoSlideInter
 
   return (
     <>
-      <div className="overflow-hidden relative pb-28 pt-14">
+      <div className="overflow-hidden relative md:pb-28 pb-20 md:pt-14 pt-6">
         <div
-          className="w-[3952px] flex gap-x-8 transition-transform ease-out duration-300"
-          style={{ transform: `translateX(-${curr * 430}px)` }}
+          className="w-fit flex md:gap-x-8 gap-x-4 transition-transform ease-out duration-300"
+          style={{ transform: `translateX(-${curr * 20}%)` }}
         >
           {slides}
         </div>
 
         {/* Indicator */}
-        <div className="absolute bottom-5 left-">
+        <div className="absolute bottom-5 left-0 right-auto">
           <div className="flex items-center justify-center gap-2">
             {slides.map((_, i) => (
               <button
                 key={i}
                 className={`
-                  transition-all w-[15px] h-[15px] rounded-full
-                  ${curr === i ? 'w-[45px] h-[15px] bg-brown' : 'bg-[#DDE0E4]'}
+                  transition-all md:w-[15px] md:h-[15px] w-[7px] h-[7px] rounded-full
+                  ${curr === i ? 'md:w-[45px] w-[20px] bg-brown' : 'bg-[#DDE0E4]'}
                 `}
               ></button>
             ))}
