@@ -38,13 +38,13 @@ type ProductsRequest struct {
 	Name           string   `json:"name,omitempty" form:"name,omitempty" db:"name,omitempty" valid:"type(string),required"`
 	Description    string   `json:"description,omitempty" form:"description,omitempty" db:"description,omitempty" valid:"type(string),required, stringlength(50|300)~Description minimal 50 karakter"`
 	Price          int32    `json:"price,omitempty" form:"price,omitempty" db:"price,omitempty" valid:"type(int32),required"`
-	IsAvailable    bool     `json:"is_available" form:"is_available" db:"is_available" valid:"type(boolean)"`
+	IsAvailable    bool     `json:"is_available" form:"is_available" db:"is_available" valid:"-"`
 	Category       string   `json:"category,omitempty" form:"category,omitempty" db:"category,omitempty" valid:"type(string),required"`
 	DeliveryStart  string   `json:"delivery_start,omitempty" form:"delivery_start,omitempty" db:"delivery_start,omitempty" valid:"type(string)"`
 	DeliveryEnd    string   `json:"delivery_end,omitempty" form:"delivery_end,omitempty" db:"delivery_end,omitempty" valid:"type(string)"`
 	ImageUrl       string   `json:"image_url,omitempty" form:"image_url,omitempty" db:"image_url,omitempty"`
-	SizeIDs        []string `json:"size_ids,omitempty"`
-	DeliveryMethod []string `json:"delivery_method,omitempty"`
+	SizeIDs        []string `json:"size_ids,omitempty" form:"size_ids,omitempty"`
+	DeliveryMethod []string `json:"delivery_method,omitempty" form:"delivery_method,omitempty"`
 }
 
 type PostProductResponseData struct {

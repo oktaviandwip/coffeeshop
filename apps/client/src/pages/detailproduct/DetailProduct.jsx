@@ -5,26 +5,84 @@ import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import InputRadio from '../../components/InputRadio';
 import useApi from '../../utils/useApi';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 function DetailProduct() {
   const { id } = useParams();
+  const { userId } = useSelector((s) => s.users);
   let [quantity, setQuantity] = useState(1);
   const api = useApi();
 
+  const [data, setData] = useState({
+    product_id: id,
+    size_id: '',
+    quantity: quantity,
+  });
   const handleQuantity = (event) => {
-    setQuantity(event.target.value);
+    const newQuantity = parseInt(event.target.value, 10);
+    setQuantity(newQuantity);
+    setData((prevData) => ({
+      ...prevData,
+      quantity: newQuantity,
+    }));
   };
   const plusQuantity = () => {
-    setQuantity((quantity += 1));
+    const newQuantity = quantity + 1;
+    setQuantity(newQuantity);
+    setData((prevData) => ({
+      ...prevData,
+      quantity: newQuantity,
+    }));
   };
   const minusQuantity = () => {
-    setQuantity((quantity -= 1));
+    if (quantity > 1) {
+      const newQuantity = quantity - 1;
+      setQuantity(newQuantity);
+      setData((prevData) => ({
+        ...prevData,
+        quantity: newQuantity,
+      }));
+    }
+  };
+
+  const changeHandler = (e) => {
+    const datas = { ...data };
+    datas[e.target.name] = e.target.value;
+    setData(datas);
+  };
+  const submitHandler = (e) => {
+    e.preventDefault();
+    console.log(data);
+
+    api
+      .post('/cart/item', data)
+      .then((res) => {
+        console.log(res);
+        alert(res.data.description);
+      })
+      .catch((err) => {
+        alert(err.response.data.description);
+        console.log(err.response.data);
+      });
   };
   // state ini digunakan untuk menyimpan price sesuai size ketika radio button size diklik
   const [priceSize, setPriceSize] = useState();
 
+  const [deliveryProduct, setDeliveryProduct] = useState();
   const [product, setProduct] = useState(null);
 
+  // get delivery by product id
+  const getDeliveryProduct = async (e) => {
+    await api
+      .get(`/attributeprod/delivery/${id}`)
+      .then(({ data }) => {
+        setDeliveryProduct(data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const getDetailProduct = async (e) => {
     await api
       .get(`/product/${id}`)
@@ -37,8 +95,13 @@ function DetailProduct() {
   };
   useEffect(() => {
     getDetailProduct();
+    getDeliveryProduct();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quantity]);
+  console.log(data);
   return (
     <>
       <Header />
@@ -55,30 +118,30 @@ function DetailProduct() {
 
           <div className="hidden md:block xl:w-4/5 lg:w-[90%] p-6 bg-white rounded-3xl mt-20 shadow-2xl border-2 font-poppins">
             <h3 className="font-bold text-2xl mb-4">Delivery and Time</h3>
-            <div className="flex gap-3 flex-wrap">
-              <InputRadio name="delivery" value="dive in" content="dive-in" />
-              <InputRadio name="delivery" value="yo" content="dive-in" />
-              <InputRadio name="delivery" value="ye" content="dive-in" />
-            </div>
-            <div className="flex mt-4 space-x-12">
-              <p className="text-base self-center">Now</p>
-              <div>
-                <InputRadio name="time" value={Date.now()} content="Yes" />
-                <InputRadio name="time" value="notnow" content="No" />
-              </div>
-            </div>
-            <div className=" mt-6 xl:space-x-5">
-              <label htmlFor="time" className="text-base block xl:inline">
-                Set Time
-              </label>
-              <input
-                type="text"
-                name="customTime"
-                id="time"
-                placeholder="Enter time for reservation"
-                className="bg-[#F4F4F8] py-3 px-4 rounded-lg placeholder:text-bold"
-              />
-            </div>
+            <ul className="flex gap-3 flex-wrap">
+              {deliveryProduct &&
+                deliveryProduct.map((dp) => {
+                  return (
+                    <li key={dp.method_name}>
+                      <input
+                        type="checkbox"
+                        id={dp.id}
+                        name="delivery_method"
+                        value={dp.id}
+                        onChange={changeHandler}
+                        checked={data.delivery_method == dp.id}
+                        className="sr-only checkbox-button"
+                      />
+                      <label
+                        htmlFor={dp.id}
+                        className="bg-third/30 flex justify-center items-center rounded-2xl py-2 px-3 text-2xl font-bold "
+                      >
+                        {dp.method_name}
+                      </label>
+                    </li>
+                  );
+                })}
+            </ul>
           </div>
         </section>
         <section className="text-lg space-y-8 px-4 md:w-3/5">
@@ -126,7 +189,18 @@ function DetailProduct() {
                       }}
                       className="inline"
                     >
-                      <InputRadio name="size" value={ps.size_id} content={ps.name} color="secondary" />
+                      <input
+                        type="radio"
+                        id={ps.size_id}
+                        className="checkRadioSecondary hidden"
+                        name="size_id"
+                        value={ps.size_id}
+                        onChange={changeHandler}
+                        checked={data.size_id == ps.size_id}
+                      />
+                      <label htmlFor={ps.size_id} className="btn-third mr-2 text-base font-black">
+                        {ps.name}
+                      </label>
                     </li>
                   );
                 })}
@@ -134,33 +208,39 @@ function DetailProduct() {
           </div>
           <div className="md:hidden xl:w-4/5 lg:w-[90%] p-6 bg-white rounded-3xl mt-20 shadow-2xl border-2 font-poppins">
             <h3 className="font-bold text-2xl mb-4">Delivery and Time</h3>
-            <div className="flex gap-3 flex-wrap">
-              <InputRadio name="delivery" value="dive in" content="dive-in" />
-              <InputRadio name="delivery" value="door delivery" content="door delivery" />
-              <InputRadio name="delivery" value="pickup" content="pickup" />
-            </div>
-            <div className="flex mt-4 space-x-12">
-              <p className="text-base self-center">Now</p>
-              <div>
-                <InputRadio name="time" value={Date.now()} content="Yes" />
-                <InputRadio name="time" value="notnow" content="No" />
-              </div>
-            </div>
-            <div className=" mt-6 xl:space-x-5">
-              <label htmlFor="time" className="text-base block xl:inline">
-                Set Time
-              </label>
-              <input
-                type="text"
-                name="customTime"
-                id="time"
-                placeholder="Enter time for reservation"
-                className="bg-[#F4F4F8] py-3 px-4 rounded-lg placeholder:text-bold"
-              />
-            </div>
+            <ul className="flex gap-3 flex-wrap">
+              {deliveryProduct &&
+                deliveryProduct.map((dp) => {
+                  return (
+                    <li key={dp.method_name}>
+                      <input
+                        type="checkbox"
+                        id={dp.id}
+                        name="delivery_method"
+                        value={dp.id}
+                        onChange={changeHandler}
+                        checked={data.delivery_method == dp.id}
+                        className="sr-only checkbox-button"
+                      />
+                      <label
+                        htmlFor={dp.id}
+                        className="bg-third/30 flex justify-center items-center rounded-2xl py-2 px-3 text-2xl font-bold "
+                      >
+                        {dp.method_name}
+                      </label>
+                    </li>
+                  );
+                })}
+            </ul>
           </div>
-          <Button content={'Add to Cart'} color="secondary" />
-          <Button content={'Checkout'} />
+          <div className="space-y-3">
+            <form onSubmit={submitHandler} className="mb-5">
+              <Button content={'Add to Cart'} color="secondary" />
+            </form>
+            <Link to="/product">
+              <Button content={'Checkout'} />
+            </Link>
+          </div>
         </section>
       </main>
       <Footer />
