@@ -38,6 +38,7 @@ func New(db *sqlx.DB) *gin.Engine {
 	cart(router, db)
 	order(router, db)
 	attributeprod(router, db)
+	dashboard(router, db)
 
 	return router
 
