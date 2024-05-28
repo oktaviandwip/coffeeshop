@@ -2,11 +2,12 @@ package handlers
 
 import (
 	"fmt"
+	"net/http"
+
 	"github.com/Roisfaozi/black-coffee-collaborations/internal/models/cart"
 	"github.com/Roisfaozi/black-coffee-collaborations/internal/repository"
 	"github.com/Roisfaozi/black-coffee-collaborations/pkg"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
 type CartHandler interface {
@@ -35,14 +36,14 @@ func (ch *CartHandlerImpl) CreateCart(c *gin.Context) {
 }
 
 func (ch *CartHandlerImpl) CreateCartItem(c *gin.Context) {
-	cartID := c.Param("id")
+	userId := c.MustGet("userId").(string)
 	var cartItemReq cart.CartItemRequest
 	if err := c.ShouldBindJSON(&cartItemReq); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	result, err := ch.cartRepo.CreateCartItem(c.Request.Context(), cartID, &cartItemReq)
+	result, err := ch.cartRepo.CreateCartItem(c.Request.Context(), userId, &cartItemReq)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
