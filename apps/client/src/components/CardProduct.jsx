@@ -9,7 +9,7 @@ export default function CardProduct({ id, title, image, price, promo }) {
   return (
     <Link
       to={isAuthAdmin ? `/product/${id}/edit` : `/product/${id}`}
-      className="relative w-[156px] h-[253px] text-center shadow-xl rounded-xl p-3 flex flex-col items-center justify-between"
+      className="relative w-[156px] h-[253px] flex-shrink-0 text-center shadow-xl rounded-xl p-3 flex flex-col items-center justify-between"
     >
       <div className="drop-shadow-none">
         <img src={image} alt={title} className="rounded-full drop-shadow-none w-[128px] h-[128px]" />

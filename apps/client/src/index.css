@@ -35,25 +35,35 @@
 }
 
 .size-r:checked ~ .r {
-  @apply bg-primary text-secondary;
+  @apply text-primary bg-secondary;
 }
 
 .size-l:checked ~ .l {
-  @apply bg-primary text-secondary;
+  @apply text-primary bg-secondary;
 }
 
 .size-xl:checked ~ .xl {
-  @apply bg-primary text-secondary;
+  @apply text-primary bg-secondary;
 }
 
 .d-dine-in:checked ~ .dine-in {
-  @apply bg-primary text-secondary;
+  @apply text-primary bg-secondary;
 }
 
 .d-take-away:checked ~ .take-away {
-  @apply bg-primary text-secondary;
+  @apply text-primary bg-secondary;
 }
 
 .d-home-delivery:checked ~ .home-delivery {
-  @apply bg-primary text-secondary;
+  @apply text-primary bg-secondary;
+}
+
+.checkbox-button:checked + label {
+  @apply bg-secondary text-primary;
+}
+.checkbox-button + label {
+  @apply cursor-pointer border border-gray-300 text-center text-gray-700;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
 }

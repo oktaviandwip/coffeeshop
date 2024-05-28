@@ -14,7 +14,7 @@ import (
 type CartRepository interface {
 	CreateCart(ctx context.Context, userId string) (*config.Result, error)
 	GetCartByUserId(ctx context.Context, userId string) (*config.Result, error)
-	CreateCartItem(ctx context.Context, cartId string, item *cart.CartItemRequest) (*config.Result, error)
+	CreateCartItem(ctx context.Context, userId string, item *cart.CartItemRequest) (*config.Result, error)
 }
 
 type CartRepo struct {
@@ -113,15 +113,27 @@ func (c *CartRepo) GetCartByUserId(ctx context.Context, userId string) (*config.
 	return result, nil
 }
 
-func (c *CartRepo) CreateCartItem(ctx context.Context, cartId string, itemReq *cart.CartItemRequest) (*config.Result, error) {
+func (c *CartRepo) CreateCartItem(ctx context.Context, userId string, itemReq *cart.CartItemRequest) (*config.Result, error) {
+	checkCartId := `
+    SELECT id 
+    FROM cart 
+    WHERE user_id = $1 `
+
+	var cart_id string
+	err := c.db.QueryRowxContext(ctx, checkCartId, userId).Scan(&cart_id)
+	if err != nil && err != sql.ErrNoRows {
+		return nil, err
+	}
+
 	// Check if the product is already ordered
+
 	var ordered bool
 	checkQuery := `
     SELECT ordered 
     FROM cart_item 
     WHERE cart_id = $1 AND product_id = $2 AND size_id = $3`
 
-	err := c.db.QueryRowxContext(ctx, checkQuery, cartId, itemReq.ProductID, itemReq.SizeID).Scan(&ordered)
+	err = c.db.QueryRowxContext(ctx, checkQuery, cart_id, itemReq.ProductID, itemReq.SizeID).Scan(&ordered)
 	if err != nil && err != sql.ErrNoRows {
 		return nil, err
 	}
@@ -136,12 +148,12 @@ func (c *CartRepo) CreateCartItem(ctx context.Context, cartId string, itemReq *c
     RETURNING id, created_at, updated_at`
 
 	var cartItem cart.CartItem
-	err = c.db.QueryRowxContext(ctx, query, cartId, itemReq.ProductID, itemReq.SizeID, itemReq.Quantity).Scan(&cartItem.CartItemId, &cartItem.CreatedAt, &cartItem.UpdatedAt)
+	err = c.db.QueryRowxContext(ctx, query, cart_id, itemReq.ProductID, itemReq.SizeID, itemReq.Quantity).Scan(&cartItem.CartItemId, &cartItem.CreatedAt, &cartItem.UpdatedAt)
 	if err != nil {
 		return nil, err
 	}
 
-	cartItem.CartID = cartId
+	cartItem.CartID = cart_id
 	cartItem.ProductID = itemReq.ProductID
 	cartItem.SizeID = itemReq.SizeID
 	cartItem.Quantity = itemReq.Quantity

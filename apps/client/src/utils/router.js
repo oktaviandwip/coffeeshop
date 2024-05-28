@@ -5,8 +5,7 @@ import History from '../components/History';
 import EditProduct from '../pages/admin/EditProduct.jsx';
 import DetailProduct from '../pages/detailproduct/DetailProduct.jsx';
 import Product from '../pages/product/Product.jsx';
-
-
+import AddProduct from '../pages/admin/AddProduct.jsx';
 import ForgotPassword from '../pages/auth/ForgotPassword';
 import Login from '../pages/auth/Login';
 import SignUp from '../pages/auth/SignUp';
@@ -62,5 +61,9 @@ export default createBrowserRouter([
       </PrivateRouteAdmin>
     ),
 
+  },
+  {
+    path: '/product/add',
+    element: <AddProduct />,
   },
 ]);
