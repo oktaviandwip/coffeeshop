@@ -6,7 +6,6 @@ import EditProduct from '../pages/admin/EditProduct.jsx';
 import DetailProduct from '../pages/detailproduct/DetailProduct.jsx';
 import Product from '../pages/product/Product.jsx';
 
-
 import ForgotPassword from '../pages/auth/ForgotPassword';
 import Login from '../pages/auth/Login';
 import SignUp from '../pages/auth/SignUp';
@@ -51,8 +50,13 @@ export default createBrowserRouter([
       </PrivateRoute>
     ),
   },
+  {
     path: '/history',
-    element: <History />,
+    element: (
+      <PrivateRoute>
+        <History />
+      </PrivateRoute>
+    ),
   },
   {
     path: '/product/:id/edit',
@@ -61,6 +65,5 @@ export default createBrowserRouter([
         <EditProduct />
       </PrivateRouteAdmin>
     ),
-
   },
 ]);
