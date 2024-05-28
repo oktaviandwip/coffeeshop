@@ -15,7 +15,7 @@ func cart(g *gin.Engine, d *sqlx.DB) {
 	handler := handlers.NewCartHandlerImpl(repo)
 
 	router.POST("/", middleware.Authjwt("user"), handler.CreateCart)
-	router.POST("/:id/item", middleware.Authjwt("user"), handler.CreateCartItem) //cartId
+	router.POST("/item", middleware.Authjwt("user"), handler.CreateCartItem)     //cartId
 	router.GET("/:user_id", middleware.Authjwt("user"), handler.GetCartByUserId) //userId harusnya pake get dari middlewarea
 
 }
