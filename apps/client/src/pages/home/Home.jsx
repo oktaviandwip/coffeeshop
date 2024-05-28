@@ -92,7 +92,7 @@ export default function Home() {
     <>
       <Header />
       {/* hero/jumbotron */}
-      <div className="w-screen bg-heroHome bg-cover bg-no-repeat flex flex-col px-6 md:px-40 pt-16 pb-16 md:pb-52">
+      <div className="w-full bg-heroHome bg-cover bg-no-repeat flex flex-col px-6 md:px-40 pt-16 pb-16 md:pb-52 overflow-x-hidden">
         <div className="text-white flex flex-col gap-y-5">
           <h3 className="w-full md:w-[45%] leading-snug text-3xl md:text-[50px] font-bold">Start Your Day with Coffee and Good Meals</h3>
           <p className="w-full md:w-[44%]  md:text-[20px] font-semibold md:font-bold">
@@ -108,7 +108,7 @@ export default function Home() {
         </div>
       </div>
       {/* overlay */}
-      <div className="w-full md:w-[80%] md:mx-auto flex flex-col gap-y-7 md:gap-y-0 md:flex-row bg-white rounded-md md:h-[200px] md:shadow-2xl px-6 md:px-0 py-10 md:-mt-[7%]">
+      <div className="w-full md:w-[80%] md:mx-auto flex flex-col gap-y-7 md:gap-y-0 md:flex-row bg-white rounded-md md:h-[200px] md:shadow-2xl px-6 md:px-0 py-10 md:-mt-[7%] overflow-x-hidden">
         <div className="flex gap-x-8 md:justify-center ps-[30%] md:ps-0 items-center md:w-1/3 rounded-md md:rounded-none shadow-md md:shadow-none p-10 md:border-r-4 border-[#EEEFF2]">
           <div className="grid justify-center items-center w-[55px] h-[55px] bg-yellow rounded-full">
             <img className="" src={iconPerson} alt="" />
