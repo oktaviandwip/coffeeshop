@@ -2,14 +2,14 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import History from '../components/History';
 
-import EditProduct from '../pages/admin/EditProduct.jsx';
-import DetailProduct from '../pages/detailproduct/DetailProduct.jsx';
-import Product from '../pages/product/Product.jsx';
 import AddProduct from '../pages/admin/AddProduct.jsx';
+import EditProduct from '../pages/admin/EditProduct.jsx';
 import ForgotPassword from '../pages/auth/ForgotPassword';
 import Login from '../pages/auth/Login';
 import SignUp from '../pages/auth/SignUp';
+import DetailProduct from '../pages/detailproduct/DetailProduct.jsx';
 import Home from '../pages/home/Home';
+import Product from '../pages/product/Product.jsx';
 import Profile from '../pages/profile/Profile';
 import PrivateRoute, { PrivateRouteAdmin } from './privateRoute.js';
 
@@ -50,8 +50,14 @@ export default createBrowserRouter([
       </PrivateRoute>
     ),
   },
+  {
     path: '/history',
-    element: <History />,
+    element: (
+      <PrivateRouteAdmin>
+        {' '}
+        <History />
+      </PrivateRouteAdmin>
+    ),
   },
   {
     path: '/product/:id/edit',
@@ -60,7 +66,6 @@ export default createBrowserRouter([
         <EditProduct />
       </PrivateRouteAdmin>
     ),
-
   },
   {
     path: '/product/add',
