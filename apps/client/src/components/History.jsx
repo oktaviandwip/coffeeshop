@@ -43,12 +43,9 @@ function History() {
   const checkSelected = selectedDelete.length === historyData.length;
   const handleDelete = async () => {
     try {
-      // Prepare an array of promises for deletion requests
       const deletePromises = selectedDelete.map((selected) => api.delete(`/order/history/${selected}`));
-      // Execute all deletion requests concurrently using Promise.all
       const deleteResponses = await Promise.all(deletePromises);
 
-      // Update state based on successful deletion responses
       const updatedData = deleteResponses.map((response) => response.data.description);
       toast.success(updatedData[0], {
         position: 'bottom-right',
