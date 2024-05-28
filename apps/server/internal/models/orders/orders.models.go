@@ -72,3 +72,14 @@ type OrderedProduct struct {
 	CreatedAt    time.Time `json:"created_at" db:"created_at"`
 	UpdatedAt    time.Time `json:"updated_at" db:"updated_at"`
 }
+type OrderHistory struct {
+	HistoryId    string    `db:"id" json:"id"`
+	UserId       string    `db:"user_id" json:"user_id"`
+	OrderId      string    `db:"order_id" json:"order_id"`
+	ProductId    string    `db:"product_id" json:"product_id"`
+	ProductName  string    `db:"product_name" json:"product_name"`
+	ProductPrice float64   `db:"product_price" json:"product_price"`
+	Status       string    `db:"status" json:"status"`
+	CreatedAt    time.Time `db:"created_at" json:"created_at"`
+	UpdatedAt    time.Time `db:"updated_at" json:"updated_at"`
+}
