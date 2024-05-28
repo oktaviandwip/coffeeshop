@@ -45,8 +45,7 @@ func (oh *OrderHandlerImpl) GetOrderById(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-
-	c.JSON(http.StatusOK, result)
+	pkg.NewRes(http.StatusOK, result).Send(c)
 }
 func (oh *OrderHandlerImpl) GetOrderedCartItems(c *gin.Context) {
 	userID := c.Param("user_id")
@@ -56,9 +55,6 @@ func (oh *OrderHandlerImpl) GetOrderedCartItems(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
+	pkg.NewRes(http.StatusOK, cartItems).Send(c)
 
-	c.JSON(http.StatusOK, gin.H{
-		"status": "Success",
-		"data":   cartItems,
-	})
 }

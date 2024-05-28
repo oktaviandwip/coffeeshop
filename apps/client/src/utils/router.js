@@ -1,4 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
+
+import History from '../components/History';
+
 import EditProduct from '../pages/admin/EditProduct.jsx';
 import DetailProduct from '../pages/detailproduct/DetailProduct.jsx';
 import Product from '../pages/product/Product.jsx';
@@ -47,6 +50,9 @@ export default createBrowserRouter([
       </PrivateRoute>
     ),
   },
+    path: '/history',
+    element: <History />,
+  },
   {
     path: '/product/:id/edit',
     element: (
@@ -54,6 +60,7 @@ export default createBrowserRouter([
         <EditProduct />
       </PrivateRouteAdmin>
     ),
+
   },
   {
     path: '/product/add',

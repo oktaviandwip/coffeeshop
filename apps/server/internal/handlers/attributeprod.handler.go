@@ -16,7 +16,7 @@ func NewAttributeProd(r repository.RepoAtrributeProdIF) *HandlerAttributeProd {
 }
 
 func (h *HandlerAttributeProd) GetDeliveryProduct(ctx *gin.Context) {
-	productID := ctx.Param("id")
+	productID := ctx.Param("product_id")
 
 	result, err := h.FetchDeliveryProduct(productID)
 	if err != nil {
