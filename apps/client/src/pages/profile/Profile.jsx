@@ -9,6 +9,7 @@ import photoProfile from '../../assets/photo-profile.png';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import { logout } from '../../store/reducer/user';
+
 function Profile() {
   const [data, setData] = useState({});
   const [formattedDate, setFormattedDate] = useState('');
