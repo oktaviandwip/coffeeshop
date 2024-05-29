@@ -1,23 +1,22 @@
 import React from 'react';
 
+import { useEffect, useState } from 'react';
 import Button from '../../components/Button';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import OrderItem from '../../components/OrderItem';
 import PaymentMethod from '../../components/PaymentMethod';
-import { Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 import useApi from '../../utils/useApi';
 
 const Cart = () => {
   const api = useApi();
   const [subTotal, setSubTotal] = useState(0);
-  const [tax, setTax] = useState(20000);
+  const [tax, setTax] = useState(0.12);
   const [shipping, setShipping] = useState(10000);
   const [totalAmount, setTotalAmount] = useState(10000);
   const [dataOrder, setDataOrder] = useState({
     total_price: subTotal,
-    taxes: tax,
+    taxes: tax * subTotal,
     shipping: shipping,
     delivery_address: '',
     total_amount: totalAmount,
@@ -51,25 +50,30 @@ const Cart = () => {
     getPayment();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  console.log(cart);
   useEffect(() => {
     // Menghitung subTotal dari cart
     let total = 0;
     cart &&
       cart.forEach((element) => {
-        total += element.product_price;
+        total += element.product_price * element.quantity;
       });
 
     setSubTotal(total);
-    setTotalAmount(subTotal + tax + shipping);
+    setTotalAmount(subTotal + tax * subTotal + shipping);
   }, [cart]);
-  console.log(payment);
+
+  const onPaymentMethodChange = (e) => {
+    setDataOrder({
+      ...dataOrder,
+      payment_method_id: e.target.value,
+    });
+  };
 
   return (
     <>
-
+      <Header />
       <main className="p-12 md:px-40 lg:px-32 xl:px-72 2xl:px-80 font-rubik text-base bg-bg-cart bg-center bg-cover bg-no-repeat">
-
         <h1 className="text-4xl mb-14 text-white font-bold" style={{ textShadow: '4px 4px 0px rgba(0,0,0,.8)' }}>
           Checkout your item now!
         </h1>
@@ -86,6 +90,7 @@ const Cart = () => {
                         price={p.product_price}
                         image={p.image_url}
                         size={p.size_name}
+                        quantity={p.quantity}
                       />
                     </li>
                   );
@@ -99,7 +104,7 @@ const Cart = () => {
               </div>
               <div className="flex justify-between  text-base uppercase">
                 <p>tax & fees</p>
-                <p>IDR {tax}</p>
+                <p>IDR {tax * subTotal}</p>
               </div>
               <div className="flex justify-between  text-base uppercase">
                 <p>Shipping</p>

@@ -7,7 +7,7 @@ export default function OrderItem({ image, title, price, size, quantity }) {
         <img src={image} alt="" className="w-[88px] h-[88px] rounded-xl" />
         <div className="text-base">
           <p>{title}</p>
-          <p>{quantity}</p>
+          <p>{quantity} X</p>
           <p>{size}</p>
         </div>
       </div>
