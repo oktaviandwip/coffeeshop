@@ -11,12 +11,11 @@ import Product from '../pages/product/Product.jsx';
 import ForgotPassword from '../pages/auth/ForgotPassword';
 import Login from '../pages/auth/Login';
 import SignUp from '../pages/auth/SignUp';
-import DetailProduct from '../pages/detailproduct/DetailProduct.jsx';
+import Cart from '../pages/cart/Cart.jsx';
+import Dashboard from '../pages/dashboard/Dashboard.jsx';
 import Home from '../pages/home/Home';
-import Product from '../pages/product/Product.jsx';
 import Profile from '../pages/profile/Profile';
 import PrivateRoute, { PrivateRouteAdmin } from './privateRoute.js';
-import Dashboard from '../pages/dashboard/Dashboard.jsx';
 
 export default createBrowserRouter([
   {
@@ -56,6 +55,14 @@ export default createBrowserRouter([
     ),
   },
   {
+    path: '/your-cart',
+    element: (
+      <PrivateRoute>
+        <Cart />
+      </PrivateRoute>
+    ),
+  },
+  {
     path: '/history',
     element: (
       <PrivateRoute>
@@ -73,10 +80,19 @@ export default createBrowserRouter([
   },
   {
     path: '/product/add',
-    element: <AddProduct />,
+    element: (
+      <PrivateRouteAdmin>
+        <AddProduct />
+      </PrivateRouteAdmin>
+    ),
   },
   {
     path: '/dashboard',
-    element: <Dashboard />,
+    element: (
+      <PrivateRouteAdmin>
+        {' '}
+        <Dashboard />
+      </PrivateRouteAdmin>
+    ),
   },
 ]);

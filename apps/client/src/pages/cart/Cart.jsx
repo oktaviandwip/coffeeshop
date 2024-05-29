@@ -1,13 +1,15 @@
 import React from 'react';
 
-import ProductBanner from '../../assets/promo-banner.png';
 import Button from '../../components/Button';
+import Footer from '../../components/Footer';
+import Header from '../../components/Header';
 import OrderItem from '../../components/OrderItem';
 import PaymentMethod from '../../components/PaymentMethod';
 
 const Cart = () => {
   return (
     <>
+      <Header />
       <main className="p-12 md:px-40 lg:px-32 xl:px-72 2xl:px-80 font-rubik text-base bg-bg-cart bg-center bg-cover bg-no-repeat">
         <h1 className="text-4xl mb-14 text-white font-bold" style={{ textShadow: '4px 4px 0px rgba(0,0,0,.8)' }}>
           Checkout your item now!
@@ -60,6 +62,7 @@ const Cart = () => {
           </div>
         </div>
       </main>
+      <Footer />
     </>
   );
 };
