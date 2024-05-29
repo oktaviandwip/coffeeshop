@@ -58,8 +58,16 @@ export default function Login() {
       })
       .catch((err) => {
         console.log(err);
-        setMessage(err.response.data.description);
-        alertElm.classList.add('opacity-100');
+        if (err.message) {
+          setMessage(err.message);
+          alertElm.classList.add('opacity-100');
+        } else if(err.response.data.description) {
+          setMessage(err.response.data.description);
+          alertElm.classList.add('opacity-100');
+        }else {
+          setMessage("Periksa Koneksi Anda");
+          alertElm.classList.add('opacity-100');
+        }
       });
   };
 
