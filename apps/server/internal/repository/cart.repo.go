@@ -143,12 +143,12 @@ func (c *CartRepo) CreateCartItem(ctx context.Context, userId string, itemReq *c
 	}
 
 	query := `
-    INSERT INTO cart_item (cart_id, product_id, size_id, quantity, ordered) 
-    VALUES ($1, $2, $3, $4, FALSE) 
+    INSERT INTO cart_item (cart_id, product_id, size_id, quantity, ordered,delivery_method_id) 
+    VALUES ($1, $2, $3, $4, FALSE, $5) 
     RETURNING id, created_at, updated_at`
 
 	var cartItem cart.CartItem
-	err = c.db.QueryRowxContext(ctx, query, cart_id, itemReq.ProductID, itemReq.SizeID, itemReq.Quantity).Scan(&cartItem.CartItemId, &cartItem.CreatedAt, &cartItem.UpdatedAt)
+	err = c.db.QueryRowxContext(ctx, query, cart_id, itemReq.ProductID, itemReq.SizeID, itemReq.Quantity, itemReq.CartItDeliveryMethodId).Scan(&cartItem.CartItemId, &cartItem.CreatedAt, &cartItem.UpdatedAt)
 	if err != nil {
 		return nil, err
 	}
@@ -157,6 +157,7 @@ func (c *CartRepo) CreateCartItem(ctx context.Context, userId string, itemReq *c
 	cartItem.ProductID = itemReq.ProductID
 	cartItem.SizeID = itemReq.SizeID
 	cartItem.Quantity = itemReq.Quantity
+	cartItem.CartItDeliveryMethodId = itemReq.CartItDeliveryMethodId
 
 	result := &config.Result{
 		Data:    cartItem,
