@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
 import Button from '../../components/Button';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
-import InputRadio from '../../components/InputRadio';
 import useApi from '../../utils/useApi';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 function DetailProduct() {
   const { id } = useParams();
@@ -237,7 +235,7 @@ function DetailProduct() {
             <form onSubmit={submitHandler} className="mb-5">
               <Button content={'Add to Cart'} color="secondary" />
             </form>
-            <Link to="/product">
+            <Link to="/your-cart">
               <Button content={'Checkout'} />
             </Link>
           </div>

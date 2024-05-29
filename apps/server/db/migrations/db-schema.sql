@@ -88,6 +88,8 @@ CREATE TABLE cart_item
   created_at TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP    DEFAULT CURRENT_TIMESTAMP
 );
+truncate table cart_item;
+ALTER TABLE public.cart_item ADD delivery_method_id uuid REFERENCES delivery_method (id);
 
 
 delete from cart where user_id = 'fed68249-420a-4e4c-b3cc-87ec1738ee5f';

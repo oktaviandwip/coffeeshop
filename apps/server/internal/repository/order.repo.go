@@ -197,7 +197,8 @@ func (o *OrderRepo) GetCartItems(ctx context.Context, userId string) (*config.Re
 			s.size_name,
             ci.quantity, 
             ci.created_at, 
-            ci.updated_at
+            ci.updated_at,
+        	ci.delivery_method_id
         FROM 
             cart_item ci
         JOIN 
@@ -214,6 +215,7 @@ func (o *OrderRepo) GetCartItems(ctx context.Context, userId string) (*config.Re
 
 	err := o.db.SelectContext(ctx, &cartItems, query, userId)
 	if err != nil {
+
 		return nil, err
 	}
 
