@@ -18,7 +18,8 @@ export default function Header() {
 
     elmConSideNav.classList.remove("opacity-0")
     elmConSideNav.classList.remove("pointer-events-none")
-    elmSideNav.classList.remove("-left-full")
+    elmSideNav.classList.remove("-translate-x-full")
+    elmSideNav.classList.remove("pointer-events-none")
   }
 
   const closeSideNav = () => {
@@ -27,7 +28,7 @@ export default function Header() {
       const elmSideNav = document.querySelector(".side-nav")
 
       if (e.target.id == "con-side-nav") {
-        elmSideNav.classList.add("-left-full")
+        elmSideNav.classList.add("-translate-x-full", "pointer-events-none")
         setTimeout(() => {
           elmConSideNav.classList.add("opacity-0", "pointer-events-none")
         }, 300)
@@ -42,7 +43,7 @@ export default function Header() {
   return (
     <header className="font-rubik sticky top-0 md:px-40 px-10 md:py-10 py-5 border-b-[1px] border-[#9f9f9f56] bg-white z-50">
       <div id="con-side-nav" className="con-side-nav fixed left-0 top-0 md:static w-screen md:w-full h-screen md:h-auto z-50 opacity-0 md:opacity-100 pointer-events-none bg-[#00000080] md:bg-transparent">
-        <div id="side-nav" className="side-nav fixed left-0 -left-full md:static h-full w-[65%] md:w-full md:h-auto flex md:flex-row flex-col-reverse justify-end md:justify-between z-100 rounded-tr-3xl bg-[#F2F2F2] md:bg-transparent ease-linear duration-300 pointer-events-auto">
+        <div id="side-nav" className="side-nav fixed left-0 -translate-x-full md:static h-full w-[65%] md:w-full md:h-auto flex md:flex-row flex-col-reverse justify-end md:justify-between z-100 rounded-tr-3xl bg-[#F2F2F2] md:bg-transparent transition-all ease-linear duration-300 pointer-events-none">
           {/* button sign out mobile */}
           {isAuthUser || isAuthAdmin ? 
             <div className=" md:hidden flex flex-col items-start justify-center h-1/3 px-5">
