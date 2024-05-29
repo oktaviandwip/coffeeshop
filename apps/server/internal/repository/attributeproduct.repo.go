@@ -11,6 +11,7 @@ type RepoAtrributeProdIF interface {
 	FetchDeliveryProduct(user_id string) (*config.Result, error)
 	FetchAllDelivery() (*config.Result, error)
 	FetchAllSize() (*config.Result, error)
+	FetchAllPayment() (*config.Result, error)
 }
 type RepoAtrributeProd struct {
 	*sqlx.DB
@@ -46,6 +47,16 @@ func (r *RepoAtrributeProd) FetchAllDelivery() (*config.Result, error) {
 func (r *RepoAtrributeProd) FetchAllSize() (*config.Result, error) {
 	q := `SELECT * from size`
 	var data products.Sizes
+
+	if err := r.Select(&data, r.Rebind(q)); err != nil {
+		return nil, err
+	}
+
+	return &config.Result{Data: data}, nil
+}
+func (r *RepoAtrributeProd) FetchAllPayment() (*config.Result, error) {
+	q := `SELECT * from payment_method`
+	var data products.Payments
 
 	if err := r.Select(&data, r.Rebind(q)); err != nil {
 		return nil, err

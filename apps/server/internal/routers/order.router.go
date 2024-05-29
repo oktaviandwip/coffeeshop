@@ -19,5 +19,6 @@ func order(g *gin.Engine, d *sqlx.DB) {
 	router.GET("/history/:user_id", middleware.Authjwt("user"), handler.GetOrderedCartItems)
 	router.GET("/history", middleware.Authjwt("user"), handler.GetOrderHistory)
 	router.DELETE("/history/:id", middleware.Authjwt("user"), handler.DeleteOrderHistory)
+	router.GET("/cart", middleware.Authjwt("user"), handler.GetCartItems)
 
 }

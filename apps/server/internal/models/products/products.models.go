@@ -63,3 +63,10 @@ type ProductDelivery struct {
 
 type Sizes []Size
 type Deliveries []DeliveryMethod
+
+type Payment struct {
+	Id   string `json:"method_id,omitempty" db:"method_id,omitempty"`
+	Name string `json:"method_name,omitempty" db:"method_name,omitempty"`
+}
+
+type Payments []Payment
