@@ -5,7 +5,7 @@ const PrivateRoute = ({ children }) => {
   const { isAuthUser } = useSelector((s) => s.users);
 
   if (!isAuthUser) {
-    return <Navigate to="/" />;
+    return <Navigate to="/login" />;
   }
 
   return children;
@@ -15,7 +15,7 @@ export const PrivateRouteAdmin = ({ children }) => {
   const { isAuthAdmin } = useSelector((s) => s.users);
 
   if (!isAuthAdmin) {
-    return <Navigate to="/product" />;
+    return <Navigate to="/login" />;
   }
 
   return children;

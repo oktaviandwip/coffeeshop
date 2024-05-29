@@ -14,6 +14,7 @@ type RepoUsersIF interface {
 	// GetByEmail(email string) (*config.Result, error)
 	CreateUser(ctx context.Context, data *models.User) (*config.Result, error)
 	FetchProfile(userId string) (*config.Result, error)
+	FetchProfileForHeader(userId string) (*config.Result, error)
 	UpdateProfile(id string, user *models.UserData, profile *models.Profile) (*config.Result, error)
 	// Update(data *models.User, user_id string) (*config.Result, error)
 	// Delete(data *models.User) (*config.Result, error)
@@ -58,6 +59,12 @@ func (r *RepoUsers) CreateUser(ctx context.Context, data *models.User) (*config.
 			return nil, errors.New("Nomor handphone sudah terdaftar!")
 		}
 
+		if err.Error() == `pq: duplicate key value violates unique constraint "users_phone_key"` {
+			fmt.Println(err.Error())
+			_ = tx.Rollback()
+			return nil, errors.New("Nomor handphone sudah terdaftar!")
+		}
+
 		_ = tx.Rollback()
 		return nil, err
 	}
@@ -88,6 +95,21 @@ func (r *RepoUsers) GetAuthData(email string) (*models.User, error) {
 		return nil, err
 	}
 	return &result, nil
+}
+
+// get for header
+func (r *RepoUsers) FetchProfileForHeader(userId string) (*config.Result, error) {
+	var result models.UserProfileHeader
+
+	q := `select u.email , p.display_name , p.photo_profile 
+			from users u join profile p on u.user_id = p.user_id 
+			where u.user_id = ?`
+
+	if err := r.Get(&result, r.Rebind(q), userId); err != nil {
+		return nil, err
+	}
+
+	return &config.Result{Data: result}, nil
 }
 
 func (r *RepoUsers) FetchProfile(userId string) (*config.Result, error) {

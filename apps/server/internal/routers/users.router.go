@@ -16,6 +16,7 @@ func users(g *gin.Engine, d *sqlx.DB) {
 
 	route.POST("/create", handler.CreateNewUser)
 	route.GET("/profile/:id", middleware.Authjwt("admin", "user"), handler.GetProfile)
+	route.GET("/profile/header/:id", middleware.Authjwt("user"), handler.GetProfileForHeader)
 	route.POST("/profile/", middleware.Authjwt("admin", "user"), middleware.UploadFile, handler.PostProfile)
 
 }
