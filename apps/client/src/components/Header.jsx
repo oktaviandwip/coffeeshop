@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import iconCoffee from '../../src/assets/icons/coffee 1.png';
 import { logout } from '../../src/store/reducer/user';
-import imageUser from '../assets/images/Ellipse 175 (2).png';
+import iconArrowRight from '../assets/icons/arrow-right.png';
 import iconHumberger from '../assets/icons/humberger.png';
 import iconShoppingCart from '../assets/icons/shopping-cart.png';
-import iconArrowRight from '../assets/icons/arrow-right.png';
+import imageUser from '../assets/images/Ellipse 175 (2).png';
 
 export default function Header() {
   const { isAuthUser, isAuthAdmin } = useSelector((state) => state.users);
@@ -16,26 +16,18 @@ export default function Header() {
     const elmConSideNav = document.querySelector('.con-side-nav');
     const elmSideNav = document.querySelector('.side-nav');
 
-
-    elmConSideNav.classList.remove("opacity-0")
-    elmConSideNav.classList.remove("pointer-events-none")
-    elmSideNav.classList.remove("-translate-x-full")
-    elmSideNav.classList.remove("pointer-events-none")
-  }
-
+    elmConSideNav.classList.remove('opacity-0');
+    elmConSideNav.classList.remove('pointer-events-none');
+    elmSideNav.classList.remove('-left-full');
   };
-
 
   const closeSideNav = () => {
     document.addEventListener('click', function (e) {
       const elmConSideNav = document.querySelector('.con-side-nav');
       const elmSideNav = document.querySelector('.side-nav');
 
-
-      if (e.target.id == "con-side-nav") {
-        elmSideNav.classList.add("-translate-x-full", "pointer-events-none")
-
-
+      if (e.target.id == 'con-side-nav') {
+        elmSideNav.classList.add('-left-full');
         setTimeout(() => {
           elmConSideNav.classList.add('opacity-0', 'pointer-events-none');
         }, 300);
@@ -49,15 +41,14 @@ export default function Header() {
 
   return (
     <header className="font-rubik sticky top-0 md:px-40 px-10 md:py-10 py-5 border-b-[1px] border-[#9f9f9f56] bg-white z-50">
-
-      <div id="con-side-nav" className="con-side-nav fixed left-0 top-0 md:static w-screen md:w-full h-screen md:h-auto z-50 opacity-0 md:opacity-100 pointer-events-none bg-[#00000080] md:bg-transparent">
-        <div id="side-nav" className="side-nav fixed left-0 -translate-x-full md:static h-full w-[65%] md:w-full md:h-auto flex md:flex-row flex-col-reverse justify-end md:justify-between z-100 rounded-tr-3xl bg-[#F2F2F2] md:bg-transparent transition-all ease-linear duration-300 pointer-events-none">
-
+      <div
+        id="con-side-nav"
+        className="con-side-nav fixed left-0 top-0 md:static w-screen md:w-full h-screen md:h-auto z-50 opacity-0 md:opacity-100 pointer-events-none bg-[#00000080] md:bg-transparent"
+      >
         <div
           id="side-nav"
           className="side-nav fixed left-0 -left-full md:static h-full w-[65%] md:w-full md:h-auto flex md:flex-row flex-col-reverse justify-end md:justify-between z-100 rounded-tr-3xl bg-[#F2F2F2] md:bg-transparent ease-linear duration-300 pointer-events-auto"
         >
-
           {/* button sign out mobile */}
           {isAuthUser || isAuthAdmin ? (
             <div className=" md:hidden flex flex-col items-start justify-center h-1/3 px-5">
