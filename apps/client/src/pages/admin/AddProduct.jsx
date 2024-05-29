@@ -25,6 +25,7 @@ const AddProduct = () => {
     await api
       .get(`/attributeprod/size`)
       .then(({ data }) => {
+        console.log(data.data);
         setSize(data.data);
       })
       .catch((error) => {
