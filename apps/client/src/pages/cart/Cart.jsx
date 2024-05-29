@@ -1,6 +1,8 @@
 import React from 'react';
 
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 import Button from '../../components/Button';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
@@ -13,16 +15,23 @@ const Cart = () => {
   const [subTotal, setSubTotal] = useState(0);
   const [tax, setTax] = useState(0.12);
   const [shipping, setShipping] = useState(10000);
-  const [totalAmount, setTotalAmount] = useState(10000);
+  const [totalAmount, setTotalAmount] = useState(0);
+  const { userId } = useSelector((state) => state.users);
+
   const [dataOrder, setDataOrder] = useState({
+    user_id: userId,
     total_price: subTotal,
     taxes: tax * subTotal,
     shipping: shipping,
     delivery_address: '',
+    status: 'delivered',
     total_amount: totalAmount,
+    payment_method_id: '',
+    delivery_method_id: '',
   });
 
   const [payment, setPayment] = useState();
+  const [profile, setProfile] = useState();
   const [cart, setCart] = useState();
 
   const getPayment = async (e) => {
@@ -40,17 +49,20 @@ const Cart = () => {
       .get(`/order/cart`)
       .then(({ data }) => {
         setCart(data.data);
+        const delivery_method = data.data[0].delivery_method;
+        setDataOrder({ ...dataOrder, delivery_method_id: delivery_method });
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
   useEffect(() => {
     getCart();
     getPayment();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(cart);
+
   useEffect(() => {
     // Menghitung subTotal dari cart
     let total = 0;
@@ -61,15 +73,50 @@ const Cart = () => {
 
     setSubTotal(total);
     setTotalAmount(subTotal + tax * subTotal + shipping);
-  }, [cart]);
+    setDataOrder({ ...dataOrder, taxes: tax * subTotal, total_price: subTotal, total_amount: totalAmount });
+  }, [cart, subTotal, tax, shipping, totalAmount]);
 
-  const onPaymentMethodChange = (e) => {
+  const getProfile = async () => {
+    await api
+      .get(`/users/profile/${userId}`)
+      .then(({ data }) => {
+        const { phone_number, address } = data.data;
+        setProfile({ address, phone_number });
+        setDataOrder({ ...dataOrder, delivery_address: address });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    getProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profile]);
+  const handlePaymentMethodChange = (id) => {
+    const idPayment = id;
+    console.log(idPayment);
     setDataOrder({
       ...dataOrder,
-      payment_method_id: e.target.value,
+      payment_method_id: idPayment,
     });
+    console.log(id);
   };
+  const handleSubmitOrder = async (e) => {
+    e.preventDefault();
+    setDataOrder({
+      ...dataOrder,
+      delivery_method_id: cart[0].delivery_method,
+    });
+    console.log(dataOrder);
 
+    // const formData = new FormData();
+    // for (const key in data) {
+    //   if (key === 'birthday') {
+    //     formData.append(key, showFormattedDate(data[key]));
+    //   }
+    //   formData.append(key, data[key]);
+    // }
+  };
   return (
     <>
       <Header />
@@ -128,10 +175,10 @@ const Cart = () => {
                 id="address"
                 cols="30"
                 className="focus:outline-none"
-                defaultValue="Km 5 refinery road oppsite republic road, effurun, Jakarta"
+                defaultValue={profile && profile.address}
               ></textarea>
               <hr className="border border-t-2 mb-3" />
-              <p>0822314874</p>
+              <p>{profile && profile.phone_number}</p>
             </div>
             <div className="bg-white p-8 rounded-2xl ">
               <h3 className="text-3xl font-bold text-center">Payment Method</h3>
@@ -140,16 +187,19 @@ const Cart = () => {
                   payment.map((p) => {
                     return (
                       <li key={p.method_id}>
-                        <PaymentMethod id={p.method_id} name={p.method_name} />
+                        <PaymentMethod id={p.method_id} name={p.method_name} onChange={handlePaymentMethodChange} />
                       </li>
                     );
                   })}
               </ul>
             </div>
-            <Button content="Confirm and Pay" />
+            <form onSubmit={handleSubmitOrder}>
+              <Button content="Confirm and Pay" />
+            </form>
           </div>
         </div>
       </main>
+      <ToastContainer />
       <Footer />
     </>
   );

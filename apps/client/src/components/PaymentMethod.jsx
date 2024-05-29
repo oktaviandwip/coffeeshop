@@ -3,7 +3,7 @@ import BankAccountIcon from '../assets/icons/BankIcon.svg';
 import CodIcon from '../assets/icons/COD.png';
 import CardIcon from '../assets/icons/cardIcon.svg';
 
-export default function PaymentMethod({ id, name }) {
+export default function PaymentMethod({ id, name, onChange }) {
   let icons;
 
   switch (name) {
@@ -29,7 +29,14 @@ export default function PaymentMethod({ id, name }) {
   }
   return (
     <div className="flex mt-5">
-      <input type="radio" name="payment_method" id={id} value={id} className="accent-secondary" />
+      <input
+        type="radio"
+        name="payment_method"
+        id={id}
+        value={id}
+        onChange={() => onChange(id)}
+        className="accent-secondary"
+      />
       <label htmlFor={id} className="flex ml-3 items-center">
         <div className={`flex justify-center items-center rounded-xl p-3 ${icons.bgColor}`}>
           <img src={icons.icon} alt="{label}" className="w-10 h-10" />
