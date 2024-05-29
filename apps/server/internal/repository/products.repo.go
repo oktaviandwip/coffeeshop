@@ -60,23 +60,8 @@ func (pr *RepoProduct) CreateProduct(ctx context.Context, product *products.Prod
 		_ = tx.Rollback()
 		return nil, err
 	}
-	var sizeIDs []string
-	rows, err := tx.QueryContext(ctx, "SELECT id FROM size")
-	if err != nil {
-		_ = tx.Rollback()
-		return nil, err
-	}
-	defer rows.Close()
-	for rows.Next() {
-		var sizeID string
-		if err := rows.Scan(&sizeID); err != nil {
-			_ = tx.Rollback()
-			return nil, err
-		}
-		sizeIDs = append(sizeIDs, sizeID)
-	}
 
-	for _, sizeID := range sizeIDs {
+	for _, sizeID := range product.SizeIDs {
 		_, err = tx.ExecContext(ctx, "INSERT INTO product_size (product_id, size_id, price) VALUES ($1, $2, $3)", productID, sizeID, product.Price)
 		if err != nil {
 			_ = tx.Rollback()
@@ -84,24 +69,7 @@ func (pr *RepoProduct) CreateProduct(ctx context.Context, product *products.Prod
 		}
 	}
 
-	//SCan Delivery
-	var deliveryMethod []string
-	rows, err = tx.QueryContext(ctx, "SELECT id FROM delivery_method")
-	if err != nil {
-		_ = tx.Rollback()
-		return nil, err
-	}
-	defer rows.Close()
-	for rows.Next() {
-		var deliveryID string
-		if err := rows.Scan(&deliveryID); err != nil {
-			_ = tx.Rollback()
-			return nil, err
-		}
-		deliveryMethod = append(deliveryMethod, deliveryID)
-	}
-
-	for _, deliveryID := range deliveryMethod {
+	for _, deliveryID := range product.DeliveryMethod {
 		_, err = tx.ExecContext(ctx, "INSERT INTO product_delivery (product_id, method_id) VALUES ($1, $2)", productID, deliveryID)
 		if err != nil {
 			_ = tx.Rollback()
@@ -315,6 +283,21 @@ func (pr *RepoProduct) UpdateProduct(ctx context.Context, productID string, prod
 		}
 		for _, sizeID := range product.SizeIDs {
 			_, err = tx.ExecContext(ctx, "INSERT INTO product_size (product_id, size_id, price) VALUES ($1, $2, $3)", productID, sizeID, product.Price)
+			if err != nil {
+				_ = tx.Rollback()
+				return nil, err
+			}
+		}
+	}
+	if len(product.DeliveryMethod) > 0 {
+
+		_, err = tx.ExecContext(ctx, "DELETE FROM product_delivery WHERE product_id=$1", productID)
+		if err != nil {
+			_ = tx.Rollback()
+			return nil, err
+		}
+		for _, deliveryID := range product.DeliveryMethod {
+			_, err = tx.ExecContext(ctx, "INSERT INTO product_delivery (product_id, method_id) VALUES ($1, $2)", productID, deliveryID)
 			if err != nil {
 				_ = tx.Rollback()
 				return nil, err

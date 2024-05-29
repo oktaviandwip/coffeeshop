@@ -144,6 +144,18 @@ CREATE TABLE product_delivery
   PRIMARY KEY (product_id, method_id)
 );
 
+CREATE TABLE history
+(
+  id             uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_id        uuid REFERENCES users (user_id) ON DELETE CASCADE,
+  order_id       uuid REFERENCES cart_order (order_id) ON DELETE CASCADE,
+  product_id     uuid REFERENCES product (id) ON DELETE CASCADE,
+  size_id        uuid REFERENCES size (id) ON DELETE CASCADE,
+  status         VARCHAR,
+  created_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 
 DROP SCHEMA public CASCADE;
 CREATE SCHEMA public;
@@ -192,3 +204,20 @@ WHERE c.user_id = 'aabc969d-7e5e-4ea1-9105-35f4da186e50'
 SELECT photo_profile, address, display_name, first_name, last_name, gender, birthday
 FROM profile
 WHERE user_id = '46350b58-54a3-4a67-a366-a5ee0b7c8266';
+
+select * from cart_order where order_id = 'f7afda74-6bc1-49ed-8f33-84d9b585a8f3';
+
+select total_price, created_at from cart_order where user_id = 'fed68249-420a-4e4c-b3cc-87ec1738ee5f';
+
+SELECT
+  SUM(total_price) AS total_price_sum
+FROM
+  cart_order
+WHERE
+  created_at >= NOW() - INTERVAL '1 WEEK';
+
+SELECT h.id, h.user_id, h.order_id, h.product_id, p.name as product_name, ps.price as product_price, h.status, h.created_at, h.updated_at
+FROM history h
+       JOIN product p ON h.product_id = p.id
+       JOIN product_size ps ON h.product_id = ps.product_id AND h.size_id = ps.size_id
+WHERE h.user_id = '87f938b3-5060-48ca-a4c8-acf67b12f950' AND h.status = 'delivered';

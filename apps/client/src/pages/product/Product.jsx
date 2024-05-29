@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import Button from '../../components/Button';
 import CardProduct from '../../components/CardProduct';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import Promo from '../../components/Promo';
 import useApi from '../../utils/useApi';
+import { useSelector } from 'react-redux';
 
 function Product() {
   const api = useApi();
@@ -15,6 +16,8 @@ function Product() {
   const [limit] = useState(10);
   const [category, setCategory] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
+  const { isAuthAdmin } = useSelector((s) => s.users);
+
   const handleClickCategory = (e, category) => {
     setCategory(category);
   };
@@ -87,7 +90,7 @@ function Product() {
               Foods
             </li>
           </ul>
-          <section className="w-full flex flex-wrap justify-around sm:grid sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center gap-9">
+          <section className="overflow-x-auto w-full flex justify-around sm:grid sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center gap-9">
             {product &&
               product.map((p) => {
                 return <CardProduct key={p.id} id={p.id} title={p.name} price={p.price} image={p.image_url} />;
@@ -95,6 +98,9 @@ function Product() {
           </section>
 
           <p className="w-full ">*the price has been cutted by discount appears</p>
+          <Link to="/product/add" className={`${isAuthAdmin ? 'block' : 'hidden'} w-full`}>
+            <Button content={'Add Product'} />
+          </Link>
         </main>
       </section>
       <Footer />
