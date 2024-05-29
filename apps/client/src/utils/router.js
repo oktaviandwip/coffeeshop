@@ -10,7 +10,6 @@ import Cart from '../pages/cart/Cart.jsx';
 import Dashboard from '../pages/dashboard/Dashboard.jsx';
 import Home from '../pages/home/Home';
 import Profile from '../pages/profile/Profile';
-import Cart from '../pages/cart/Cart.jsx';
 import PrivateRoute, { PrivateRouteAdmin } from './privateRoute.js';
 import Product from '../pages/product/Product.jsx';
 import DetailProduct from '../pages/detailproduct/DetailProduct.jsx';
@@ -87,7 +86,7 @@ export default createBrowserRouter([
   {
     path: '/cart',
     element: <Cart />,
-  }
+  },
   {
     path: '/dashboard',
     element: (
