@@ -8,8 +8,8 @@ export default function FooterSign() {
   const years = new Date().getFullYear();
 
   return (
-    <div className="font-rubik flex flex-row justify-between bg-[#F8F8F8] py-20 px-14">
-      <div className="w-[45%] flex flex-col gap-y-5">
+    <div className="font-rubik flex md:flex-row flex-col gap-y-8 md:justify-between bg-[#F8F8F8] py-20 pb-0 md:pb-20 md:px-14 px-8">
+      <div className="md:w-[45%] flex flex-col gap-y-5">
         <div className="flex flex-row gap-x-2 items-center ">
           <img src={iconCoffee} alt="icon coffee" />
           <span className=" font-bold text-[20px] font-[#0B132A]">Coffee Shop</span>
@@ -28,12 +28,12 @@ export default function FooterSign() {
             <img className="" src={iconIg} alt="" />
           </a>
         </div>
-        <p className="text-[#AFB5C0] text-base mt-5">©{years}CoffeeStore</p>
+        <p className="hidden md:flex text-[#AFB5C0] text-base mt-5">©{years}CoffeeStore</p>
       </div>
-      <div className="w-[45%] flex flex-col gap-y-10">
+      <div className="md:w-[45%] flex flex-col gap-y-10">
         <div className="flex flex-col">
           <p className="text-[#0B132A] text-[18px] font-[500]">Product</p>
-          <div className="text-[#4F5665] mt-5 grid grid-cols-2 gap-y-4">
+          <div className="text-[#4F5665] mt-5 grid md:grid-cols-2 grid-cols-4 gap-y-4">
             <a href="">Download</a>
             <a href="">Pricing</a>
             <a href="">Locations</a>
@@ -43,7 +43,7 @@ export default function FooterSign() {
         </div>
         <div className="flex flex-col">
           <p className="text-[#0B132A] text-[18px] font-[500]">Engage</p>
-          <div className="text-[#4F5665] mt-5 grid grid-cols-2 gap-y-4">
+          <div className="text-[#4F5665] mt-5 grid md:grid-cols-2 grid-cols-2 gap-x-3 gap-y-4">
             <a href="">Coffee Shop ?</a>
             <a href="">About Us</a>
             <a href="">FAQ</a>
@@ -52,6 +52,7 @@ export default function FooterSign() {
           </div>
         </div>
       </div>
+      <p className="block md:hidden text-[#AFB5C0] text-base text-center p-5">©{years} Coffee Store</p>
     </div>
   );
 }
