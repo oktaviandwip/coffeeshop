@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 	"fmt"
+
 	"github.com/Roisfaozi/black-coffee-collaborations/config"
 	"github.com/Roisfaozi/black-coffee-collaborations/internal/models/orders"
 	"github.com/jmoiron/sqlx"
@@ -14,6 +15,7 @@ type OrderRepository interface {
 	GetOrderedCartItems(ctx context.Context, userId string) (*config.Result, error)
 	GetOrderHistory(ctx context.Context, userId string) (*config.Result, error)
 	DeleteOrderHistory(ctx context.Context, historyID string) (*config.Result, error)
+	GetCartItems(ctx context.Context, userId string) (*config.Result, error)
 }
 
 type OrderRepo struct {
@@ -181,4 +183,42 @@ func (o *OrderRepo) DeleteOrderHistory(ctx context.Context, historyID string) (*
 	}
 
 	return result, nil
+}
+
+func (o *OrderRepo) GetCartItems(ctx context.Context, userId string) (*config.Result, error) {
+	var cartItems []orders.OrderedProduct
+
+	query := `
+        SELECT 
+            ci.id, 
+            p.name as product_name,
+            p.image_url,
+            ps.price as product_price,
+			s.size_name,
+            ci.quantity, 
+            ci.created_at, 
+            ci.updated_at
+        FROM 
+            cart_item ci
+        JOIN 
+            product p ON ci.product_id = p.id
+        JOIN 
+            product_size ps ON ci.product_id = ps.product_id AND ci.size_id = ps.size_id
+        JOIN 
+            cart c ON ci.cart_id = c.id
+		JOIN 
+            size s ON ci.size_id = s.id
+        WHERE 
+            c.user_id = $1 
+            AND ci.ordered != TRUE`
+
+	err := o.db.SelectContext(ctx, &cartItems, query, userId)
+	if err != nil {
+		return nil, err
+	}
+
+	return &config.Result{
+		Data:    cartItems,
+		Message: "Success Get order History",
+	}, nil
 }

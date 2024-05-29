@@ -17,5 +17,6 @@ func attributeprod(g *gin.Engine, d *sqlx.DB) {
 	router.GET("/delivery", middleware.Authjwt("admin", "user"), handler.GetAllDelivery)
 	router.GET("/delivery/:product_id", middleware.Authjwt("admin", "user"), handler.GetDeliveryProduct)
 	router.GET("/size", middleware.Authjwt("admin", "user"), handler.GetAllSize)
+	router.GET("/payment", middleware.Authjwt("admin", "user"), handler.GetAllPayment)
 
 }

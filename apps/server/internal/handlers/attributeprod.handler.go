@@ -55,3 +55,16 @@ func (h *HandlerAttributeProd) GetAllSize(ctx *gin.Context) {
 	pkg.NewRes(200, result).Send(ctx)
 
 }
+func (h *HandlerAttributeProd) GetAllPayment(ctx *gin.Context) {
+
+	result, err := h.FetchAllPayment()
+	if err != nil {
+		pkg.NewRes(401, &config.Result{
+			Data: err.Error(),
+		}).Send(ctx)
+		return
+	}
+
+	pkg.NewRes(200, result).Send(ctx)
+
+}

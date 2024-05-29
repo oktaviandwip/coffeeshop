@@ -71,6 +71,8 @@ type OrderedProduct struct {
 	Quantity     int       `json:"quantity" db:"quantity"`
 	CreatedAt    time.Time `json:"created_at" db:"created_at"`
 	UpdatedAt    time.Time `json:"updated_at" db:"updated_at"`
+	Image        string    `json:"image_url" db:"image_url"`
+	SizeName     string    `json:"size_name" db:"size_name"`
 }
 type OrderHistory struct {
 	HistoryId    string    `db:"id" json:"id"`
