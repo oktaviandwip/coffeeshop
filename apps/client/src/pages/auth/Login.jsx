@@ -7,7 +7,7 @@ import iconGoogle from '../../assets/icons/google-logo-png-suite-everything-you-
 import FooterSign from '../../components/FooterSign';
 import { loginAdmin, loginUser } from '../../store/reducer/user';
 import useApi from '../../utils/useApi';
-import imageHeroLoginMobile from '../../assets/images/lady-having-coffee 1.png'
+import imageHeroLoginMobile from '../../assets/images/lady-having-coffee 1.png';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -97,7 +97,10 @@ export default function Login() {
           <div className="flex flex-col md:p-20 mb-16 p-3">
             <form className="flex flex-col md:gap-y-7 gap-y-2" action="" onSubmit={submitHandler}>
               <div className="flex flex-col gap-y-2">
-                <label className=" hidden md:flex text-[#4F5665] md:font-bold text-base md:text-[20px] " htmlFor="email">
+                <label
+                  className=" hidden md:flex text-[#4F5665] md:font-bold text-base md:text-[20px] "
+                  htmlFor="email"
+                >
                   Email Adress :
                 </label>
                 <input
@@ -112,7 +115,10 @@ export default function Login() {
                 />
               </div>
               <div className="flex flex-col gap-y-2">
-                <label className=" hidden md:flex text-[#4F5665] md:font-bold text-base md:text-[20px] " htmlFor="password">
+                <label
+                  className=" hidden md:flex text-[#4F5665] md:font-bold text-base md:text-[20px] "
+                  htmlFor="password"
+                >
                   Password :
                 </label>
                 <input
@@ -125,7 +131,10 @@ export default function Login() {
                   required
                   onChange={changeHanlder}
                 />
-                <a className="text-brown text-base md:text-[20px] md:font-bold mt-3 underline decoration-solid" href="/forgot-password">
+                <a
+                  className="text-brown text-base md:text-[20px] md:font-bold mt-3 underline decoration-solid"
+                  href="/forgot-password"
+                >
                   Forgot password?
                 </a>
               </div>

@@ -16,6 +16,7 @@ import Home from '../pages/home/Home';
 import Product from '../pages/product/Product.jsx';
 import Profile from '../pages/profile/Profile';
 import PrivateRoute, { PrivateRouteAdmin } from './privateRoute.js';
+import Dashboard from '../pages/dashboard/Dashboard.jsx';
 
 export default createBrowserRouter([
   {
@@ -57,11 +58,9 @@ export default createBrowserRouter([
   {
     path: '/history',
     element: (
-
       <PrivateRoute>
         <History />
       </PrivateRoute>
-
     ),
   },
   {
@@ -71,11 +70,13 @@ export default createBrowserRouter([
         <EditProduct />
       </PrivateRouteAdmin>
     ),
-
   },
   {
     path: '/product/add',
     element: <AddProduct />,
-
+  },
+  {
+    path: '/dashboard',
+    element: <Dashboard />,
   },
 ]);
