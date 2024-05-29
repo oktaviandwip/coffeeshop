@@ -21,7 +21,6 @@ import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 
 export default function Home() {
-
   const dataMenu = [
     {
       product_id: '0e9ed486-dc6d-4765-80ac-a23892068951',
@@ -94,7 +93,9 @@ export default function Home() {
       {/* hero/jumbotron */}
       <div className="w-full bg-heroHome bg-cover bg-no-repeat flex flex-col px-6 md:px-40 pt-16 pb-16 md:pb-52 overflow-x-hidden">
         <div className="text-white flex flex-col gap-y-5">
-          <h3 className="w-full md:w-[45%] leading-snug text-3xl md:text-[50px] font-bold">Start Your Day with Coffee and Good Meals</h3>
+          <h3 className="w-full md:w-[45%] leading-snug text-3xl md:text-[50px] font-bold">
+            Start Your Day with Coffee and Good Meals
+          </h3>
           <p className="w-full md:w-[44%]  md:text-[20px] font-semibold md:font-bold">
             We provide high quality beans, good taste, and healthy meals made by love just for you. Start your day with
             us for a bigger smile!
@@ -144,7 +145,9 @@ export default function Home() {
             <img src={imageTeamWork} alt="image" />
           </div>
           <div className="w-full md:w-[45%] flex flex-col gap-y-4 pt-8">
-            <h3 className="text-[#0B132A] font-[500] md:leading-normal text-2xl md:text-[35px]">We Provide Good Coffee and Healthy Meals</h3>
+            <h3 className="text-[#0B132A] font-[500] md:leading-normal text-2xl md:text-[35px]">
+              We Provide Good Coffee and Healthy Meals
+            </h3>
             <p className="text-[#4F5665] md:leading-loose text-base">
               You can explore the menu that we provide with fun and have their own taste and make your day better.
             </p>
@@ -312,10 +315,17 @@ export default function Home() {
         {/* overflow check promo */}
         <div className="md:absolute -bottom-28 left-40 md:w-[79%] w-[90%] mx-auto flex md:flex-row flex-col gap-y-5 justify-between items-center rounded-md shadow-2xl bg-white p-12 z-40">
           <div className="flex flex-col gap-y-2">
-            <h4 className="md:w-[75%] leading-normal text-[#0B132A] md:text-[35px] text-center md:text-left text-2xl font-[500]">Check our promo today!</h4>
-            <p className="text-[#4F5665] font-normal text-center md:text-left text-base">Let&apos;s see the deals and pick yours!</p>
+            <h4 className="md:w-[75%] leading-normal text-[#0B132A] md:text-[35px] text-center md:text-left text-2xl font-[500]">
+              Check our promo today!
+            </h4>
+            <p className="text-[#4F5665] font-normal text-center md:text-left text-base">
+              Let&apos;s see the deals and pick yours!
+            </p>
           </div>
-          <a className="text-brown text-center md:text-base text-sm font-bold bg-yellow rounded-md shadow-2xl px-10 py-3" href="">
+          <a
+            className="text-brown text-center md:text-base text-sm font-bold bg-yellow rounded-md shadow-2xl px-10 py-3"
+            href=""
+          >
             See Promo
           </a>
         </div>

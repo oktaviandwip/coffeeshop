@@ -5,7 +5,7 @@ import iconCoffee from '../../assets/icons/coffee 1.png';
 import iconGoogle from '../../assets/icons/google-logo-png-suite-everything-you-need-know-about-google-newest-0 2.png';
 import FooterSign from '../../components/FooterSign';
 import useApi from '../../utils/useApi';
-import imageHeroSignupMobile from '../../assets/images/girl-chilling-exploring-on-the-phone 1.png'
+import imageHeroSignupMobile from '../../assets/images/girl-chilling-exploring-on-the-phone 1.png';
 
 function SignUp() {
   const api = useApi();
@@ -100,7 +100,10 @@ function SignUp() {
               }}
             >
               <div className="flex flex-col gap-y-0 md:gap-y-3">
-                <label className=" hidden md:flex text-[#4F5665] md:font-bold text-base md:text-[20px] " htmlFor="email">
+                <label
+                  className=" hidden md:flex text-[#4F5665] md:font-bold text-base md:text-[20px] "
+                  htmlFor="email"
+                >
                   Email Adress :
                 </label>
                 <input
@@ -115,7 +118,10 @@ function SignUp() {
                 />
               </div>
               <div className="flex flex-col gap-y-0 md:gap-y-3">
-                <label className="hidden md:flex text-[#4F5665] md:font-bold text-base md:text-[20px]" htmlFor="password">
+                <label
+                  className="hidden md:flex text-[#4F5665] md:font-bold text-base md:text-[20px]"
+                  htmlFor="password"
+                >
                   Password :
                 </label>
                 <input

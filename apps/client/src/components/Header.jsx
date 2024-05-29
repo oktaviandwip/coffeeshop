@@ -4,59 +4,68 @@ import { Link, useLocation } from 'react-router-dom';
 import iconCoffee from '../../src/assets/icons/coffee 1.png';
 import { logout } from '../../src/store/reducer/user';
 import imageUser from '../assets/images/Ellipse 175 (2).png';
-import iconHumberger from '../assets/icons/humberger.png'
-import iconShoppingCart from '../assets/icons/shopping-cart.png'
-import iconArrowRight from '../assets/icons/arrow-right.png'
+import iconHumberger from '../assets/icons/humberger.png';
+import iconShoppingCart from '../assets/icons/shopping-cart.png';
+import iconArrowRight from '../assets/icons/arrow-right.png';
 
 export default function Header() {
   const { isAuthUser, isAuthAdmin } = useSelector((state) => state.users);
   const dispatch = useDispatch();
-  
-  const openSideNav = () => {
-    const elmConSideNav = document.querySelector(".con-side-nav")
-    const elmSideNav = document.querySelector(".side-nav")
 
-    elmConSideNav.classList.remove("opacity-0")
-    elmConSideNav.classList.remove("pointer-events-none")
-    elmSideNav.classList.remove("-left-full")
-  }
+  const openSideNav = () => {
+    const elmConSideNav = document.querySelector('.con-side-nav');
+    const elmSideNav = document.querySelector('.side-nav');
+
+    elmConSideNav.classList.remove('opacity-0');
+    elmConSideNav.classList.remove('pointer-events-none');
+    elmSideNav.classList.remove('-left-full');
+  };
 
   const closeSideNav = () => {
-    document.addEventListener("click", function(e){
-      const elmConSideNav = document.querySelector(".con-side-nav")
-      const elmSideNav = document.querySelector(".side-nav")
+    document.addEventListener('click', function (e) {
+      const elmConSideNav = document.querySelector('.con-side-nav');
+      const elmSideNav = document.querySelector('.side-nav');
 
-      if (e.target.id == "con-side-nav") {
-        elmSideNav.classList.add("-left-full")
+      if (e.target.id == 'con-side-nav') {
+        elmSideNav.classList.add('-left-full');
         setTimeout(() => {
-          elmConSideNav.classList.add("opacity-0", "pointer-events-none")
-        }, 300)
+          elmConSideNav.classList.add('opacity-0', 'pointer-events-none');
+        }, 300);
       }
-    })
-  }
+    });
+  };
 
   useEffect(() => {
-    closeSideNav()
-  }, [])
-  
+    closeSideNav();
+  }, []);
+
   return (
     <header className="font-rubik sticky top-0 md:px-40 px-10 md:py-10 py-5 border-b-[1px] border-[#9f9f9f56] bg-white z-50">
-      <div id="con-side-nav" className="con-side-nav fixed left-0 top-0 md:static w-screen md:w-full h-screen md:h-auto z-50 opacity-0 md:opacity-100 pointer-events-none bg-[#00000080] md:bg-transparent">
-        <div id="side-nav" className="side-nav fixed left-0 -left-full md:static h-full w-[65%] md:w-full md:h-auto flex md:flex-row flex-col-reverse justify-end md:justify-between z-100 rounded-tr-3xl bg-[#F2F2F2] md:bg-transparent ease-linear duration-300 pointer-events-auto">
+      <div
+        id="con-side-nav"
+        className="con-side-nav fixed left-0 top-0 md:static w-screen md:w-full h-screen md:h-auto z-50 opacity-0 md:opacity-100 pointer-events-none bg-[#00000080] md:bg-transparent"
+      >
+        <div
+          id="side-nav"
+          className="side-nav fixed left-0 -left-full md:static h-full w-[65%] md:w-full md:h-auto flex md:flex-row flex-col-reverse justify-end md:justify-between z-100 rounded-tr-3xl bg-[#F2F2F2] md:bg-transparent ease-linear duration-300 pointer-events-auto"
+        >
           {/* button sign out mobile */}
-          {isAuthUser || isAuthAdmin ? 
+          {isAuthUser || isAuthAdmin ? (
             <div className=" md:hidden flex flex-col items-start justify-center h-1/3 px-5">
-              <button className="flex justify-center items-center gap-x-2"
+              <button
+                className="flex justify-center items-center gap-x-2"
                 onClick={(e) => {
                   e.preventDefault();
                   dispatch(logout());
-                }}>
+                }}
+              >
                 <span className="text-brown text-base">Sign Out</span>
                 <img src={iconArrowRight} alt="" />
               </button>
             </div>
-            : ""
-          }
+          ) : (
+            ''
+          )}
           <a className="hidden md:flex w-1/4 flex-row gap-x-2 justify-start items-center" href="/">
             <img src={iconCoffee} alt="icon coffee" />
             <span className=" font-bold text-[20px] font-[#0B132A]">Coffee Shop</span>
@@ -81,7 +90,10 @@ export default function Header() {
                     <p className="md:hidden text-sm text-white">zulaikha17@gmail.com</p>
                   </div>
                   <span className="md:hidden group-hover:flex md:absolute top-[50px] left-0 flex flex-col md:h-fit md:shadow-xl hover:shadow-2xl px-5 md:px-0 md:bg-white md:py-5 md:pb-2 mt-0 rounded-[4px] z-30">
-                    <a className="font-light px-0 md:px-5 py-2 hover:bg-neutral-100 border-b-[0.3px] md:border-none" href="/profile">
+                    <a
+                      className="font-light px-0 md:px-5 py-2 hover:bg-neutral-100 border-b-[0.3px] md:border-none"
+                      href="/profile"
+                    >
                       Profile
                     </a>
                     <a
@@ -99,10 +111,16 @@ export default function Header() {
               </>
             ) : (
               <div className="w-full md:w-auto flex md:gap-x-8 gap-x-3 md:justify-center items-center px-5 md:p-0 py-5 md:py-0 bg-brown md:bg-transparent rounded-tr-3xl md:rounded-none">
-                <a className="font-[500] text-white md:text-[#0B132A] text-sm md:text-base border md:border-none px-4 py-2 md:px-0 rounded-md" href="/login">
+                <a
+                  className="font-[500] text-white md:text-[#0B132A] text-sm md:text-base border md:border-none px-4 py-2 md:px-0 rounded-md"
+                  href="/login"
+                >
                   Login
                 </a>
-                <a className="md:bg-yellow md:rounded-[50px] md:px-10 md:py-3 md:text-[#6A4029] text-sm md:text-base font-[500] md:shadow-2xl text-white border px-4 py-2 md:p-0 rounded-md" href="/signup">
+                <a
+                  className="md:bg-yellow md:rounded-[50px] md:px-10 md:py-3 md:text-[#6A4029] text-sm md:text-base font-[500] md:shadow-2xl text-white border px-4 py-2 md:p-0 rounded-md"
+                  href="/signup"
+                >
                   Sign Up
                 </a>
               </div>
@@ -110,7 +128,7 @@ export default function Header() {
           </div>
         </div>
       </div>
-      
+
       {/* mobile icon */}
       <div className="md:hidden w-full flex justify-between">
         <button onClick={openSideNav}>

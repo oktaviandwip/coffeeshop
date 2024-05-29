@@ -58,11 +58,9 @@ export default createBrowserRouter([
   {
     path: '/history',
     element: (
-
       <PrivateRoute>
         <History />
       </PrivateRoute>
-
     ),
   },
   {
@@ -72,12 +70,10 @@ export default createBrowserRouter([
         <EditProduct />
       </PrivateRouteAdmin>
     ),
-
   },
   {
     path: '/product/add',
     element: <AddProduct />,
-
   },
   {
     path: '/dashboard',
