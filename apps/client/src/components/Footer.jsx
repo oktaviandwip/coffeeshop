@@ -9,7 +9,7 @@ export default function Footer() {
 
   return (
     <footer className="relative font-rubik bg-[#F8F8F8] md:pt-40 py-10 md:px-40 px-6 -z-20">
-      <div className='flex md:flex-row flex-col gap-y-10 md:justify-between'>
+      <div className="flex md:flex-row flex-col gap-y-10 md:justify-between">
         <div className="flex flex-col gap-y-5">
           <div className="flex flex-row gap-x-2 md:items-center ">
             <img src={iconCoffee} alt="icon coffee" />
@@ -55,7 +55,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      
+
       <p className="text-[#AFB5C0] text-base text-center md:text-left md:mt-5 mt-10">©{years}CoffeeStore</p>
     </footer>
   );

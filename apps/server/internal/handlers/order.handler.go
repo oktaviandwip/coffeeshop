@@ -1,12 +1,13 @@
 package handlers
 
 import (
+	"net/http"
+
 	"github.com/Roisfaozi/black-coffee-collaborations/config"
 	"github.com/Roisfaozi/black-coffee-collaborations/internal/models/orders"
 	"github.com/Roisfaozi/black-coffee-collaborations/internal/repository"
 	"github.com/Roisfaozi/black-coffee-collaborations/pkg"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
 type OrderHandler interface {
@@ -84,4 +85,16 @@ func (oh *OrderHandlerImpl) DeleteOrderHistory(c *gin.Context) {
 		return
 	}
 	pkg.NewRes(http.StatusOK, result).Send(c)
+}
+
+func (oh *OrderHandlerImpl) GetCartItems(c *gin.Context) {
+	userID := c.MustGet("userId").(string)
+
+	cartItems, err := oh.orderRepo.GetCartItems(c.Request.Context(), userID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	pkg.NewRes(http.StatusOK, cartItems).Send(c)
+
 }
