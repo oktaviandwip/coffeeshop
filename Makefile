@@ -33,5 +33,9 @@ compose-up:
 compose-down:
 	docker compose stop && docker compose down && docker rmi go-server
 
-docker-build:
-	docker rmi rois/cafe-server && docker build -t rois/cafe-server .
+docker-build-client:
+	docker rmi roisfaozi/caffe-client && docker build -t roisfaozi/caffe-client ./apps/client
+
+
+docker-build-server:
+	docker rmi roisfaozi/caffe-server:1 && docker build -t roisfaozi/caffe-server:1 ./apps/server

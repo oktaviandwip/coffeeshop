@@ -17,7 +17,7 @@ services:
     container_name: cafe_server
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: apps/server/Dockerfile
     image: 'go-server'
     ports:
       - '8081:8081'
