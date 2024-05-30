@@ -224,7 +224,7 @@ export default function Home() {
                       <span className="text-[#0B132A] md:text-[25px] font-[500]">IDR {menu.price}</span>
                       <a
                         className="border border-yellow py-2 px-8 rounded-[50px] text-[#6A4029] text-base md:font-bold hover:bg-yellow hover:shadow-2xl"
-                        href={`/product/${menu.product_id}`}
+                        href="/product"
                       >
                         Order Now
                       </a>

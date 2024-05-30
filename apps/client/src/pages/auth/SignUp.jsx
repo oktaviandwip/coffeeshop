@@ -6,6 +6,8 @@ import iconGoogle from '../../assets/icons/google-logo-png-suite-everything-you-
 import FooterSign from '../../components/FooterSign';
 import useApi from '../../utils/useApi';
 import imageHeroSignupMobile from '../../assets/images/girl-chilling-exploring-on-the-phone 1.png';
+import Alert from '../../components/Alert';
+import Loading from '../../components/Loading';
 
 function SignUp() {
   const api = useApi();
@@ -13,6 +15,7 @@ function SignUp() {
 
   const [form, setForm] = useState({});
   const [message, setMessage] = useState(null);
+  const [loading, setLoading] = useState(false)
 
   const { isAuthUser } = useSelector((state) => state.users);
   const navigate = useNavigate();
@@ -31,6 +34,7 @@ function SignUp() {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    setLoading(true)
 
     api({
       method: 'POST',
@@ -40,37 +44,32 @@ function SignUp() {
       .then((res) => {
         console.log(res);
         setTimeout(() => {
+          setLoading(false)
+          setMessage('Pendaftaran berhasil silahkan login');
+        }, 300);
+        setTimeout(() => {
           navigate('/login');
-        }, 1500);
-        setMessage('Pendaftaran Berhasil');
-        alertElm.classList.add('opacity-100');
+        }, 2000);
       })
       .catch((err) => {
-        console.log(err.response.data.description);
-        if (err.response.data.description) {
-          setMessage(err.response.data.description);
-          alertElm.classList.add('opacity-100');
-          return;
-        }
-        setMessage('Oops error');
-        alertElm.classList.add('opacity-100');
+        console.log(err);
+        setTimeout(()=>{
+          setLoading(false)
+          
+          if(err.message == 'Network Error') {
+            setMessage('Maaf, sedang perbaikan server');
+            return
+          }
+  
+          if(err.response.data.description != 'undefined') {
+            setMessage(err.response.data.description);
+            return
+          } 
+
+          setMessage('Periksa koneksi anda');
+
+        },300)
       });
-  };
-
-  //Menghilangkan alert secara otomatis
-  useEffect(() => {
-    if (message) {
-      setTimeout(() => {
-        alertElm.classList.remove('opacity-100');
-      }, 7000);
-    }
-  }, [message]);
-
-  const closeAllert = (e) => {
-    alertElm.classList.remove('opacity-100');
-    if (e.key == 'Enter') {
-      alertElm.classList.remove('opacity-100');
-    }
   };
 
   return (
@@ -178,22 +177,8 @@ function SignUp() {
       </section>
 
       {/* alert notification */}
-      <div
-        id="alert-error"
-        className="opacity-0  fixed top-0 left-0 w-screen h-screen flex flex-row justify-center items-center bg-[#000000CC] transition-all ease-in-out duration-1000 pointer-events-none"
-      >
-        <div className="bg-white h-fit flex flex-col items-center justify-center gap-y-7 rounded-[2px] px-12 pt-10 pb-8">
-          <p className="font-bold text-brown text-xl">{message && message ? message : 'Periksa koneksi anda'}</p>
-          <button
-            id="btn-allert"
-            className="bg-yellow text-brown rounded-[2px] px-7 py-2 hover:bg-orange-500 pointer-events-auto"
-            type="button"
-            onClick={closeAllert}
-          >
-            OK
-          </button>
-        </div>
-      </div>
+      {loading ? <Loading/> : ""}
+      {message? <Alert msg={message} setMsg={setMessage}/> : ""}
     </main>
   );
 }

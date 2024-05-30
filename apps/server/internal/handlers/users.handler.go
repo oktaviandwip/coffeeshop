@@ -57,6 +57,22 @@ func (h *HandlerUsers) CreateNewUser(ctx *gin.Context) {
 	pkg.NewRes(200, result).Send(ctx)
 }
 
+// Get Profile for header
+func (h *HandlerUsers) GetProfileForHeader(ctx *gin.Context) {
+
+	id := ctx.Param("id")
+
+	result, err := h.FetchProfileForHeader(id)
+	if err != nil {
+		pkg.NewRes(400, &config.Result{
+			Data: err.Error(),
+		}).Send(ctx)
+		return
+	}
+
+	pkg.NewRes(200, result).Send(ctx)
+}
+
 // Get Profile
 func (h *HandlerUsers) GetProfile(ctx *gin.Context) {
 

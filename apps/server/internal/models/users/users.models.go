@@ -106,3 +106,9 @@ type Profile struct {
 	CreatedAt *time.Time `db:"created_at" json:"created_at"`
 	UpdatedAt *time.Time `db:"updated_at" json:"updated_at"`
 }
+
+type UserProfileHeader struct {
+	Email         string `db:"email" form:"email" json:"email"`
+	Display_name  string `db:"display_name" json:"display_name"`
+	Photo_profile string `db:"photo_profile" json:"photo_profile"`
+}
