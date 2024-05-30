@@ -14,15 +14,15 @@ export default function Header() {
   const dispatch = useDispatch();
   const api = useApi();
 
-  const [photoProfile, setPhotoProfile] = useState('')
-  const [userName, setUserName] = useState(null)
-  const [userEmail, setUserEmail] = useState(null)
+  const [photoProfile, setPhotoProfile] = useState('');
+  const [userName, setUserName] = useState(null);
+  const [userEmail, setUserEmail] = useState(null);
 
   const openSideNav = () => {
     const elmConSideNav = document.querySelector('.con-side-nav');
     const elmSideNav = document.querySelector('.side-nav');
 
-    elmConSideNav.classList.remove('opacity-0','pointer-events-none');
+    elmConSideNav.classList.remove('opacity-0', 'pointer-events-none');
     elmSideNav.classList.remove('-translate-x-full', 'pointer-events-none');
   };
 
@@ -44,22 +44,21 @@ export default function Header() {
     api({
       method: 'GET',
       url: `/users/profile/header/${userId}`,
-      headers: {Authorization: `Bearer ${token}`},
+      headers: { Authorization: `Bearer ${token}` },
     })
       .then(({ data }) => {
-        setUserEmail(data.data.email)
-        setUserName(data.data.display_name)
-        setPhotoProfile(data.data.photo_profile)
-
+        setUserEmail(data.data.email);
+        setUserName(data.data.display_name);
+        setPhotoProfile(data.data.photo_profile);
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
       });
-  }
+  };
 
   useEffect(() => {
     closeSideNav();
-    getProfile()
+    getProfile();
   }, []);
 
   return (
@@ -108,8 +107,14 @@ export default function Header() {
                 </div>
                 <div className="relative w-full md:w-auto group cursor-pointer md:flex justify-end">
                   <div className="flex flex-col justify-center items-center gap-y-2 p-5 py-10 md:p-0 bg-brown rounded-e-3xl md:rounded-none md:bg-transparent">
-                    <img className="w-[60px] h-[60px] rounded-full" src={photoProfile? photoProfile : iconPerson} alt="image user" />
-                    <p className="md:hidden text-base text-white font-medium">{userName ? userName : isAuthAdmin? "admin" : "User"}</p>
+                    <img
+                      className="w-[60px] h-[60px] rounded-full"
+                      src={photoProfile ? photoProfile : iconPerson}
+                      alt="image user"
+                    />
+                    <p className="md:hidden text-base text-white font-medium">
+                      {userName ? userName : isAuthAdmin ? 'admin' : 'User'}
+                    </p>
                     <p className="md:hidden text-sm text-white">{userEmail ? userEmail : ''}</p>
                   </div>
                   <span className="md:hidden group-hover:flex md:absolute top-full left-0 flex flex-col md:h-fit md:shadow-xl hover:shadow-2xl px-5 md:px-0 md:bg-white md:py-5 md:pb-2 mt-0 rounded-[4px] z-30">
@@ -157,11 +162,13 @@ export default function Header() {
         <button onClick={openSideNav}>
           <img src={iconHumberger} alt="humberger" />
         </button>
-        {isAuthUser ? 
-          <a href='/your-cart'>
-          <img src={iconShoppingCart} alt="Shopping Cart" />
-        </a> : ""
-        }
+        {isAuthUser ? (
+          <a href="/your-cart">
+            <img src={iconShoppingCart} alt="Shopping Cart" />
+          </a>
+        ) : (
+          ''
+        )}
       </div>
     </header>
   );

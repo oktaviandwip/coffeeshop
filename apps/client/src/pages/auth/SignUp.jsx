@@ -15,7 +15,7 @@ function SignUp() {
 
   const [form, setForm] = useState({});
   const [message, setMessage] = useState(null);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const { isAuthUser } = useSelector((state) => state.users);
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ function SignUp() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
 
     api({
       method: 'POST',
@@ -44,7 +44,7 @@ function SignUp() {
       .then((res) => {
         console.log(res);
         setTimeout(() => {
-          setLoading(false)
+          setLoading(false);
           setMessage('Pendaftaran berhasil silahkan login');
         }, 300);
         setTimeout(() => {
@@ -53,22 +53,21 @@ function SignUp() {
       })
       .catch((err) => {
         console.log(err);
-        setTimeout(()=>{
-          setLoading(false)
-          
-          if(err.message == 'Network Error') {
+        setTimeout(() => {
+          setLoading(false);
+
+          if (err.message == 'Network Error') {
             setMessage('Maaf, sedang perbaikan server');
-            return
+            return;
           }
-  
-          if(err.response.data.description != 'undefined') {
+
+          if (err.response.data.description != 'undefined') {
             setMessage(err.response.data.description);
-            return
-          } 
+            return;
+          }
 
           setMessage('Periksa koneksi anda');
-
-        },300)
+        }, 300);
       });
   };
 
@@ -177,8 +176,8 @@ function SignUp() {
       </section>
 
       {/* alert notification */}
-      {loading ? <Loading/> : ""}
-      {message? <Alert msg={message} setMsg={setMessage}/> : ""}
+      {loading ? <Loading /> : ''}
+      {message ? <Alert msg={message} setMsg={setMessage} /> : ''}
     </main>
   );
 }
