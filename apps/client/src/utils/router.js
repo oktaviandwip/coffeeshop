@@ -90,7 +90,7 @@ export default createBrowserRouter([
     element: <Cart />,
   },
   {
-    path: '/dashboard',
+    path: '/admin/dashboard',
     element: (
       <PrivateRouteAdmin>
         {' '}
