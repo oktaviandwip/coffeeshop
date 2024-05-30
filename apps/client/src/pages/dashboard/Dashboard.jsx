@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import IncomeChart from '../../components/IncomeChart';
 import useApi from '../../utils/useApi';
 
-import threeDots from '../../assets/three-dots.png';
+import blueDots from '../../assets/blue-dots.png';
 import cheryn from '../../assets/cheryn.png';
-import staffChart from '../../assets/staff-chart.png';
 import goalsChart from '../../assets/goals-chart.png';
 import grayDots from '../../assets/gray-dots.png';
-import blueDots from '../../assets/blue-dots.png';
+import staffChart from '../../assets/staff-chart.png';
+import threeDots from '../../assets/three-dots.png';
 
 function Dashboard() {
   const api = useApi();
@@ -54,7 +53,7 @@ function Dashboard() {
           <div className="flex mt-[21px] mb-[70px] justify-center">
             {intervals.map((data, index) => (
               <label
-                key={data.index}
+                key={index}
                 className={`flex flex-col items-center ${index === 1 ? 'ml-[45px] mr-[25px] lg:mx-[118px]' : ''}`}
               >
                 <input
