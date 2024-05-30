@@ -65,14 +65,15 @@ type OrderResponse struct {
 	Products []OrderItem `json:"products"`
 }
 type OrderedProduct struct {
-	CartItemID   string    `json:"id" db:"id"`
-	ProductName  string    `json:"product_name" db:"product_name"`
-	ProductPrice float64   `json:"product_price" db:"product_price"`
-	Quantity     int       `json:"quantity" db:"quantity"`
-	CreatedAt    time.Time `json:"created_at" db:"created_at"`
-	UpdatedAt    time.Time `json:"updated_at" db:"updated_at"`
-	Image        string    `json:"image_url" db:"image_url"`
-	SizeName     string    `json:"size_name" db:"size_name"`
+	CartItemID             string    `json:"id" db:"id"`
+	ProductName            string    `json:"product_name" db:"product_name"`
+	ProductPrice           float64   `json:"product_price" db:"product_price"`
+	CartItDeliveryMethodId string    `db:"delivery_method_id" json:"delivery_method" form:"delivery_method"`
+	Quantity               int       `json:"quantity" db:"quantity"`
+	CreatedAt              time.Time `json:"created_at" db:"created_at"`
+	UpdatedAt              time.Time `json:"updated_at" db:"updated_at"`
+	Image                  string    `json:"image_url" db:"image_url"`
+	SizeName               string    `json:"size_name" db:"size_name"`
 }
 type OrderHistory struct {
 	HistoryId    string    `db:"id" json:"id"`
