@@ -13,8 +13,6 @@ import Home from '../pages/home/Home';
 import Product from '../pages/product/Product.jsx';
 import Profile from '../pages/profile/Profile';
 import PrivateRoute, { PrivateRouteAdmin } from './privateRoute.js';
-import Product from '../pages/product/Product.jsx';
-import DetailProduct from '../pages/detailproduct/DetailProduct.jsx';
 
 export default createBrowserRouter([
   {

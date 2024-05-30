@@ -1,13 +1,12 @@
-import Header from '../../components/Header';
-import cameraIcon from '../../assets/icons/coffee 1.png';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import cameraIcon from '../../assets/icons/coffee 1.png';
+import Header from '../../components/Header';
 import useApi from '../../utils/useApi';
 
 const AddProduct = () => {
   const api = useApi();
-
+  const navigate = useNavigate();
   const [delivery, setDelivery] = useState();
   const [size, setSize] = useState();
 
@@ -94,7 +93,6 @@ const AddProduct = () => {
     }
 
     for (const key in data) {
-      console.log(key);
       if (key != 'size_ids' && key != 'delivery_method') {
         formData.append(key, data[key]);
       }
@@ -110,7 +108,7 @@ const AddProduct = () => {
     })
       .then((res) => {
         alert(res.data.description);
-        Navigate('/');
+        navigate(`/product/${res.data.data.id}/edit`);
       })
       .catch((err) => {
         console.log(err);

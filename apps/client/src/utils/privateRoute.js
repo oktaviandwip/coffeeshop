@@ -1,10 +1,15 @@
 import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 const PrivateRoute = ({ children }) => {
-  const { isAuthUser } = useSelector((s) => s.users);
+  const location = useLocation();
+  const { isAuthUser, isAuthAdmin } = useSelector((s) => s.users);
 
-  if (!isAuthUser) {
+  if (location.pathname === '/history' && isAuthAdmin) {
+    return <Navigate to="/product" />;
+  }
+
+  if (!isAuthUser || !isAuthAdmin) {
     return <Navigate to="/login" />;
   }
 

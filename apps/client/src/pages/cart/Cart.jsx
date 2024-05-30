@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Button from '../../components/Button';
 import Footer from '../../components/Footer';
@@ -12,7 +13,7 @@ import useApi from '../../utils/useApi';
 
 const Cart = () => {
   const addressRef = useRef(null);
-
+  const navigate = useNavigate();
   const api = useApi();
   const [subTotal, setSubTotal] = useState(0);
   const [tax, setTax] = useState(0.12);
@@ -71,7 +72,6 @@ const Cart = () => {
   };
   const handlePaymentMethodChange = (id) => {
     const idPayment = id;
-    console.log(idPayment);
     setDataOrder({
       ...dataOrder,
       payment_method_id: idPayment,
@@ -94,6 +94,9 @@ const Cart = () => {
     })
       .then((res) => {
         alert(res.data.description);
+      })
+      .then(() => {
+        navigate('/history');
       })
       .catch((err) => {
         console.log(err);
@@ -120,8 +123,6 @@ const Cart = () => {
     setDataOrder({ ...dataOrder, taxes: tax * subTotal, total_price: subTotal, total_amount: totalAmount });
   }, [cart, subTotal, tax, shipping, totalAmount, profile]);
 
-  console.log(profile);
-  console.log(dataOrder);
   return (
     <>
       <Header />

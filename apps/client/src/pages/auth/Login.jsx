@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import iconCoffee from '../../assets/icons/coffee 1.png';
 import iconGoogle from '../../assets/icons/google-logo-png-suite-everything-you-need-know-about-google-newest-0 2.png';
+import imageHeroLoginMobile from '../../assets/images/lady-having-coffee 1.png';
+import Alert from '../../components/Alert';
 import FooterSign from '../../components/FooterSign';
+import Loading from '../../components/Loading';
 import { loginAdmin, loginUser } from '../../store/reducer/user';
 import useApi from '../../utils/useApi';
-import imageHeroLoginMobile from '../../assets/images/lady-having-coffee 1.png';
-import Loading from '../../components/Loading';
-import Alert from '../../components/Alert';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ export default function Login() {
 
   const [userData, setUserData] = useState({});
   const [message, setMessage] = useState(null);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const { isAuthUser, isAuthAdmin } = useSelector((state) => state.users);
 
@@ -28,7 +28,7 @@ export default function Login() {
     }
 
     if (isAuthAdmin) {
-      navigate('/dashboard');
+      navigate('/admin/dashboard');
     }
   }, [isAuthUser, isAuthAdmin]);
 
@@ -40,7 +40,7 @@ export default function Login() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
 
     api({
       method: 'POST',
@@ -48,7 +48,7 @@ export default function Login() {
       data: userData,
     })
       .then(({ data }) => {
-        setLoading(false)
+        setLoading(false);
         setMessage('Login Berhasil');
         const { token, role } = jwtDecode(data.data.token);
         setTimeout(() => {
@@ -61,22 +61,22 @@ export default function Login() {
       })
       .catch((err) => {
         console.log(err);
-        setTimeout(()=>{
-          setLoading(false)
-          
-          if(err.message == 'Network Error') {
+        setTimeout(() => {
+          setLoading(false);
+
+          if (err.message == 'Network Error') {
             setMessage('Maaf, sedang perbaikan server');
-            return
+            return;
           }
-  
-          if(err.response.data.description != 'undefined') {
+
+          if (err.response.data.description != 'undefined') {
             setMessage(err.response.data.description);
-            return
-          } 
+            return;
+          }
 
           setMessage('Periksa koneksi anda');
-        },300)
-      })
+        }, 300);
+      });
   };
 
   return (
@@ -171,8 +171,8 @@ export default function Login() {
       </section>
 
       {/* alert notification */}
-      {loading ? <Loading/>: ""}
-      {message ? <Alert msg={message} setMsg={setMessage}/>: ""}
+      {loading ? <Loading /> : ''}
+      {message ? <Alert msg={message} setMsg={setMessage} /> : ''}
     </main>
   );
 }
