@@ -44,7 +44,7 @@ function Profile() {
       try {
         setIsLoading(true);
         const response = await axios.get(`/users/profile/${userId}`, {
-          baseURL: 'http://localhost:9090',
+          baseURL: import.meta.env.VITE_BASE_URL_API || 'http://localhost:9090',
           headers: {
             Authorization: `Bearer ${token}`,
           },
