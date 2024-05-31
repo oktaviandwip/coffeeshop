@@ -118,12 +118,12 @@ export default function Header() {
                     <p className="md:hidden text-sm text-white">{userEmail ? userEmail : ''}</p>
                   </div>
                   <span className="md:hidden group-hover:flex md:absolute top-full left-0 flex flex-col md:h-fit md:shadow-xl hover:shadow-2xl px-5 md:px-0 md:bg-white md:py-5 md:pb-2 mt-0 rounded-[4px] z-30">
-                    <a
+                    <Link
                       className="font-light px-0 md:px-5 py-2 hover:bg-neutral-100 border-b-[0.3px] md:border-none"
-                      href="/profile"
+                      to="/profile"
                     >
                       Profile
-                    </a>
+                    </Link>
                     <a
                       className="hidden md:inline-block text-nowrap font-light px-5 py-2 hover:bg-neutral-100"
                       href=""
@@ -139,18 +139,18 @@ export default function Header() {
               </>
             ) : (
               <div className="w-full md:w-auto flex md:gap-x-8 gap-x-3 md:justify-center items-center px-5 md:p-0 py-5 md:py-0 bg-brown md:bg-transparent rounded-tr-3xl md:rounded-none">
-                <a
+                <Link
                   className="font-[500] text-white md:text-[#0B132A] text-sm md:text-base border md:border-none px-4 py-2 md:px-0 rounded-md"
-                  href="/login"
+                  to="/login"
                 >
                   Login
-                </a>
-                <a
+                </Link>
+                <Link
                   className="md:bg-yellow md:rounded-[50px] md:px-10 md:py-3 md:text-[#6A4029] text-sm md:text-base font-[500] md:shadow-2xl text-white border px-4 py-2 md:p-0 rounded-md"
-                  href="/signup"
+                  to="/signup"
                 >
                   Sign Up
-                </a>
+                </Link>
               </div>
             )}
           </div>
@@ -163,9 +163,9 @@ export default function Header() {
           <img src={iconHumberger} alt="humberger" />
         </button>
         {isAuthUser ? (
-          <a href="/your-cart">
+          <Link to="/your-cart">
             <img src={iconShoppingCart} alt="Shopping Cart" />
-          </a>
+          </Link>
         ) : (
           ''
         )}

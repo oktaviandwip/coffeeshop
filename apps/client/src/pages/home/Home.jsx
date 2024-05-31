@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import iconLove from '../../assets/icons/icon-love.png';
 import iconMap from '../../assets/icons/icon-map.png';
 import iconPerson from '../../assets/icons/icon-person.png';
@@ -100,12 +101,12 @@ export default function Home() {
             We provide high quality beans, good taste, and healthy meals made by love just for you. Start your day with
             us for a bigger smile!
           </p>
-          <a
+          <Link
             className="w-fit p-3 md:p-5 px-7 md:px-10 bg-yellow text-brown text-sm md:text-base font-bold rounded-md md:rounded-[10px] hover:bg-orange-400"
-            href="/product"
+            to="/product"
           >
             Get Started
-          </a>
+          </Link>
         </div>
       </div>
       {/* overlay */}
@@ -222,12 +223,12 @@ export default function Home() {
                     </ul>
                     <div className="md:absolute bottom-10 flex flex-col items-center gap-y-3 mt-5">
                       <span className="text-[#0B132A] md:text-[25px] font-[500]">IDR {menu.price}</span>
-                      <a
+                      <Link
                         className="border border-yellow py-2 px-8 rounded-[50px] text-[#6A4029] text-base md:font-bold hover:bg-yellow hover:shadow-2xl"
-                        href="/product"
+                        to="/product"
                       >
                         Order Now
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 );

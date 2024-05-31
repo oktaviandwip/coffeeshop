@@ -1,7 +1,7 @@
 import { jwtDecode } from 'jwt-decode';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import iconCoffee from '../../assets/icons/coffee 1.png';
 import iconGoogle from '../../assets/icons/google-logo-png-suite-everything-you-need-know-about-google-newest-0 2.png';
 import imageHeroLoginMobile from '../../assets/images/lady-having-coffee 1.png';
@@ -134,12 +134,12 @@ export default function Login() {
                   required
                   onChange={changeHanlder}
                 />
-                <a
+                <Link
                   className="text-brown text-base md:text-[20px] md:font-bold mt-3 underline decoration-solid"
-                  href="/forgot-password"
+                  to="/forgot-password"
                 >
                   Forgot password?
-                </a>
+                </Link>
               </div>
               <button
                 className="text-base md:text-[20px] md:text-brown text-white font-bold md:bg-yellow bg-brown rounded-[20px] md:py-5 md:px-5 px-4 py-4 mt-5 hover:bg-amber-500"
@@ -159,12 +159,12 @@ export default function Login() {
               <p className="text-[#9F9F9F] text-nowrap text-base md:text-lg ">Don&apos;t have an account?</p>
               <span className="w-[28%] h-[2px] bg-[#C4C4C4]"></span>
             </div>
-            <a
+            <Link
               className=" text-center md:text-[20px] text-[15px] text-white font-bold bg-brown rounded-[20px] md:py-5 py-4 px-5 mt-12 shadow-shadow-button hover:bg-orange-950"
-              href="/signup"
+              to="/signup"
             >
               Sign up Here
-            </a>
+            </Link>
           </div>
         </div>
         <FooterSign />
