@@ -1,11 +1,11 @@
 APP=server
 BUILD="./build/$(APP)"
 DB_DRIVER=postgres
-DB_SOURCE="postgres://rois:rois@localhost:5432/black-coffee?sslmode=disable"
+DB_SOURCE="postgres://postgres:postgres@localhost:5432/black_coffeee?sslmode=disable"
 MIGRATIONS_DIR=./apps/server/db/migrations
 # https://github.com/golang-migrate/migrate/tree/master/cmd/migrate
 
-
+	migrate -path ./apps/server/db/migrations -database "postgres://postgres:postgres@localhost:5432/black-coffeee?sslmode=disable" -verbose up
 install:
 	go get -u ./apps/server... && go mod tidy
 
@@ -39,3 +39,9 @@ docker-build-client:
 
 docker-build-server:
 	docker rmi roisfaozi/caffe-server:1 && docker build -t roisfaozi/caffe-server:1 ./apps/server
+
+#user baru :
+#createuser  -U postgres -s -P fwg19/username
+#
+#data base baru :
+#createdb -U postgres -O name_user name_database

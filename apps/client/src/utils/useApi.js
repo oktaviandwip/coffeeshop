@@ -3,11 +3,11 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 const apiURL = import.meta.env.VITE_BASE_URL_API || 'http://localhost:9090';
+
 function useApi(urls = '') {
   const { token } = useSelector((s) => s.users);
-
   const [requests, setRequests] = useState({
-    baseURL: apiURL || urls,
+    baseURL: import.meta.env.VITE_BASE_URL_API || urls,
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,

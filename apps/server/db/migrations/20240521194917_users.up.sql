@@ -1,6 +1,3 @@
-CREATE
-EXTENSION IF NOT EXISTS "uuid-ossp";
-
 CREATE TABLE users
 (  
   user_id uuid DEFAULT gen_random_uuid(),

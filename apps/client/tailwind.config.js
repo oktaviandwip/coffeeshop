@@ -16,8 +16,8 @@ export default {
       backgroundImage: {
         heroSign: "url('/public/images/robert-bye-95vx5QVl9x4-unsplash-2.png')",
         heroForgotPassword: "url('/public/images/nani-williams-6PpLqUlCA0s-unsplash 1.png')",
-        heroHome: "url('/public/nathan-dumlao-71u2fOofI-U-unsplash 2.png')",
-        'bg-cart': "url('/public/assets/bg-cart.png')",
+        heroHome: "url('/public/images/nathan-dumlao-71u2fOofI-U-unsplash 2.png')",
+        'bg-cart': "url('/public/images/bg-cart.png')",
       },
       colors: {
         brown: '#6A4029',

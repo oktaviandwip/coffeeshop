@@ -123,7 +123,7 @@ function Profile() {
     try {
       setIsLoading(true);
       const response = await axios.post(`/users/profile/`, formData, {
-        baseURL: 'http://localhost:9090',
+        baseURL: import.meta.env.VITE_BASE_URL_API,
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,

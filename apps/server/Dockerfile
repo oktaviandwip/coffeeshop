@@ -20,6 +20,6 @@ COPY --from=build /goapp /app/
 #karna di eksekusi di linux(alpine) harus daftarin path variable dahulu
 ENV PATH="/app:${PATH}"
 
-EXPOSE 8081
+EXPOSE 9090
 
 ENTRYPOINT [ "coffeecollab" ]
